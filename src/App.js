@@ -28,6 +28,25 @@ class App extends Component {
     });
   }
 
+  async hash(arrayBuffer, hashType) {
+    const hashBuffer = await crypto.subtle.digest(hashType, arrayBuffer);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const hashHex = hashArray.map(b => ('00' + b.toString(16)).slice(-2)).join('');
+    return hashHex;
+  }
+
+  calculateHash(file, hashType) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const arrayBuffer = reader.result;
+        resolve(this.hash(arrayBuffer, hashType));
+      };
+      reader.onerror = (err) => { reject(err); }
+      reader.readAsArrayBuffer(file);
+    });
+  }
+
   render() {
     return (
       <div className='flex flex-column justify-center ma4'>
