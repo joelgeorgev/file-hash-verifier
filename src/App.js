@@ -18,19 +18,21 @@ class App extends Component {
   }
 
   async setFile(e) {
-    const file = e.dataTransfer && e.dataTransfer.files ? e.dataTransfer.files[0] : e.target.files[0];
-    this.setState({
-      file: file,
-      loading: true
-    });
-    try {
-      const hash = await this.calculateHash(file, this.state.hashType);
+    const files = e.dataTransfer && e.dataTransfer.files ? e.dataTransfer.files : e.target.files;
+    if (files.length) {
       this.setState({
-        loading: false,
-        hash: hash
+        file: files[0],
+        loading: true
       });
-    } catch (err) {
-      console.error('Error', err);
+      try {
+        const hash = await this.calculateHash(files[0], this.state.hashType);
+        this.setState({
+          loading: false,
+          hash: hash
+        });
+      } catch (err) {
+        console.error('Error', err);
+      }
     }
   }
 
