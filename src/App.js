@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import FilePicker from './components/file-picker';
 import HashSelector from './components/hash-selector';
 import FileDetails from './components/file-details';
+import FileHash from './components/file-hash';
 import './App.css';
 
 class App extends Component {
@@ -10,22 +11,44 @@ class App extends Component {
     super(props);
     this.state = {
       file: undefined,
-      hashType: 'sha-1'
+      hashType: 'sha-1',
+      loading: false,
+      hash: undefined
     }
   }
 
-  setFile(e) {
+  async setFile(e) {
     const file = e.dataTransfer && e.dataTransfer.files ? e.dataTransfer.files[0] : e.target.files[0];
     this.setState({
-      file: file
+      file: file,
+      loading: true
     });
+    try {
+      const hash = await this.calculateHash(file, this.state.hashType);
+      this.setState({
+        loading: false,
+        hash: hash
+      });
+    } catch (err) {
+      console.error('Error', err);
+    }
   }
 
-  setHashType(e) {
+  async setHashType(e) {
     const hashType = e.target.value;
     this.setState({
-      hashType: hashType
+      hashType: hashType,
+      loading: true
     });
+    try {
+      const hash = await this.calculateHash(this.state.file, hashType);
+      this.setState({
+        loading: false,
+        hash: hash
+      });
+    } catch (err) {
+      console.error('Error', err);
+    }
   }
 
   async hash(arrayBuffer, hashType) {
@@ -55,6 +78,7 @@ class App extends Component {
           <div>
             <HashSelector hashType={this.state.hashType} setHashType={this.setHashType.bind(this)} />
             <FileDetails file={this.state.file} />
+            <FileHash loading={this.state.loading} hash={this.state.hash} />
           </div>
           :
           ''}
