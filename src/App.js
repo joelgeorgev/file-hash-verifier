@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import FilePicker from './components/file-picker';
+import FilePicker from './components/file-picker/file-picker';
+import FileDetails from './components/file-details/file-details';
 import './App.css';
 
 class App extends Component {
@@ -22,6 +23,7 @@ class App extends Component {
     return (
       <div className='flex flex-column justify-center ma4'>
         <FilePicker setFile={this.setFile.bind(this)} />
+        {this.state.file ? <FileDetails file={this.state.file} /> : ''}
       </div>
     );
   }
