@@ -1,16 +1,27 @@
 import React, { Component } from 'react';
+import FilePicker from './components/file-picker';
 import './App.css';
 
 class App extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      file: undefined
+    }
+  }
+
+  setFile(e) {
+    const file = e.dataTransfer && e.dataTransfer.files ? e.dataTransfer.files[0] : e.target.files[0];
+    this.setState({
+      file: file
+    });
+  }
+
   render() {
     return (
-      <div className="App">
-        <div className="App-header">
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+      <div className='flex flex-column justify-center ma4'>
+        <FilePicker setFile={this.setFile.bind(this)} />
       </div>
     );
   }
