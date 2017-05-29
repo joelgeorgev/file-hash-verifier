@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import FilePicker from './components/file-picker/file-picker';
-import FileDetails from './components/file-details/file-details';
+import FilePicker from './components/file-picker';
+import HashSelector from './components/hash-selector';
+import FileDetails from './components/file-details';
 import './App.css';
 
 class App extends Component {
@@ -8,7 +9,8 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      file: undefined
+      file: undefined,
+      hashType: 'sha-1'
     }
   }
 
@@ -19,11 +21,24 @@ class App extends Component {
     });
   }
 
+  setHashType(e) {
+    const hashType = e.target.value;
+    this.setState({
+      hashType: hashType
+    });
+  }
+
   render() {
     return (
       <div className='flex flex-column justify-center ma4'>
         <FilePicker setFile={this.setFile.bind(this)} />
-        {this.state.file ? <FileDetails file={this.state.file} /> : ''}
+        {this.state.file ?
+          <div>
+            <HashSelector hashType={this.state.hashType} setHashType={this.setHashType.bind(this)} />
+            <FileDetails file={this.state.file} />
+          </div>
+          :
+          ''}
       </div>
     );
   }

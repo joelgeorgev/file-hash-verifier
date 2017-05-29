@@ -6,7 +6,7 @@ class FileDetails extends Component {
     return (
       <div className='mt4'>
         <div>
-          Name : <label className="b">{this.props.file.name}</label>
+          Name : <label className='b'>{this.props.file.name}</label>
         </div>
         <div>
           Size : <label>{this.props.file.size} bytes</label>
