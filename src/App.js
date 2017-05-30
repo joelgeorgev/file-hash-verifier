@@ -11,6 +11,7 @@ class App extends Component {
     super(props);
     this.state = {
       file: undefined,
+      arrayBuffer: undefined,
       hashType: 'sha-1',
       loading: false,
       hash: undefined
@@ -25,8 +26,10 @@ class App extends Component {
         loading: true
       });
       try {
-        const hash = await this.calculateHash(this.state.hashType, files[0]);
+        const arrayBuffer = await this.getArrayBuffer(files[0]);
+        const hash = await this.hash(this.state.hashType, arrayBuffer);
         this.setState({
+          arrayBuffer: arrayBuffer,
           loading: false,
           hash: hash
         });
@@ -42,14 +45,16 @@ class App extends Component {
       hashType: hashType,
       loading: true
     });
-    try {
-      const hash = await this.calculateHash(hashType, this.state.file);
-      this.setState({
-        loading: false,
-        hash: hash
-      });
-    } catch (err) {
-      console.error('Error', err);
+    if (this.state.arrayBuffer) {
+      try {
+        const hash = await this.hash(hashType, this.state.arrayBuffer);
+        this.setState({
+          loading: false,
+          hash: hash
+        });
+      } catch (err) {
+        console.error('Error', err);
+      }
     }
   }
 
@@ -60,10 +65,10 @@ class App extends Component {
     return hashHex;
   }
 
-  calculateHash(hashType, file) {
+  getArrayBuffer(file) {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
-      reader.onload = () => { resolve(this.hash(hashType, reader.result)); };
+      reader.onload = () => { resolve(reader.result); };
       reader.onerror = err => { reject(err); }
       reader.readAsArrayBuffer(file);
     });
@@ -73,9 +78,9 @@ class App extends Component {
     return (
       <div className='flex flex-column justify-center ma4'>
         <FilePicker setFile={this.setFile.bind(this)} />
+        <HashSelector hashType={this.state.hashType} setHashType={this.setHashType.bind(this)} />
         {this.state.file ?
           <div>
-            <HashSelector hashType={this.state.hashType} setHashType={this.setHashType.bind(this)} />
             <FileDetails file={this.state.file} />
             <FileHash loading={this.state.loading} hash={this.state.hash} />
           </div>
