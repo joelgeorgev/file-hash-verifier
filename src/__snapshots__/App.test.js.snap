@@ -1,0 +1,69 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshot test 1`] = `
+<div
+  className="flex flex-column justify-center ma4"
+>
+  <div
+    className="h3 lh-copy ba b--light-silver tc"
+    onDragLeave={[Function]}
+    onDragOver={[Function]}
+    onDrop={[Function]}
+  >
+    <label
+      className="pointer"
+      htmlFor="file-picker"
+    >
+      Drop your file here or click to pick one.
+    </label>
+    <input
+      className="dn"
+      id="file-picker"
+      multiple={false}
+      onChange={[Function]}
+      type="file"
+    />
+  </div>
+  <div
+    className="flex justify-center mt4"
+  >
+    <input
+      checked={true}
+      className="mh2"
+      name="hash-type"
+      onChange={[Function]}
+      type="radio"
+      value="sha-1"
+    />
+    SHA-1
+    <input
+      checked={false}
+      className="mh2"
+      name="hash-type"
+      onChange={[Function]}
+      type="radio"
+      value="sha-256"
+    />
+    SHA-256
+    <input
+      checked={false}
+      className="mh2"
+      name="hash-type"
+      onChange={[Function]}
+      type="radio"
+      value="sha-384"
+    />
+    SHA-384
+    <input
+      checked={false}
+      className="mh2"
+      name="hash-type"
+      onChange={[Function]}
+      type="radio"
+      value="sha-512"
+    />
+    SHA-512
+  </div>
+  
+</div>
+`;
