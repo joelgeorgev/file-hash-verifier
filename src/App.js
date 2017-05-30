@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import FilePicker from './components/file-picker';
 import HashSelector from './components/hash-selector';
+import FileLoader from './components/file-loader';
 import FileDetails from './components/file-details';
 import FileHash from './components/file-hash';
 import './App.css';
@@ -11,6 +12,7 @@ class App extends Component {
     super(props);
     this.state = {
       file: undefined,
+      fileLoadStatus: 0,
       arrayBuffer: undefined,
       hashType: 'sha-1',
       loading: false,
@@ -69,6 +71,7 @@ class App extends Component {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.onload = () => { resolve(reader.result); };
+      reader.onprogress = e => { this.setState({ fileLoadStatus: Math.round((e.loaded / e.total) * 100) }) };
       reader.onerror = err => { reject(err); }
       reader.readAsArrayBuffer(file);
     });
@@ -81,6 +84,7 @@ class App extends Component {
         <HashSelector hashType={this.state.hashType} setHashType={this.setHashType.bind(this)} />
         {this.state.file ?
           <div>
+            <FileLoader fileLoadStatus={this.state.fileLoadStatus} />
             <FileDetails file={this.state.file} />
             <FileHash loading={this.state.loading} hash={this.state.hash} />
           </div>

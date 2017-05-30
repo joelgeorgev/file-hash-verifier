@@ -11,7 +11,7 @@ class FileHash extends Component {
 
   render() {
     return (
-      <div className='mv4'>
+      <div className='mt4'>
         Hash :
         <div className='flex h2'>
           {this.props.loading ?

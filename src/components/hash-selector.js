@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 class HashSelector extends Component {
   render() {
     return (
-      <div className='flex flex-row justify-center mv4'>
+      <div className='flex justify-center mt4'>
         <input type='radio' name='hash-type' value='sha-1' checked={'sha-1' === this.props.hashType}
           className='mh2' onChange={this.props.setHashType} />SHA-1
         <input type='radio' name='hash-type' value='sha-256' checked={'sha-256' === this.props.hashType}
