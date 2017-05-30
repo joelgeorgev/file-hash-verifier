@@ -63,10 +63,8 @@ class App extends Component {
   calculateHash(hashType, file) {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
-      reader.onload = () => {
-        resolve(this.hash(hashType, reader.result));
-      };
-      reader.onerror = (err) => { reject(err); }
+      reader.onload = () => { resolve(this.hash(hashType, reader.result)); };
+      reader.onerror = err => { reject(err); }
       reader.readAsArrayBuffer(file);
     });
   }
