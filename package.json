@@ -1,7 +1,7 @@
 {
   "name": "file-hash-verifier",
-  "description": "A react app to generate and verify cryptographic hash values of files.",
   "version": "1.0.0",
+  "description": "A react app to generate and verify cryptographic hash values of files.",
   "dependencies": {
     "clipboard": "^1.6.1",
     "react": "^15.5.4",
@@ -26,6 +26,8 @@
     "file",
     "hash",
     "checksum",
+    "digest",
+    "integrity",
     "verifier",
     "sha1",
     "sha256",
