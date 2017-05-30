@@ -15,13 +15,14 @@ class FileHash extends Component {
         Hash :
         <div className='flex h2'>
           {this.props.loading ?
-            <input id='hash' className='w-90 ph1 bt br-0 bb bl b--light-silver' type='text'
-              readOnly placeholder='Calculating Hash...' value='' />
+            <input type='text' id='hash' placeholder='Calculating Hash...'
+              value='' readOnly className='w-90 ph1 bt br-0 bb bl b--light-silver' />
             :
-            <input id='hash' className='w-90 ph1 bt br-0 bb bl b--light-silver' type='text'
-              readOnly placeholder='Calculating Hash...' value={this.props.hash} />}
-          <button id='btn' className='bg-transparent ba b--light-silver pointer' data-clipboard-target='#hash'>
-            <img src={clippy} className='w1' alt='Copy to clipboard' />
+            <input type='text' id='hash' placeholder='Calculating Hash...'
+              value={this.props.hash} readOnly className='w-90 ph1 bt br-0 bb bl b--light-silver' />}
+          <button id='btn' data-clipboard-target='#hash'
+            className='bg-transparent ba b--light-silver pointer'>
+            <img src={clippy} alt='Copy to clipboard' className='w1' />
           </button>
         </div>
       </div>

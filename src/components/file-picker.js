@@ -19,8 +19,8 @@ class FilePicker extends Component {
     return (
       <div className='h3 lh-copy ba b--light-silver tc' onDragOver={this.onDragOver.bind(this)}
         onDragLeave={this.onDragLeave.bind(this)} onDrop={this.onDrop.bind(this)}>
-        <label className='pointer' htmlFor='file-picker'>Drop your file here or click to pick one.</label>
-        <input className='dn' type='file' id='file-picker' multiple={false} onChange={this.props.setFile} />
+        <label htmlFor='file-picker' className='pointer'>Drop your file here or click to pick one.</label>
+        <input type='file' id='file-picker' multiple={false} className='dn' onChange={this.props.setFile} />
       </div>);
   }
 }
