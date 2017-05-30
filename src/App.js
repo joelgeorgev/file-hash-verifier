@@ -25,7 +25,7 @@ class App extends Component {
         loading: true
       });
       try {
-        const hash = await this.calculateHash(files[0], this.state.hashType);
+        const hash = await this.calculateHash(this.state.hashType, files[0]);
         this.setState({
           loading: false,
           hash: hash
@@ -43,7 +43,7 @@ class App extends Component {
       loading: true
     });
     try {
-      const hash = await this.calculateHash(this.state.file, hashType);
+      const hash = await this.calculateHash(hashType, this.state.file);
       this.setState({
         loading: false,
         hash: hash
@@ -53,19 +53,18 @@ class App extends Component {
     }
   }
 
-  async hash(arrayBuffer, hashType) {
+  async hash(hashType, arrayBuffer) {
     const hashBuffer = await crypto.subtle.digest(hashType, arrayBuffer);
     const hashArray = Array.from(new Uint8Array(hashBuffer));
     const hashHex = hashArray.map(b => ('00' + b.toString(16)).slice(-2)).join('');
     return hashHex;
   }
 
-  calculateHash(file, hashType) {
+  calculateHash(hashType, file) {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.onload = () => {
-        const arrayBuffer = reader.result;
-        resolve(this.hash(arrayBuffer, hashType));
+        resolve(this.hash(hashType, reader.result));
       };
       reader.onerror = (err) => { reject(err); }
       reader.readAsArrayBuffer(file);
