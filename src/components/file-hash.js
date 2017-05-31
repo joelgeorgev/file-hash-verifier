@@ -14,12 +14,8 @@ class FileHash extends Component {
       <div className='mt4'>
         Hash :
         <div className='flex h2'>
-          {this.props.loading ?
-            <input type='text' id='hash' placeholder='Calculating Hash...'
-              value='' readOnly className='w-90 ph1 bt br-0 bb bl b--light-silver' />
-            :
-            <input type='text' id='hash' placeholder='Calculating Hash...'
-              value={this.props.hash} readOnly className='w-90 ph1 bt br-0 bb bl b--light-silver' />}
+          <input type='text' id='hash' placeholder={this.props.fileLoadStatus !== 100 ? '' : 'Calculating Hash...'}
+            value={this.props.hash} readOnly className='w-90 ph1 bt br-0 bb bl b--light-silver' />
           <button id='btn' data-clipboard-target='#hash'
             className='bg-transparent ba b--light-silver pointer'>
             <img src={clippy} alt='Copy to clipboard' className='w1' />

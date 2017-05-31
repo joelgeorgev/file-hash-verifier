@@ -16,7 +16,6 @@ class App extends Component {
       fileLoadStatus: 0,
       arrayBuffer: undefined,
       hashType: 'sha-1',
-      loading: false,
       hash: undefined
     }
   }
@@ -26,14 +25,15 @@ class App extends Component {
     if (files.length) {
       this.setState({
         file: files[0],
-        loading: true
+        fileLoadStatus: 0,
+        arrayBuffer: undefined,
+        hash: ''
       });
       try {
         const arrayBuffer = await this.getArrayBuffer(files[0]);
         const hash = await this.hash(this.state.hashType, arrayBuffer);
         this.setState({
           arrayBuffer: arrayBuffer,
-          loading: false,
           hash: hash
         });
       } catch (err) {
@@ -46,13 +46,12 @@ class App extends Component {
     const hashType = e.target.value;
     this.setState({
       hashType: hashType,
-      loading: true
+      hash: ''
     });
     if (this.state.arrayBuffer) {
       try {
         const hash = await this.hash(hashType, this.state.arrayBuffer);
         this.setState({
-          loading: false,
           hash: hash
         });
       } catch (err) {
@@ -87,7 +86,7 @@ class App extends Component {
           <div>
             <FileLoader fileLoadStatus={this.state.fileLoadStatus} />
             <FileDetails file={this.state.file} />
-            <FileHash loading={this.state.loading} hash={this.state.hash} />
+            <FileHash fileLoadStatus={this.state.fileLoadStatus} hash={this.state.hash} />
             <HashVerifier hash={this.state.hash} />
           </div>
           :
