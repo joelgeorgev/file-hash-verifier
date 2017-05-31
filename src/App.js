@@ -4,6 +4,7 @@ import HashSelector from './components/hash-selector';
 import FileLoader from './components/file-loader';
 import FileDetails from './components/file-details';
 import FileHash from './components/file-hash';
+import HashVerifier from './components/hash-verifier';
 import './App.css';
 
 class App extends Component {
@@ -71,7 +72,7 @@ class App extends Component {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.onload = () => { resolve(reader.result); };
-      reader.onprogress = e => { this.setState({ fileLoadStatus: Math.round((e.loaded / e.total) * 100) }) };
+      reader.onprogress = e => { this.setState({ fileLoadStatus: Math.round((e.loaded / e.total) * 100) }); };
       reader.onerror = err => { reject(err); }
       reader.readAsArrayBuffer(file);
     });
@@ -87,6 +88,7 @@ class App extends Component {
             <FileLoader fileLoadStatus={this.state.fileLoadStatus} />
             <FileDetails file={this.state.file} />
             <FileHash loading={this.state.loading} hash={this.state.hash} />
+            <HashVerifier hash={this.state.hash} />
           </div>
           :
           ''}
