@@ -39,7 +39,7 @@ class HashVerifier extends Component {
     return (
       <div className='flex flex-column mt4'>
         <div>
-          <input type='checkbox' checked={this.state.verify}
+          <input type='checkbox' checked={this.state.verify} className='pointer'
             onChange={this.toggleVerify.bind(this)} />
           <span className='ml2'>Verify :</span>
         </div>

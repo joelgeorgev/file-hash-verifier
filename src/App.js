@@ -80,7 +80,7 @@ class App extends Component {
   render() {
     return (
       <div className='flex flex-column justify-center ma4'>
-        <FilePicker setFile={this.setFile.bind(this)} />
+        <FilePicker fileLoadStatus={this.state.fileLoadStatus} setFile={this.setFile.bind(this)} />
         <HashSelector hashType={this.state.hashType} setHashType={this.setHashType.bind(this)} />
         {this.state.file ?
           <div>

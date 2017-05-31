@@ -18,6 +18,7 @@ exports[`snapshot test 1`] = `
     </label>
     <input
       className="dn"
+      disabled={false}
       id="file-picker"
       multiple={false}
       onChange={[Function]}
