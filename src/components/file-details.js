@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
 class FileDetails extends Component {
-
   render() {
     return (
       <div className='mt4'>
