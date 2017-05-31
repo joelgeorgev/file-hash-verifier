@@ -1,7 +1,9 @@
 {
   "main.css": "static/css/main.65027555.css",
   "main.css.map": "static/css/main.65027555.css.map",
-  "main.js": "static/js/main.f3b209c7.js",
-  "main.js.map": "static/js/main.f3b209c7.js.map",
-  "static\\media\\clippy.svg": "static/media/clippy.c6b23471.svg"
+  "main.js": "static/js/main.78478be1.js",
+  "main.js.map": "static/js/main.78478be1.js.map",
+  "static\\media\\clippy.svg": "static/media/clippy.c6b23471.svg",
+  "static\\media\\fail.svg": "static/media/fail.1a36ece0.svg",
+  "static\\media\\success.svg": "static/media/success.cafd8154.svg"
 }
