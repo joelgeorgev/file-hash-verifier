@@ -39,12 +39,12 @@ class HashVerifier extends Component {
         <div>
           <input type='checkbox' checked={this.state.verify} className='pointer'
             onChange={this.toggleVerify.bind(this)} />
-          <span className='ml2'>Verify :</span>
+          <label className='ml2 b'>Compare with:</label>
         </div>
         {this.state.verify ?
           <div className='flex h2'>
             <input type='text' value={this.state.text}
-              className='w-90 ph1 bt br-0 bb bl b--light-silver'
+              className='w-100 ph1 bt br-0 bb bl b--light-silver'
               onChange={this.verifyHash.bind(this)} />
             <button className='bg-transparent ba b--light-silver'>
               <img src={this.state.match ? success : fail}
