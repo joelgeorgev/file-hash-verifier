@@ -28,9 +28,7 @@ class HashVerifier extends Component {
   verifyHash(e) {
     const text = e.target.value;
     this.setState({
-      text: text
-    });
-    this.setState({
+      text: text,
       match: this.props.hash === text.replace(/ /g, '').toLowerCase()
     });
   }
