@@ -4,6 +4,7 @@
   "description": "A react app to generate and verify cryptographic hash values of files.",
   "dependencies": {
     "clipboard": "^1.6.1",
+    "pretty-bytes": "^4.0.2",
     "react": "^15.5.4",
     "react-dom": "^15.5.4"
   },
