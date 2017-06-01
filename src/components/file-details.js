@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import prettyBytes from 'pretty-bytes';
 
 class FileDetails extends Component {
   render() {
@@ -9,7 +8,7 @@ class FileDetails extends Component {
           Name : <label className='b'>{this.props.file.name}</label>
         </div>
         <div>
-          Size : <label>{prettyBytes(this.props.file.size)}</label>
+          Size : <label>{this.props.file.size} bytes</label>
         </div>
       </div>
     );
