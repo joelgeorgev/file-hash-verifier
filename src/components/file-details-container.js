@@ -46,9 +46,9 @@ class FileDetailsContainer extends Component {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
       this.reader = reader;
-      reader.onload = () => { resolve(reader.result); };
-      reader.onprogress = e => { this.setState({ fileLoadStatus: Math.round((e.loaded / e.total) * 100) }); };
-      reader.onabort = () => { this.setState({ fileLoadStatus: -1 }); };
+      reader.onload = () => { resolve(reader.result); }
+      reader.onprogress = e => { this.setState({ fileLoadStatus: Math.round((e.loaded / e.total) * 100) }); }
+      reader.onabort = () => { this.setState({ fileLoadStatus: -1 }); }
       reader.onerror = err => { reject(err); }
       reader.readAsArrayBuffer(file);
     });
