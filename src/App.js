@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import FilePicker from './components/file-picker';
 import HashSelector from './components/hash-selector';
 import FileDetailsContainer from './components/file-details-container';
+import github from './assets/github.svg';
 
 class App extends Component {
 
@@ -30,13 +31,20 @@ class App extends Component {
 
   render() {
     return (
-      <div className='flex flex-column justify-center ma4'>
-        <FilePicker setFile={this.setFile.bind(this)} />
-        <HashSelector hashType={this.state.hashType} setHashType={this.setHashType.bind(this)} />
-        {this.state.file ?
-          <FileDetailsContainer hashType={this.state.hashType} file={this.state.file} />
-          :
-          ''}
+      <div className='flex flex-column vh-100 mh4 pv4'>
+        <div className='flex flex-auto flex-column'>
+          <FilePicker setFile={this.setFile.bind(this)} />
+          <HashSelector hashType={this.state.hashType} setHashType={this.setHashType.bind(this)} />
+          {this.state.file ?
+            <FileDetailsContainer hashType={this.state.hashType} file={this.state.file} />
+            :
+            ''}
+        </div>
+        <div className='self-center'>
+          <a href='https://github.com/joelgeorgev/file-hash-verifier'>
+            <img src={github} alt='GitHub' />
+          </a>
+        </div>
       </div>
     );
   }

@@ -2,68 +2,84 @@
 
 exports[`snapshot test 1`] = `
 <div
-  className="flex flex-column justify-center ma4"
+  className="flex flex-column vh-100 mh4 pv4"
 >
   <div
-    className="flex flex-column justify-center h4 ba b--dashed b--light-silver"
-    onDragLeave={[Function]}
-    onDragOver={[Function]}
-    onDrop={[Function]}
+    className="flex flex-auto flex-column"
   >
-    <label
-      className="self-center pointer b"
-      htmlFor="file-picker"
+    <div
+      className="flex flex-column justify-center h4 ba b--dashed b--light-silver"
+      onDragLeave={[Function]}
+      onDragOver={[Function]}
+      onDrop={[Function]}
     >
-      Drop your file here or click to pick one.
-    </label>
-    <input
-      className="dn"
-      id="file-picker"
-      multiple={false}
-      onChange={[Function]}
-      type="file"
-    />
+      <label
+        className="self-center pointer b"
+        htmlFor="file-picker"
+      >
+        Drop your file here or click to pick one.
+      </label>
+      <input
+        className="dn"
+        id="file-picker"
+        multiple={false}
+        onChange={[Function]}
+        type="file"
+      />
+    </div>
+    <div
+      className="flex justify-center mt4 b"
+    >
+      <input
+        checked={true}
+        className="mh2"
+        name="hash-type"
+        onChange={[Function]}
+        type="radio"
+        value="sha-1"
+      />
+      SHA-1
+      <input
+        checked={false}
+        className="mh2"
+        name="hash-type"
+        onChange={[Function]}
+        type="radio"
+        value="sha-256"
+      />
+      SHA-256
+      <input
+        checked={false}
+        className="mh2"
+        name="hash-type"
+        onChange={[Function]}
+        type="radio"
+        value="sha-384"
+      />
+      SHA-384
+      <input
+        checked={false}
+        className="mh2"
+        name="hash-type"
+        onChange={[Function]}
+        type="radio"
+        value="sha-512"
+      />
+      SHA-512
+    </div>
+    
   </div>
   <div
-    className="flex justify-center mt4 b"
+    className="self-center"
   >
-    <input
-      checked={true}
-      className="mh2"
-      name="hash-type"
-      onChange={[Function]}
-      type="radio"
-      value="sha-1"
-    />
-    SHA-1
-    <input
-      checked={false}
-      className="mh2"
-      name="hash-type"
-      onChange={[Function]}
-      type="radio"
-      value="sha-256"
-    />
-    SHA-256
-    <input
-      checked={false}
-      className="mh2"
-      name="hash-type"
-      onChange={[Function]}
-      type="radio"
-      value="sha-384"
-    />
-    SHA-384
-    <input
-      checked={false}
-      className="mh2"
-      name="hash-type"
-      onChange={[Function]}
-      type="radio"
-      value="sha-512"
-    />
-    SHA-512
+    <a
+      href="https://github.com/joelgeorgev/file-hash-verifier"
+    >
+      <img
+        alt="GitHub"
+        src="github.svg"
+      />
+    </a>
   </div>
-  
 </div>
 `;
