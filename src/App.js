@@ -3,6 +3,7 @@ import FilePicker from './components/file-picker';
 import HashSelector from './components/hash-selector';
 import FileDetailsContainer from './components/file-details-container';
 import github from './assets/github.svg';
+import 'tachyons/css/tachyons.min.css';
 
 class App extends Component {
 
