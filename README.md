@@ -2,7 +2,9 @@
 
 [![Build Status](https://travis-ci.org/joelgeorgev/file-hash-verifier.svg?branch=master)](https://travis-ci.org/joelgeorgev/file-hash-verifier)
 
-> A react app to generate and verify cryptographic hash values of files. Check out the app [here](https://joelgeorgev.github.io/file-hash-verifier).
+> A react app to generate and verify cryptographic hash values of files. Uses *digest* method of [Web Crypto API](https://www.w3.org/TR/WebCryptoAPI/).
+
+Check out the app [here](https://joelgeorgev.github.io/file-hash-verifier).
 
 ## To run the app
 ```bash
