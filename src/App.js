@@ -32,7 +32,7 @@ class App extends Component {
 
   render() {
     return (
-      <div className='flex flex-column vh-100 mh4 pv4'>
+      <div className='flex flex-column w-80 mw8 vh-100 center pv4'>
         <div className='flex flex-auto flex-column'>
           <FilePicker setFile={this.setFile.bind(this)} />
           <HashSelector hashType={this.state.hashType} setHashType={this.setHashType.bind(this)} />
