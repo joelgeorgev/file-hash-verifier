@@ -18,7 +18,7 @@ class FileHashContainer extends Component {
         hash: hash
       });
     } catch (err) {
-      console.error('Error', err);
+      console.error('Error during hash calculation: ', err);
     }
   }
 
@@ -33,7 +33,7 @@ class FileHashContainer extends Component {
           hash: hash
         });
       } catch (err) {
-        console.error('Error', err);
+        console.error('Error during hash calculation: ', err);
       }
     }
   }

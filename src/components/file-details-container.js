@@ -22,7 +22,7 @@ class FileDetailsContainer extends Component {
         arrayBuffer: arrayBuffer
       });
     } catch (err) {
-      console.error('Error', err);
+      console.error('Error during file read operation: ', err);
     }
   }
 
@@ -37,7 +37,7 @@ class FileDetailsContainer extends Component {
           arrayBuffer: arrayBuffer
         });
       } catch (err) {
-        console.error('Error', err);
+        console.error('Error during file read operation: ', err);
       }
     }
   }
