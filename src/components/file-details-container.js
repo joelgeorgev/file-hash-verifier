@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import FileDetails from '../components/file-details';
-import FileLoader from '../components/file-loader';
-import FileHashContainer from '../components/file-hash-container';
+import { FileDetails, FileLoader, FileHashContainer } from '.';
 
-class FileDetailsContainer extends Component {
+export class FileDetailsContainer extends Component {
 
   reader;
 
@@ -78,5 +76,3 @@ class FileDetailsContainer extends Component {
     );
   }
 }
-
-export default FileDetailsContainer;

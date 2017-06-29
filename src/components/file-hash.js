@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Clipboard from 'clipboard';
 import clippy from '../assets/clippy.svg';
 
-class FileHash extends Component {
+export class FileHash extends Component {
 
   constructor(props) {
     super(props);
@@ -25,5 +25,3 @@ class FileHash extends Component {
     );
   }
 }
-
-export default FileHash;

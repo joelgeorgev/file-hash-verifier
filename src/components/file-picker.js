@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class FilePicker extends Component {
+export class FilePicker extends Component {
 
   onDragOver(e) {
     e.preventDefault();
@@ -25,5 +25,3 @@ class FilePicker extends Component {
       </div>);
   }
 }
-
-export default FilePicker;

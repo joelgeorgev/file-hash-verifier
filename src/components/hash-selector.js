@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class HashSelector extends Component {
+export class HashSelector extends Component {
   render() {
     return (
       <div className='flex justify-center mt4 b'>
@@ -16,5 +16,3 @@ class HashSelector extends Component {
     );
   }
 }
-
-export default HashSelector;

@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
-import FilePicker from './components/file-picker';
-import HashSelector from './components/hash-selector';
-import FileDetailsContainer from './components/file-details-container';
+import { FilePicker, HashSelector, FileDetailsContainer } from './components';
 import github from './assets/github.svg';
 import 'tachyons/css/tachyons.min.css';
 
-class App extends Component {
+export class App extends Component {
 
   constructor(props) {
     super(props);
@@ -50,5 +48,3 @@ class App extends Component {
     );
   }
 }
-
-export default App;

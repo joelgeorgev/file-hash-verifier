@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class FileDetails extends Component {
+export class FileDetails extends Component {
   render() {
     return (
       <div className='mt4'>
@@ -16,5 +16,3 @@ class FileDetails extends Component {
     );
   }
 }
-
-export default FileDetails;

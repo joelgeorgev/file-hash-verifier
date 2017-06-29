@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class FileLoader extends Component {
+export class FileLoader extends Component {
   render() {
     return (
       <div className='flex justify-center mt4 b'>
@@ -16,5 +16,3 @@ class FileLoader extends Component {
     );
   }
 }
-
-export default FileLoader;

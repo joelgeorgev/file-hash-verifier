@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import success from '../assets/success.svg';
 import fail from '../assets/fail.svg';
 
-class HashVerifier extends Component {
+export class HashVerifier extends Component {
 
   constructor(props) {
     super(props);
@@ -57,5 +57,3 @@ class HashVerifier extends Component {
     );
   }
 }
-
-export default HashVerifier;

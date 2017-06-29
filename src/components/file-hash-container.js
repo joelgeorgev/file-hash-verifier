@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import FileHash from '../components/file-hash';
-import HashVerifier from '../components/hash-verifier';
+import { FileHash, HashVerifier } from '.';
 
-class FileHashContainer extends Component {
+export class FileHashContainer extends Component {
 
   constructor(props) {
     super(props);
@@ -54,5 +53,3 @@ class FileHashContainer extends Component {
     );
   }
 }
-
-export default FileHashContainer;
