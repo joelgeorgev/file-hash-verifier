@@ -13,7 +13,7 @@ export class App extends Component {
     }
   }
 
-  setFile(e) {
+  setFile = (e) => {
     const files = e.dataTransfer && e.dataTransfer.files ? e.dataTransfer.files : e.target.files;
     if (files.length) {
       this.setState({
@@ -22,7 +22,7 @@ export class App extends Component {
     }
   }
 
-  setHashType(e) {
+  setHashType = (e) => {
     this.setState({
       hashType: e.target.value
     });
@@ -32,8 +32,8 @@ export class App extends Component {
     return (
       <div className='flex flex-column w-80 mw8 vh-100 center pv4'>
         <div className='flex flex-auto flex-column'>
-          <FilePicker setFile={this.setFile.bind(this)} />
-          <HashSelector hashType={this.state.hashType} setHashType={this.setHashType.bind(this)} />
+          <FilePicker setFile={this.setFile} />
+          <HashSelector hashType={this.state.hashType} setHashType={this.setHashType} />
           {this.state.file ?
             <FileDetailsContainer hashType={this.state.hashType} file={this.state.file} />
             :

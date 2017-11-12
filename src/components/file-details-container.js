@@ -52,7 +52,7 @@ export class FileDetailsContainer extends Component {
     });
   }
 
-  cancelLoad() {
+  cancelLoad = () => {
     if (this.reader.readyState === 1) {
       this.reader.abort();
     }
@@ -62,7 +62,7 @@ export class FileDetailsContainer extends Component {
     return (
       <div>
         {this.state.fileLoadStatus !== 100 ?
-          <FileLoader fileLoadStatus={this.state.fileLoadStatus} cancelLoad={this.cancelLoad.bind(this)} />
+          <FileLoader fileLoadStatus={this.state.fileLoadStatus} cancelLoad={this.cancelLoad} />
           :
           ''}
         {this.state.arrayBuffer ?
