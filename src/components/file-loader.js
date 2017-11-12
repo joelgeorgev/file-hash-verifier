@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-export class FileLoader extends Component {
+export class FileLoader extends React.PureComponent {
   render() {
     return (
       <div className='flex justify-center mt4 b'>

@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { FileHash, HashVerifier } from '.';
 
-export class FileHashContainer extends Component {
+export class FileHashContainer extends React.PureComponent {
 
   constructor(props) {
     super(props);

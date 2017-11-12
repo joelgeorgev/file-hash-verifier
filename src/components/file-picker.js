@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-export class FilePicker extends Component {
+export class FilePicker extends React.PureComponent {
 
   onDragOver = (e) => {
     e.preventDefault();

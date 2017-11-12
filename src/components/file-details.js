@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-export class FileDetails extends Component {
+export class FileDetails extends React.PureComponent {
   render() {
     return (
       <div className='mt4'>

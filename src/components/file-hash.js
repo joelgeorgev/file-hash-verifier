@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Clipboard from 'clipboard';
 import clippy from '../assets/clippy.svg';
 
-export class FileHash extends Component {
+export class FileHash extends React.PureComponent {
 
   constructor(props) {
     super(props);

@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { FileDetails, FileLoader, FileHashContainer } from '.';
 
-export class FileDetailsContainer extends Component {
+export class FileDetailsContainer extends React.PureComponent {
 
   reader;
 

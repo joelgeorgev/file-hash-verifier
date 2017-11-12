@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import success from '../assets/success.svg';
 import fail from '../assets/fail.svg';
 
-export class HashVerifier extends Component {
+export class HashVerifier extends React.PureComponent {
 
   constructor(props) {
     super(props);
