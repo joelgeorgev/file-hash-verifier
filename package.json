@@ -4,13 +4,13 @@
   "description": "A react app to generate and verify cryptographic hash values of files.",
   "dependencies": {
     "clipboard": "^1.6.1",
-    "react": "^15.5.4",
-    "react-dom": "^15.5.4"
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0"
   },
   "devDependencies": {
     "gh-pages": "^1.0.0",
-    "react-scripts": "1.0.7",
-    "react-test-renderer": "^15.5.4",
+    "react-scripts": "1.1.0",
+    "react-test-renderer": "^16.2.0",
     "tachyons": "^4.7.0"
   },
   "scripts": {
