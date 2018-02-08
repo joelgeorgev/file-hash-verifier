@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { FileHash, HashVerifier } from '.';
 
 export class FileHashContainer extends React.PureComponent {
