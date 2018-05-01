@@ -9,6 +9,7 @@ export class FileDetailsContainer extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
+      file: props.file,
       arrayBuffer: undefined,
       fileLoadStatus: 0
     }
@@ -16,32 +17,31 @@ export class FileDetailsContainer extends React.PureComponent {
 
   async componentDidMount() {
     try {
-      const arrayBuffer = await this.getArrayBuffer(this.props.file);
-      this.setState({
-        arrayBuffer: arrayBuffer
-      });
+      const { file } = this.props;
+      const arrayBuffer = await this.getArrayBuffer(file);
+      this.setState({ file, arrayBuffer });
     } catch (err) {
       console.error('Error during file read operation: ', err);
     }
   }
 
-  async componentWillReceiveProps(newProps) {
-    if (newProps.file !== this.props.file) {
-      this.setState({
-        arrayBuffer: undefined
-      });
+  static getDerivedStateFromProps(nextProps, prevState) {
+    return nextProps.file !== prevState.file ? { file: nextProps.file, arrayBuffer: undefined } : null
+  }
+
+  async componentDidUpdate(prevProps, prevState) {
+    const { file, arrayBuffer } = this.state;
+    if (!arrayBuffer) {
       try {
-        const arrayBuffer = await this.getArrayBuffer(newProps.file);
-        this.setState({
-          arrayBuffer: arrayBuffer
-        });
+        const arrayBuffer = await this.getArrayBuffer(file);
+        this.setState({ arrayBuffer });
       } catch (err) {
         console.error('Error during file read operation: ', err);
       }
     }
   }
 
-  getArrayBuffer(file) {
+  getArrayBuffer = (file) => {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
       this.reader = reader;
@@ -60,8 +60,8 @@ export class FileDetailsContainer extends React.PureComponent {
   }
 
   render() {
-    const { file, hashType } = this.props;
-    const { arrayBuffer, fileLoadStatus } = this.state;
+    const { hashType } = this.props;
+    const { file, arrayBuffer, fileLoadStatus } = this.state;
     return (
       <div>
         {fileLoadStatus !== 100 &&

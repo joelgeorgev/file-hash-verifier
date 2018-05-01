@@ -14,10 +14,10 @@ export class HashVerifier extends React.PureComponent {
     }
   }
 
-  componentWillReceiveProps(newProps) {
-    this.setState({
-      match: newProps.hash === this.state.text.replace(/ /g, '').toLowerCase()
-    });
+  static getDerivedStateFromProps(nextProps, prevState) {
+    return {
+      match: nextProps.hash === prevState.text.replace(/ /g, '').toLowerCase()
+    }
   }
 
   toggleVerify = (e) => {
@@ -29,7 +29,7 @@ export class HashVerifier extends React.PureComponent {
   verifyHash = (e) => {
     const text = e.target.value;
     this.setState({
-      text: text,
+      text,
       match: this.props.hash === text.replace(/ /g, '').toLowerCase()
     });
   }
