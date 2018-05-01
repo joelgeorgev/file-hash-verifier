@@ -67,7 +67,6 @@ exports[`snapshot test 1`] = `
       />
       SHA-512
     </div>
-    
   </div>
   <div
     className="self-center"

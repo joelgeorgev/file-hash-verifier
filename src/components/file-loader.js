@@ -2,14 +2,15 @@ import React from 'react';
 
 export class FileLoader extends React.PureComponent {
   render() {
+    const { fileLoadStatus, cancelLoad } = this.props;
     return (
       <div className='flex justify-center mt4 b'>
-        {this.props.fileLoadStatus === -1 ?
+        {fileLoadStatus === -1 ?
           <label>File load cancelled.</label>
           :
           <div>
-            <label>Loading file: {this.props.fileLoadStatus}%</label>
-            <button className='ml2' onClick={this.props.cancelLoad}>Cancel</button>
+            <label>Loading file: {fileLoadStatus}%</label>
+            <button className='ml2' onClick={cancelLoad}>Cancel</button>
           </div>
         }
       </div>

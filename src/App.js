@@ -30,15 +30,14 @@ export class App extends React.PureComponent {
   }
 
   render() {
+    const { file, hashType } = this.state;
     return (
       <div className='flex flex-column w-80 mw8 vh-100 center pv4'>
         <div className='flex flex-auto flex-column'>
           <FilePicker setFile={this.setFile} />
-          <HashSelector hashType={this.state.hashType} setHashType={this.setHashType} />
-          {this.state.file ?
-            <FileDetailsContainer hashType={this.state.hashType} file={this.state.file} />
-            :
-            ''}
+          <HashSelector hashType={hashType} setHashType={this.setHashType} />
+          {file &&
+            <FileDetailsContainer hashType={hashType} file={file} />}
         </div>
         <div className='self-center'>
           <a href='https://github.com/joelgeorgev/file-hash-verifier'>

@@ -60,19 +60,17 @@ export class FileDetailsContainer extends React.PureComponent {
   }
 
   render() {
+    const { file, hashType } = this.props;
+    const { arrayBuffer, fileLoadStatus } = this.state;
     return (
       <div>
-        {this.state.fileLoadStatus !== 100 ?
-          <FileLoader fileLoadStatus={this.state.fileLoadStatus} cancelLoad={this.cancelLoad} />
-          :
-          ''}
-        {this.state.arrayBuffer ?
+        {fileLoadStatus !== 100 &&
+          <FileLoader fileLoadStatus={fileLoadStatus} cancelLoad={this.cancelLoad} />}
+        {arrayBuffer &&
           <div>
-            <FileDetails file={this.props.file} />
-            <FileHashContainer hashType={this.props.hashType} arrayBuffer={this.state.arrayBuffer} />
-          </div>
-          :
-          ''}
+            <FileDetails file={file} />
+            <FileHashContainer hashType={hashType} arrayBuffer={arrayBuffer} />
+          </div>}
       </div>
     );
   }

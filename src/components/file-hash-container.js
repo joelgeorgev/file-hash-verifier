@@ -13,7 +13,8 @@ export class FileHashContainer extends React.PureComponent {
 
   async componentDidMount() {
     try {
-      const hash = await this.hash(this.props.hashType, this.props.arrayBuffer);
+      const { hashType, arrayBuffer } = this.props;
+      const hash = await this.hash(hashType, arrayBuffer);
       this.setState({
         hash: hash
       });
@@ -46,10 +47,11 @@ export class FileHashContainer extends React.PureComponent {
   }
 
   render() {
+    const { hash } = this.state;
     return (
       <div>
-        <FileHash hash={this.state.hash} />
-        <HashVerifier hash={this.state.hash} />
+        <FileHash hash={hash} />
+        <HashVerifier hash={hash} />
       </div>
     );
   }

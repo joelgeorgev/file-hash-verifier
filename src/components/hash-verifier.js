@@ -35,25 +35,24 @@ export class HashVerifier extends React.PureComponent {
   }
 
   render() {
+    const { verify, text, match } = this.state;
     return (
       <div className='flex flex-column mt4'>
         <div>
-          <input type='checkbox' checked={this.state.verify} className='pointer'
+          <input type='checkbox' checked={verify} className='pointer'
             onChange={this.toggleVerify} />
           <label className='ml2 b'>Compare with:</label>
         </div>
-        {this.state.verify ?
+        {verify &&
           <div className='flex h2'>
-            <input type='text' value={this.state.text}
+            <input type='text' value={text}
               className='w-100 ph1 bt br-0 bb bl b--light-silver'
               onChange={this.verifyHash} />
             <button className='bg-transparent ba b--light-silver'>
-              <img src={this.state.match ? success : fail}
-                alt={this.state.match ? 'Success' : 'Fail'} className='w1' />
+              <img src={match ? success : fail}
+                alt={match ? 'Success' : 'Fail'} className='w1' />
             </button>
-          </div>
-          :
-          ''}
+          </div>}
       </div>
     );
   }
