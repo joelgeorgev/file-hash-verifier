@@ -1,10 +1,10 @@
 {
   "main.css": "static/css/main.2ca67a85.css",
   "main.css.map": "static/css/main.2ca67a85.css.map",
-  "main.js": "static/js/main.8014c021.js",
-  "main.js.map": "static/js/main.8014c021.js.map",
-  "static\\media\\clippy.svg": "static/media/clippy.c6b23471.svg",
-  "static\\media\\fail.svg": "static/media/fail.1a36ece0.svg",
-  "static\\media\\github.svg": "static/media/github.831af018.svg",
-  "static\\media\\success.svg": "static/media/success.cafd8154.svg"
+  "main.js": "static/js/main.a62ebee6.js",
+  "main.js.map": "static/js/main.a62ebee6.js.map",
+  "static\\media\\clippy.svg": "static/media/clippy.1e918ea2.svg",
+  "static\\media\\fail.svg": "static/media/fail.1e98e874.svg",
+  "static\\media\\github.svg": "static/media/github.9ab6ac63.svg",
+  "static\\media\\success.svg": "static/media/success.4f20b95a.svg"
 }
