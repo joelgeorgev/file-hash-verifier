@@ -4,7 +4,7 @@ import { FileDetails, FileLoader, FileHashContainer } from '.';
 
 export class FileDetailsContainer extends React.PureComponent {
 
-  reader;
+  reader = new FileReader();
 
   constructor(props) {
     super(props);
@@ -26,12 +26,13 @@ export class FileDetailsContainer extends React.PureComponent {
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    return nextProps.file !== prevState.file ? { file: nextProps.file, arrayBuffer: undefined } : null
+    const { file } = nextProps;
+    return file !== prevState.file ? { file, arrayBuffer: undefined } : null
   }
 
   async componentDidUpdate(prevProps, prevState) {
-    const { file, arrayBuffer } = this.state;
-    if (!arrayBuffer) {
+    const { file } = this.state;
+    if (file !== prevState.file) {
       try {
         const arrayBuffer = await this.getArrayBuffer(file);
         this.setState({ arrayBuffer });
@@ -43,8 +44,7 @@ export class FileDetailsContainer extends React.PureComponent {
 
   getArrayBuffer = (file) => {
     return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      this.reader = reader;
+      const reader = this.reader;
       reader.onload = () => { resolve(reader.result); }
       reader.onprogress = e => { this.setState({ fileLoadStatus: Math.round((e.loaded / e.total) * 100) }); }
       reader.onabort = () => { this.setState({ fileLoadStatus: -1 }); }
@@ -54,8 +54,9 @@ export class FileDetailsContainer extends React.PureComponent {
   }
 
   cancelLoad = () => {
-    if (this.reader.readyState === 1) {
-      this.reader.abort();
+    const reader = this.reader;
+    if (reader.readyState === 1) {
+      reader.abort();
     }
   }
 
