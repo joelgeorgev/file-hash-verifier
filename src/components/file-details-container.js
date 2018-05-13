@@ -10,8 +10,7 @@ export class FileDetailsContainer extends React.PureComponent {
     super(props);
     this.state = {
       file: props.file,
-      arrayBuffer: undefined,
-      fileLoadStatus: 0
+      arrayBuffer: undefined
     }
   }
 
@@ -43,11 +42,12 @@ export class FileDetailsContainer extends React.PureComponent {
   }
 
   getArrayBuffer = (file) => {
+    const { onProgress } = this.props;
     return new Promise((resolve, reject) => {
       const reader = this.reader;
       reader.onload = () => { resolve(reader.result); }
-      reader.onprogress = e => { this.setState({ fileLoadStatus: Math.round((e.loaded / e.total) * 100) }); }
-      reader.onabort = () => { this.setState({ fileLoadStatus: -1 }); }
+      reader.onprogress = e => { onProgress(Math.round((e.loaded / e.total) * 100)) }
+      reader.onabort = () => { onProgress(-1) }
       reader.onerror = err => { reject(err); }
       reader.readAsArrayBuffer(file);
     });
@@ -61,12 +61,12 @@ export class FileDetailsContainer extends React.PureComponent {
   }
 
   render() {
-    const { hashType } = this.props;
-    const { file, arrayBuffer, fileLoadStatus } = this.state;
+    const { hashType, progress } = this.props;
+    const { file, arrayBuffer } = this.state;
     return (
       <div>
-        {fileLoadStatus !== 100 &&
-          <FileLoader fileLoadStatus={fileLoadStatus} cancelLoad={this.cancelLoad} />}
+        {progress !== 100 &&
+          <FileLoader progress={progress} cancelLoad={this.cancelLoad} />}
         {arrayBuffer &&
           <div>
             <FileDetails file={file} />

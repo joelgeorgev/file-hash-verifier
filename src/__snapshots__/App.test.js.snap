@@ -21,6 +21,7 @@ exports[`snapshot test 1`] = `
       </label>
       <input
         className="dn"
+        disabled={false}
         id="file-picker"
         multiple={false}
         onChange={[Function]}
@@ -33,6 +34,7 @@ exports[`snapshot test 1`] = `
       <input
         checked={true}
         className="mh2"
+        disabled={false}
         name="hash-type"
         onChange={[Function]}
         type="radio"
@@ -42,6 +44,7 @@ exports[`snapshot test 1`] = `
       <input
         checked={false}
         className="mh2"
+        disabled={false}
         name="hash-type"
         onChange={[Function]}
         type="radio"
@@ -51,6 +54,7 @@ exports[`snapshot test 1`] = `
       <input
         checked={false}
         className="mh2"
+        disabled={false}
         name="hash-type"
         onChange={[Function]}
         type="radio"
@@ -60,6 +64,7 @@ exports[`snapshot test 1`] = `
       <input
         checked={false}
         className="mh2"
+        disabled={false}
         name="hash-type"
         onChange={[Function]}
         type="radio"
