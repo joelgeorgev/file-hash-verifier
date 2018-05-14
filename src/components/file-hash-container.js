@@ -41,10 +41,13 @@ export class FileHashContainer extends React.PureComponent {
   }
 
   calculateHash = async (hashType, arrayBuffer) => {
-    const hashBuffer = await crypto.subtle.digest(hashType, arrayBuffer);
-    const hashArray = Array.from(new Uint8Array(hashBuffer));
-    const hashHex = hashArray.map(b => ('00' + b.toString(16)).slice(-2)).join('');
-    return hashHex;
+    if (hashType) {
+      const hashBuffer = await crypto.subtle.digest(hashType, arrayBuffer);
+      const hashArray = Array.from(new Uint8Array(hashBuffer));
+      const hashHex = hashArray.map(b => ('00' + b.toString(16)).slice(-2)).join('');
+      return hashHex;
+    }
+    return '';
   }
 
   render() {

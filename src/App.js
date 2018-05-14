@@ -10,7 +10,7 @@ export class App extends React.PureComponent {
     super(props);
     this.state = {
       file: undefined,
-      hashType: 'sha-1',
+      hashType: '',
       progress: 100
     }
   }
