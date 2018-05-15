@@ -23,6 +23,7 @@ export class App extends React.PureComponent {
         file: files[0]
       });
     }
+    e.target.value = null;
   }
 
   setHashType = (e) => {
