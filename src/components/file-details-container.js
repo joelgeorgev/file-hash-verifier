@@ -42,12 +42,12 @@ export class FileDetailsContainer extends React.PureComponent {
   }
 
   getArrayBuffer = (file) => {
-    const { onProgress } = this.props;
+    const { onFileRead } = this.props;
     return new Promise((resolve, reject) => {
       const reader = this.reader;
       reader.onload = () => { resolve(reader.result); }
-      reader.onprogress = e => { onProgress(Math.round((e.loaded / e.total) * 100)) }
-      reader.onabort = () => { onProgress(-1) }
+      reader.onprogress = e => { onFileRead(Math.round((e.loaded / e.total) * 100)) }
+      reader.onabort = () => { onFileRead(-1) }
       reader.onerror = err => { reject(err); }
       reader.readAsArrayBuffer(file);
     });
@@ -61,7 +61,7 @@ export class FileDetailsContainer extends React.PureComponent {
   }
 
   render() {
-    const { hashType, progress } = this.props;
+    const { hashType, progress, loading, onHashCompletion } = this.props;
     const { file, arrayBuffer } = this.state;
     return (
       <div>
@@ -70,7 +70,8 @@ export class FileDetailsContainer extends React.PureComponent {
         {arrayBuffer &&
           <div>
             <FileDetails file={file} />
-            <FileHashContainer hashType={hashType} arrayBuffer={arrayBuffer} />
+            <FileHashContainer arrayBuffer={arrayBuffer} hashType={hashType}
+              loading={loading} onHashCompletion={onHashCompletion} />
           </div>}
       </div>
     );

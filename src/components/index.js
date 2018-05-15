@@ -4,5 +4,6 @@ export * from './file-hash-container';
 export * from './file-hash';
 export * from './file-loader';
 export * from './file-picker';
+export * from './hash-loader';
 export * from './hash-selector';
 export * from './hash-verifier';

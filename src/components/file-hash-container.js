@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { FileHash, HashVerifier } from '.';
+import { HashLoader, FileHash, HashVerifier } from '.';
 
 export class FileHashContainer extends React.PureComponent {
 
@@ -14,9 +14,10 @@ export class FileHashContainer extends React.PureComponent {
 
   async componentDidMount() {
     try {
-      const { hashType, arrayBuffer } = this.props;
+      const { hashType, arrayBuffer, onHashCompletion } = this.props;
       const hash = await this.calculateHash(hashType, arrayBuffer);
       this.setState({ hashType, hash });
+      onHashCompletion();
     } catch (err) {
       console.error('Error during hash calculation: ', err);
     }
@@ -31,9 +32,10 @@ export class FileHashContainer extends React.PureComponent {
     const { hashType } = this.state;
     if (hashType !== prevState.hashType) {
       try {
-        const { arrayBuffer } = this.props;
+        const { arrayBuffer, onHashCompletion } = this.props;
         const hash = await this.calculateHash(hashType, arrayBuffer);
         this.setState({ hash });
+        onHashCompletion();
       } catch (err) {
         console.error('Error during hash calculation: ', err);
       }
@@ -51,11 +53,16 @@ export class FileHashContainer extends React.PureComponent {
   }
 
   render() {
+    const { loading } = this.props;
     const { hash } = this.state;
     return (
       <div>
-        <FileHash hash={hash} />
-        <HashVerifier hash={hash} />
+        {loading && <HashLoader />}
+        {hash &&
+          <div>
+            <FileHash hash={hash} />
+            <HashVerifier hash={hash} />
+          </div>}
       </div>
     );
   }
