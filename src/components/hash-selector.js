@@ -1,8 +1,8 @@
-import React from 'react';
+import React from 'react'
 
 export class HashSelector extends React.PureComponent {
   render() {
-    const { hashType, disabled, onChange } = this.props;
+    const { hashType, disabled, onChange } = this.props
     return (
       <div className='flex justify-center mt4 b'>
         <input type='radio' name='hash-type' value='sha-1' checked={'sha-1' === hashType}
@@ -14,6 +14,6 @@ export class HashSelector extends React.PureComponent {
         <input type='radio' name='hash-type' value='sha-512' checked={'sha-512' === hashType}
           className='mh2' onChange={onChange} disabled={disabled} />SHA-512
       </div>
-    );
+    )
   }
 }

@@ -1,12 +1,12 @@
-import React from 'react';
+import React from 'react'
 
-import success from '../assets/success.svg';
-import fail from '../assets/fail.svg';
+import success from '../assets/success.svg'
+import fail from '../assets/fail.svg'
 
 export class HashVerifier extends React.PureComponent {
 
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       verify: false,
       text: '',
@@ -23,19 +23,19 @@ export class HashVerifier extends React.PureComponent {
   toggleVerify = (e) => {
     this.setState({
       verify: e.target.checked
-    });
+    })
   }
 
   verifyHash = (e) => {
-    const text = e.target.value;
+    const text = e.target.value
     this.setState({
       text,
       match: this.props.hash === text.replace(/ /g, '').toLowerCase()
-    });
+    })
   }
 
   render() {
-    const { verify, text, match } = this.state;
+    const { verify, text, match } = this.state
     return (
       <div className='flex flex-column mt4'>
         <div>
@@ -54,6 +54,6 @@ export class HashVerifier extends React.PureComponent {
             </button>
           </div>}
       </div>
-    );
+    )
   }
 }

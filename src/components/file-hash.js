@@ -1,17 +1,17 @@
-import React from 'react';
-import Clipboard from 'clipboard';
+import React from 'react'
+import Clipboard from 'clipboard'
 
-import clippy from '../assets/clippy.svg';
+import clippy from '../assets/clippy.svg'
 
 export class FileHash extends React.PureComponent {
 
   constructor(props) {
-    super(props);
-    new Clipboard('#btn');
+    super(props)
+    new Clipboard('#btn')
   }
 
   render() {
-    const { hash } = this.props;
+    const { hash } = this.props
     return (
       <div className='mt4'>
         <label className='b'>Hash:</label>
@@ -24,6 +24,6 @@ export class FileHash extends React.PureComponent {
           </button>
         </div>
       </div>
-    );
+    )
   }
 }

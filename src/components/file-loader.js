@@ -1,8 +1,8 @@
-import React from 'react';
+import React from 'react'
 
 export class FileLoader extends React.PureComponent {
   render() {
-    const { progress, cancelLoad } = this.props;
+    const { progress, cancelLoad } = this.props
     return (
       <div className='flex justify-center mt4 b'>
         <div>
@@ -10,6 +10,6 @@ export class FileLoader extends React.PureComponent {
           <button className='ml2' onClick={cancelLoad}>Cancel</button>
         </div>
       </div>
-    );
+    )
   }
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 export class HashLoader extends React.PureComponent {
   render() {
@@ -6,6 +6,6 @@ export class HashLoader extends React.PureComponent {
       <div className='flex justify-center mt4 b'>
         <label>Calculating Hash...</label>
       </div>
-    );
+    )
   }
 }

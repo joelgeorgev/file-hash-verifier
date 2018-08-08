@@ -1,25 +1,25 @@
-import React from 'react';
+import React from 'react'
 
 export class FilePicker extends React.PureComponent {
 
   onDragOver = (e) => {
-    e.preventDefault();
+    e.preventDefault()
   }
 
   onDragLeave = (e) => {
-    e.preventDefault();
+    e.preventDefault()
   }
 
   onDrop = (e) => {
-    e.preventDefault();
-    const { disabled, onChange } = this.props;
+    e.preventDefault()
+    const { disabled, onChange } = this.props
     if (!disabled) {
-      onChange(e);
+      onChange(e)
     }
   }
 
   render() {
-    const { disabled, onChange } = this.props;
+    const { disabled, onChange } = this.props
     return (
       <div className='flex flex-column justify-center h4 ba b--dashed b--light-silver'
         onDragOver={this.onDragOver} onDragLeave={this.onDragLeave}
@@ -27,6 +27,6 @@ export class FilePicker extends React.PureComponent {
         <label htmlFor='file-picker' className='self-center pointer b'>Drop your file here or click to pick one.</label>
         <input type='file' id='file-picker' multiple={false} className='dn' onChange={onChange}
           disabled={disabled} />
-      </div>);
+      </div>)
   }
 }

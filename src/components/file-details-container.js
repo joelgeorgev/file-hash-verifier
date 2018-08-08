@@ -1,13 +1,13 @@
-import React from 'react';
+import React from 'react'
 
-import { FileDetails, FileLoader, FileHashContainer } from '.';
+import { FileDetails, FileLoader, FileHashContainer } from '.'
 
 export class FileDetailsContainer extends React.PureComponent {
 
-  reader = new FileReader();
+  reader = new FileReader()
 
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       file: props.file,
       arrayBuffer: undefined
@@ -16,53 +16,53 @@ export class FileDetailsContainer extends React.PureComponent {
 
   async componentDidMount() {
     try {
-      const { file } = this.props;
-      const arrayBuffer = await this.getArrayBuffer(file);
-      this.setState({ file, arrayBuffer });
+      const { file } = this.props
+      const arrayBuffer = await this.getArrayBuffer(file)
+      this.setState({ file, arrayBuffer })
     } catch (err) {
-      console.error('Error during file read operation: ', err);
+      console.error('Error during file read operation: ', err)
     }
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    const { file } = nextProps;
+    const { file } = nextProps
     return file !== prevState.file ? { file, arrayBuffer: undefined } : null
   }
 
   async componentDidUpdate(prevProps, prevState) {
-    const { file } = this.state;
+    const { file } = this.state
     if (file !== prevState.file) {
       try {
-        const arrayBuffer = await this.getArrayBuffer(file);
-        this.setState({ arrayBuffer });
+        const arrayBuffer = await this.getArrayBuffer(file)
+        this.setState({ arrayBuffer })
       } catch (err) {
-        console.error('Error during file read operation: ', err);
+        console.error('Error during file read operation: ', err)
       }
     }
   }
 
   getArrayBuffer = (file) => {
-    const { onFileRead } = this.props;
+    const { onFileRead } = this.props
     return new Promise((resolve, reject) => {
-      const reader = this.reader;
-      reader.onload = () => { resolve(reader.result); }
+      const reader = this.reader
+      reader.onload = () => { resolve(reader.result) }
       reader.onprogress = e => { onFileRead(Math.round((e.loaded / e.total) * 100)) }
       reader.onabort = () => { onFileRead(-1) }
-      reader.onerror = err => { reject(err); }
-      reader.readAsArrayBuffer(file);
-    });
+      reader.onerror = err => { reject(err) }
+      reader.readAsArrayBuffer(file)
+    })
   }
 
   cancelLoad = () => {
-    const reader = this.reader;
+    const reader = this.reader
     if (reader.readyState === 1) {
-      reader.abort();
+      reader.abort()
     }
   }
 
   render() {
-    const { hashType, progress, loading, onHashCompletion } = this.props;
-    const { file, arrayBuffer } = this.state;
+    const { hashType, progress, loading, onHashCompletion } = this.props
+    const { file, arrayBuffer } = this.state
     return (
       <div>
         {progress !== 100 &&
@@ -74,6 +74,6 @@ export class FileDetailsContainer extends React.PureComponent {
               loading={loading} onHashCompletion={onHashCompletion} />
           </div>}
       </div>
-    );
+    )
   }
 }

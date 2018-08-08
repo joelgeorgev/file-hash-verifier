@@ -1,8 +1,8 @@
-import React from 'react';
+import React from 'react'
 
 export class FileDetails extends React.PureComponent {
   render() {
-    const { name, size } = this.props.file;
+    const { name, size } = this.props.file
     return (
       <div className='mt4'>
         <div>
@@ -14,6 +14,6 @@ export class FileDetails extends React.PureComponent {
           <label>{size} bytes</label>
         </div>
       </div>
-    );
+    )
   }
 }
