@@ -1,0 +1,5 @@
+export const SET_FILE = 'SET_FILE'
+export const SET_ARRAYBUFFER = 'SET_ARRAYBUFFER'
+export const SET_HASH_TYPE = 'SET_HASH_TYPE'
+export const SET_PROGRESS = 'SET_PROGRESS'
+export const SET_LOADING = 'SET_LOADING'
