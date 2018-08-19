@@ -9,13 +9,13 @@ describe('actions test', () => {
   })
 
   it('setProgress should create SET_PROGRESS action', () => {
-    const progress = '100'
+    const progress = 100
     const result = { type: SET_PROGRESS, progress }
     expect(setProgress(progress)).toEqual(result)
   })
 
   it('setLoading should create SET_LOADING action', () => {
-    const loading = 'true'
+    const loading = true
     const result = { type: SET_LOADING, loading }
     expect(setLoading(loading)).toEqual(result)
   })
