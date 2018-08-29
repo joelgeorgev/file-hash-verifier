@@ -1,10 +1,12 @@
 {
-  "main.css": "static/css/main.2ca67a85.css",
-  "main.css.map": "static/css/main.2ca67a85.css.map",
-  "main.js": "static/js/main.f982c3cb.js",
-  "main.js.map": "static/js/main.f982c3cb.js.map",
+  "main.css": "static/css/main.f9798b36.css",
+  "main.css.map": "static/css/main.f9798b36.css.map",
+  "main.js": "static/js/main.37c45d15.js",
+  "main.js.map": "static/js/main.37c45d15.js.map",
   "static\\media\\clippy.svg": "static/media/clippy.1e918ea2.svg",
   "static\\media\\fail.svg": "static/media/fail.1e98e874.svg",
   "static\\media\\github.svg": "static/media/github.dc6635a4.svg",
+  "static\\media\\source-sans-pro-v11-latin-regular.woff": "static/media/source-sans-pro-v11-latin-regular.f94f84eb.woff",
+  "static\\media\\source-sans-pro-v11-latin-regular.woff2": "static/media/source-sans-pro-v11-latin-regular.76d8cbb0.woff2",
   "static\\media\\success.svg": "static/media/success.4f20b95a.svg"
 }
