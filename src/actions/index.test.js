@@ -1,5 +1,11 @@
-import { setHashType, setProgress, setLoading } from './index'
-import { SET_HASH_TYPE, SET_PROGRESS, SET_LOADING } from '../constants/ActionTypes'
+import {
+  setHashType, saveHashType, saveProgress, saveLoading,
+  saveHash
+} from './index'
+import {
+  SET_HASH_TYPE, SAVE_HASH_TYPE, SAVE_PROGRESS, SAVE_LOADING,
+  SAVE_HASH
+} from '../constants/ActionTypes'
 
 describe('actions test', () => {
   it('setHashType should create SET_HASH_TYPE action', () => {
@@ -8,15 +14,27 @@ describe('actions test', () => {
     expect(setHashType(hashType)).toEqual(result)
   })
 
-  it('setProgress should create SET_PROGRESS action', () => {
-    const progress = 100
-    const result = { type: SET_PROGRESS, progress }
-    expect(setProgress(progress)).toEqual(result)
+  it('saveHashType should create SAVE_HASH_TYPE action', () => {
+    const hashType = 'sha-512'
+    const result = { type: SAVE_HASH_TYPE, hashType }
+    expect(saveHashType(hashType)).toEqual(result)
   })
 
-  it('setLoading should create SET_LOADING action', () => {
+  it('saveProgress should create SAVE_PROGRESS action', () => {
+    const progress = 100
+    const result = { type: SAVE_PROGRESS, progress }
+    expect(saveProgress(progress)).toEqual(result)
+  })
+
+  it('saveLoading should create SAVE_LOADING action', () => {
     const loading = true
-    const result = { type: SET_LOADING, loading }
-    expect(setLoading(loading)).toEqual(result)
+    const result = { type: SAVE_LOADING, loading }
+    expect(saveLoading(loading)).toEqual(result)
+  })
+
+  it('saveHash should create SAVE_HASH action', () => {
+    const hash = 'hash'
+    const result = { type: SAVE_HASH, hash }
+    expect(saveHash(hash)).toEqual(result)
   })
 })
