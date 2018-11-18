@@ -5,11 +5,13 @@ import { arrayBuffer } from './arrayBuffer'
 import { hashType } from './hashType'
 import { progress } from './progress'
 import { loading } from './loading'
+import { hash } from './hash'
 
 export const rootReducer = combineReducers({
   file,
   arrayBuffer,
   hashType,
   progress,
-  loading
+  loading,
+  hash
 })
