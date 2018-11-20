@@ -1,12 +1,14 @@
 import {
-  SET_FILE, SET_HASH_TYPE, SAVE_FILE, SAVE_ARRAYBUFFER,
-  SAVE_HASH_TYPE, SAVE_PROGRESS, SAVE_LOADING, SAVE_HASH
+  SET_FILE, SET_HASH_TYPE, CANCEL_FILE_READ, SAVE_FILE,
+  SAVE_ARRAYBUFFER, SAVE_HASH_TYPE, SAVE_PROGRESS, SAVE_LOADING,
+  SAVE_HASH
 }
   from '../constants/ActionTypes'
 
 // UI actions
 export const setFile = (file) => { return { type: SET_FILE, file } }
 export const setHashType = (hashType) => { return { type: SET_HASH_TYPE, hashType } }
+export const cancelFileRead = () => { return { type: CANCEL_FILE_READ } }
 
 // Saga actions
 export const saveFile = (file) => { return { type: SAVE_FILE, file } }

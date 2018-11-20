@@ -1,10 +1,10 @@
 import {
-  setHashType, saveHashType, saveProgress, saveLoading,
-  saveHash
+  setHashType, cancelFileRead, saveHashType, saveProgress,
+  saveLoading, saveHash
 } from './index'
 import {
-  SET_HASH_TYPE, SAVE_HASH_TYPE, SAVE_PROGRESS, SAVE_LOADING,
-  SAVE_HASH
+  SET_HASH_TYPE, CANCEL_FILE_READ, SAVE_HASH_TYPE, SAVE_PROGRESS,
+  SAVE_LOADING, SAVE_HASH
 } from '../constants/ActionTypes'
 
 describe('actions test', () => {
@@ -12,6 +12,11 @@ describe('actions test', () => {
     const hashType = 'sha-512'
     const result = { type: SET_HASH_TYPE, hashType }
     expect(setHashType(hashType)).toEqual(result)
+  })
+
+  it('cancelFileRead should create CANCEL_FILE_READ action', () => {
+    const result = { type: CANCEL_FILE_READ }
+    expect(cancelFileRead()).toEqual(result)
   })
 
   it('saveHashType should create SAVE_HASH_TYPE action', () => {
