@@ -24,5 +24,4 @@ it('radio button state change test', () => {
   let inputElement = ReactTestUtils.scryRenderedDOMComponentsWithTag(app, 'input')[2]
   ReactTestUtils.Simulate.change(inputElement)
   expect(inputElement.checked).toBe(true)
-  expect(app.state.hashType).toBe('sha-256')
 })

@@ -8,69 +8,77 @@ exports[`snapshot test 1`] = `
     className="flex flex-auto flex-column"
   >
     <div
-      className="flex flex-column justify-center h4 ba b--dashed b--light-silver"
-      onDragLeave={[Function]}
-      onDragOver={[Function]}
-      onDrop={[Function]}
+      className="flex flex-column w-80 mw8 vh-100 center pv4"
     >
-      <label
-        className="self-center pointer b"
-        htmlFor="file-picker"
+      <div
+        className="flex flex-auto flex-column"
       >
-        Drop your file here or click to pick one.
-      </label>
-      <input
-        className="dn"
-        disabled={false}
-        id="file-picker"
-        multiple={false}
-        onChange={[Function]}
-        type="file"
-      />
-    </div>
-    <div
-      className="flex justify-center mt4 b"
-    >
-      <input
-        checked={false}
-        className="mh2"
-        disabled={false}
-        name="hash-type"
-        onChange={[Function]}
-        type="radio"
-        value="sha-1"
-      />
-      SHA-1
-      <input
-        checked={false}
-        className="mh2"
-        disabled={false}
-        name="hash-type"
-        onChange={[Function]}
-        type="radio"
-        value="sha-256"
-      />
-      SHA-256
-      <input
-        checked={false}
-        className="mh2"
-        disabled={false}
-        name="hash-type"
-        onChange={[Function]}
-        type="radio"
-        value="sha-384"
-      />
-      SHA-384
-      <input
-        checked={false}
-        className="mh2"
-        disabled={false}
-        name="hash-type"
-        onChange={[Function]}
-        type="radio"
-        value="sha-512"
-      />
-      SHA-512
+        <div
+          className="flex flex-column justify-center h4 ba b--dashed b--light-silver"
+          onDragLeave={[Function]}
+          onDragOver={[Function]}
+          onDrop={[Function]}
+        >
+          <label
+            className="self-center pointer b"
+            htmlFor="file-picker"
+          >
+            Drop your file here or click to pick one.
+          </label>
+          <input
+            className="dn"
+            disabled={false}
+            id="file-picker"
+            multiple={false}
+            onChange={[Function]}
+            type="file"
+          />
+        </div>
+        <div
+          className="flex justify-center mt4 b"
+        >
+          <input
+            checked={false}
+            className="mh2"
+            disabled={false}
+            name="hash-type"
+            onChange={[Function]}
+            type="radio"
+            value="sha-1"
+          />
+          SHA-1
+          <input
+            checked={false}
+            className="mh2"
+            disabled={false}
+            name="hash-type"
+            onChange={[Function]}
+            type="radio"
+            value="sha-256"
+          />
+          SHA-256
+          <input
+            checked={false}
+            className="mh2"
+            disabled={false}
+            name="hash-type"
+            onChange={[Function]}
+            type="radio"
+            value="sha-384"
+          />
+          SHA-384
+          <input
+            checked={false}
+            className="mh2"
+            disabled={false}
+            name="hash-type"
+            onChange={[Function]}
+            type="radio"
+            value="sha-512"
+          />
+          SHA-512
+        </div>
+      </div>
     </div>
   </div>
   <div
