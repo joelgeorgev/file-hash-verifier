@@ -1,7 +1,8 @@
 import { eventChannel, END } from 'redux-saga'
-import { take, put, call } from 'redux-saga/effects'
+import { take, put, call, race } from 'redux-saga/effects'
 
-import { saveArrayBuffer, saveProgress } from '../actions'
+import { saveFile, saveArrayBuffer, saveProgress } from '../actions'
+import { CANCEL_FILE_READ } from '../constants/ActionTypes'
 
 const createFileReadChannel = (file) => {
   return eventChannel((emitter) => {
@@ -9,17 +10,18 @@ const createFileReadChannel = (file) => {
 
     const onLoad = () => { emitter({ arrayBuffer: reader.result }); emitter(END) }
     const onProgress = (e) => { emitter({ progress: Math.round((e.loaded / e.total) * 100) }) }
-    const onAbort = () => { emitter({ progress: -1 }) }
     const onError = (error) => { emitter({ error }); emitter(END) }
 
     reader.onload = onLoad
     reader.onprogress = onProgress
-    reader.onabort = onAbort
     reader.onerror = onError
 
     reader.readAsArrayBuffer(file)
 
     const unsubscribe = () => {
+      if (reader.readyState === 1) {
+        reader.abort()
+      }
       reader = null
     }
     return unsubscribe
@@ -31,16 +33,27 @@ export const getArrayBuffer = function* (file) {
   const fileReadChannel = yield call(createFileReadChannel, file)
   try {
     while (true) {
-      const { progress, arrayBuffer, error } = yield take(fileReadChannel)
-      if (arrayBuffer) {
-        yield put(saveArrayBuffer(arrayBuffer))
-        return
+      const { channelOutput, cancelFileRead } = yield race({
+        channelOutput: take(fileReadChannel),
+        cancelFileRead: take(CANCEL_FILE_READ)
+      })
+      if (channelOutput) {
+        const { progress, arrayBuffer, error } = channelOutput
+        if (arrayBuffer) {
+          yield put(saveArrayBuffer(arrayBuffer))
+          return
+        }
+        if (error) {
+          console.error('Error during file read operation: ', error)
+          return
+        }
+        yield put(saveProgress(progress))
       }
-      if (error) {
-        console.error('Error during file read operation: ', error)
-        return
+      else if (cancelFileRead) {
+        fileReadChannel.close()
+        yield put(saveProgress(-1))
+        yield put(saveFile(null))
       }
-      yield put(saveProgress(progress))
     }
   }
   finally {
