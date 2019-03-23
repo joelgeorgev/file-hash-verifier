@@ -23,12 +23,8 @@ const mapDispatchToProps = (dispatch) => {
       }
       e.target.value = null
     },
-    setHashType: (e) => {
-      dispatch(setHashType(e.target.value))
-    },
-    cancelFileRead: () => {
-      dispatch(cancelFileRead())
-    }
+    setHashType: (e) => dispatch(setHashType(e.target.value)),
+    cancelFileRead: () => dispatch(cancelFileRead())
   }
 }
 
