@@ -11,7 +11,7 @@ export const Shell = ({ file, arrayBuffer, hashType, progress,
   const disabled = reading || loading
 
   return (
-    <div className='flex flex-column w-80 mw8 vh-100 center pv4'>
+    <div className='flex flex-column w-80 center'>
       <div className='flex flex-auto flex-column'>
         <FilePicker onChange={setFile} disabled={disabled} />
         <HashSelector hashType={hashType} onChange={setHashType} disabled={disabled} />
