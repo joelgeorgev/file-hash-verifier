@@ -43,7 +43,7 @@ exports[`snapshot test 1`] = `
             <label>
               <input
                 checked={false}
-                className="mh2"
+                className="mh3"
                 disabled={false}
                 name="hash-type"
                 onChange={[Function]}
@@ -55,7 +55,7 @@ exports[`snapshot test 1`] = `
             <label>
               <input
                 checked={false}
-                className="mh2"
+                className="mh3"
                 disabled={false}
                 name="hash-type"
                 onChange={[Function]}
@@ -67,7 +67,7 @@ exports[`snapshot test 1`] = `
             <label>
               <input
                 checked={false}
-                className="mh2"
+                className="mh3"
                 disabled={false}
                 name="hash-type"
                 onChange={[Function]}
@@ -79,7 +79,7 @@ exports[`snapshot test 1`] = `
             <label>
               <input
                 checked={false}
-                className="mh2"
+                className="mh3"
                 disabled={false}
                 name="hash-type"
                 onChange={[Function]}
