@@ -1,97 +1,109 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`snapshot test 1`] = `
-<div
-  className="flex flex-column w-80 mw8 vh-100 center pv5"
+<main
+  role="main"
 >
-  <div
-    className="flex flex-auto flex-column"
+  <section
+    className="flex flex-column w-80 mw8 vh-100 center pv5"
   >
     <div
-      className="flex flex-column w-80 center"
+      className="flex flex-auto flex-column"
     >
       <div
-        className="flex flex-auto flex-column"
+        className="flex flex-column w-80 center"
       >
         <div
-          className="flex flex-column justify-center h4 ba b--dashed b--light-silver"
-          onDragLeave={[Function]}
-          onDragOver={[Function]}
-          onDrop={[Function]}
+          className="flex flex-auto flex-column"
         >
-          <label
-            className="self-center pointer b"
-            htmlFor="file-picker"
+          <div
+            className="flex flex-column justify-center h4 ba b--dashed b--light-silver"
+            onDragLeave={[Function]}
+            onDragOver={[Function]}
+            onDrop={[Function]}
           >
-            Drop your file here or click to pick one.
-          </label>
-          <input
-            className="dn"
-            disabled={false}
-            id="file-picker"
-            multiple={false}
-            onChange={[Function]}
-            type="file"
-          />
-        </div>
-        <div
-          className="flex justify-center mt4 b"
-        >
-          <input
-            checked={false}
-            className="mh2"
-            disabled={false}
-            name="hash-type"
-            onChange={[Function]}
-            type="radio"
-            value="sha-1"
-          />
-          SHA-1
-          <input
-            checked={false}
-            className="mh2"
-            disabled={false}
-            name="hash-type"
-            onChange={[Function]}
-            type="radio"
-            value="sha-256"
-          />
-          SHA-256
-          <input
-            checked={false}
-            className="mh2"
-            disabled={false}
-            name="hash-type"
-            onChange={[Function]}
-            type="radio"
-            value="sha-384"
-          />
-          SHA-384
-          <input
-            checked={false}
-            className="mh2"
-            disabled={false}
-            name="hash-type"
-            onChange={[Function]}
-            type="radio"
-            value="sha-512"
-          />
-          SHA-512
+            <label
+              className="self-center pointer b"
+              htmlFor="file-picker"
+            >
+              Drop your file here or click to pick one.
+            </label>
+            <input
+              className="dn"
+              disabled={false}
+              id="file-picker"
+              multiple={false}
+              onChange={[Function]}
+              type="file"
+            />
+          </div>
+          <div
+            className="flex justify-center mt4 b"
+          >
+            <label>
+              <input
+                checked={false}
+                className="mh2"
+                disabled={false}
+                name="hash-type"
+                onChange={[Function]}
+                type="radio"
+                value="sha-1"
+              />
+              SHA-1
+            </label>
+            <label>
+              <input
+                checked={false}
+                className="mh2"
+                disabled={false}
+                name="hash-type"
+                onChange={[Function]}
+                type="radio"
+                value="sha-256"
+              />
+              SHA-256
+            </label>
+            <label>
+              <input
+                checked={false}
+                className="mh2"
+                disabled={false}
+                name="hash-type"
+                onChange={[Function]}
+                type="radio"
+                value="sha-384"
+              />
+              SHA-384
+            </label>
+            <label>
+              <input
+                checked={false}
+                className="mh2"
+                disabled={false}
+                name="hash-type"
+                onChange={[Function]}
+                type="radio"
+                value="sha-512"
+              />
+              SHA-512
+            </label>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <div
-    className="self-center"
-  >
-    <a
-      href="https://github.com/joelgeorgev/file-hash-verifier"
+    <div
+      className="self-center"
     >
-      <img
-        alt="GitHub"
-        src="github.svg"
-      />
-    </a>
-  </div>
-</div>
+      <a
+        href="https://github.com/joelgeorgev/file-hash-verifier"
+      >
+        <img
+          alt="GitHub"
+          src="github.svg"
+        />
+      </a>
+    </div>
+  </section>
+</main>
 `;
