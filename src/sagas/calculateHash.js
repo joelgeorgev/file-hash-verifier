@@ -7,13 +7,15 @@ const getHash = async ({ arrayBuffer, hashType }) => {
   if (arrayBuffer && hashType) {
     const hashBuffer = await crypto.subtle.digest(hashType, arrayBuffer)
     const hashArray = Array.from(new Uint8Array(hashBuffer))
-    const hashHex = hashArray.map(b => ('00' + b.toString(16)).slice(-2)).join('')
+    const hashHex = hashArray
+      .map((b) => ('00' + b.toString(16)).slice(-2))
+      .join('')
     return hashHex
   }
   return ''
 }
 
-export const calculateHash = function* () {
+export const calculateHash = function*() {
   yield put(saveHash(''))
   yield put(saveLoading(true))
   const arrayBuffer = yield select(arrayBufferSelector)

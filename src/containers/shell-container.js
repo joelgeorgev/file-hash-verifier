@@ -17,7 +17,10 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     setFile: (e) => {
-      const files = e.dataTransfer && e.dataTransfer.files ? e.dataTransfer.files : e.target.files
+      const files =
+        e.dataTransfer && e.dataTransfer.files
+          ? e.dataTransfer.files
+          : e.target.files
       if (files.length) {
         dispatch(setFile(files[0]))
       }

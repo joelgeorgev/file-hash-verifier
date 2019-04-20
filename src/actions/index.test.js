@@ -1,10 +1,18 @@
 import {
-  setHashType, cancelFileRead, saveHashType, saveProgress,
-  saveLoading, saveHash
+  setHashType,
+  cancelFileRead,
+  saveHashType,
+  saveProgress,
+  saveLoading,
+  saveHash
 } from './index'
 import {
-  SET_HASH_TYPE, CANCEL_FILE_READ, SAVE_HASH_TYPE, SAVE_PROGRESS,
-  SAVE_LOADING, SAVE_HASH
+  SET_HASH_TYPE,
+  CANCEL_FILE_READ,
+  SAVE_HASH_TYPE,
+  SAVE_PROGRESS,
+  SAVE_LOADING,
+  SAVE_HASH
 } from '../constants/ActionTypes'
 
 describe('actions test', () => {

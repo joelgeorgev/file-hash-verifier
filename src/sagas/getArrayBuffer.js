@@ -8,9 +8,17 @@ const createFileReadChannel = (file) => {
   return eventChannel((emitter) => {
     let reader = new FileReader()
 
-    const onLoad = () => { emitter({ arrayBuffer: reader.result }); emitter(END) }
-    const onProgress = (e) => { emitter({ progress: Math.round((e.loaded / e.total) * 100) }) }
-    const onError = (error) => { emitter({ error }); emitter(END) }
+    const onLoad = () => {
+      emitter({ arrayBuffer: reader.result })
+      emitter(END)
+    }
+    const onProgress = (e) => {
+      emitter({ progress: Math.round((e.loaded / e.total) * 100) })
+    }
+    const onError = (error) => {
+      emitter({ error })
+      emitter(END)
+    }
 
     reader.onload = onLoad
     reader.onprogress = onProgress
@@ -28,7 +36,7 @@ const createFileReadChannel = (file) => {
   })
 }
 
-export const getArrayBuffer = function* (file) {
+export const getArrayBuffer = function*(file) {
   yield put(saveArrayBuffer(null))
   const fileReadChannel = yield call(createFileReadChannel, file)
   try {
@@ -48,15 +56,13 @@ export const getArrayBuffer = function* (file) {
           return
         }
         yield put(saveProgress(progress))
-      }
-      else if (cancelFileRead) {
+      } else if (cancelFileRead) {
         fileReadChannel.close()
         yield put(saveProgress(-1))
         yield put(saveFile(null))
       }
     }
-  }
-  finally {
+  } finally {
     fileReadChannel.close()
   }
 }

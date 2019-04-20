@@ -19,20 +19,31 @@ export const HashVerifier = ({ hash }) => {
   return (
     <div className='flex flex-column mt4'>
       <div>
-        <input type='checkbox' checked={verify} className='pointer'
-          onChange={toggleVerify} />
+        <input
+          type='checkbox'
+          checked={verify}
+          className='pointer'
+          onChange={toggleVerify}
+        />
         <label className='ml2 b'>Compare with:</label>
       </div>
-      {verify &&
+      {verify && (
         <div className='flex h2'>
-          <input type='text' value={text}
+          <input
+            type='text'
+            value={text}
             className='w-100 ph1 bt br-0 bb bl b--light-silver'
-            onChange={verifyHash} />
+            onChange={verifyHash}
+          />
           <button className='bg-transparent ba b--light-silver'>
-            <img src={match ? success : fail}
-              alt={match ? 'Success' : 'Fail'} className='w1' />
+            <img
+              src={match ? success : fail}
+              alt={match ? 'Success' : 'Fail'}
+              className='w1'
+            />
           </button>
-        </div>}
+        </div>
+      )}
     </div>
   )
 }
