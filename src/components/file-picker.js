@@ -2,9 +2,7 @@ import React from 'react'
 
 export const FilePicker = ({ disabled, onChange }) => {
   const onDragOver = (e) => e.preventDefault()
-
   const onDragLeave = (e) => e.preventDefault()
-
   const onDrop = (e) => {
     e.preventDefault()
     if (!disabled) {
