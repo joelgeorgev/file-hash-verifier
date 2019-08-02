@@ -37,16 +37,16 @@ export const Shell = ({
           <FileLoader progress={progress} cancelFileRead={cancelFileRead} />
         )}
         {arrayBuffer && (
-          <React.Fragment>
+          <>
             <FileDetails file={file} />
             {loading && <HashLoader />}
             {hash && (
-              <div>
+              <>
                 <FileHash hash={hash} />
                 <HashVerifier hash={hash} />
-              </div>
+              </>
             )}
-          </React.Fragment>
+          </>
         )}
       </div>
     </div>
