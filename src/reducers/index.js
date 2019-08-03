@@ -15,3 +15,11 @@ export const rootReducer = combineReducers({
   loading,
   hash
 })
+
+// Selectors
+export const getFile = (state) => state.file
+export const getArrayBuffer = (state) => state.arrayBuffer
+export const getHashType = (state) => state.hashType
+export const getProgress = (state) => state.progress
+export const getLoading = (state) => state.loading
+export const getHash = (state) => state.hash

@@ -2,14 +2,15 @@ import { connect } from 'react-redux'
 
 import { Shell } from '../components'
 import { setFile, setHashType, cancelFileRead } from '../actions'
+import * as selectors from '../reducers'
 
 const mapStateToProps = (state) => ({
-  file: state.file,
-  arrayBuffer: state.arrayBuffer,
-  hashType: state.hashType,
-  progress: state.progress,
-  loading: state.loading,
-  hash: state.hash
+  file: selectors.getFile(state),
+  arrayBuffer: selectors.getArrayBuffer(state),
+  hashType: selectors.getHashType(state),
+  progress: selectors.getProgress(state),
+  loading: selectors.getLoading(state),
+  hash: selectors.getHash(state)
 })
 
 const mapDispatchToProps = (dispatch) => ({

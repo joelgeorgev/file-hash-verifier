@@ -1,7 +1,7 @@
 import { put, call, select } from 'redux-saga/effects'
 
 import { saveLoading, saveHash } from '../actions'
-import { arrayBufferSelector, hashTypeSelector } from '.'
+import { getArrayBuffer, getHashType } from '../reducers'
 
 const getHash = async ({ arrayBuffer, hashType }) => {
   if (arrayBuffer && hashType) {
@@ -18,8 +18,8 @@ const getHash = async ({ arrayBuffer, hashType }) => {
 export const calculateHash = function*() {
   yield put(saveHash(''))
   yield put(saveLoading(true))
-  const arrayBuffer = yield select(arrayBufferSelector)
-  const hashType = yield select(hashTypeSelector)
+  const arrayBuffer = yield select(getArrayBuffer)
+  const hashType = yield select(getHashType)
   const hash = yield call(getHash, { arrayBuffer, hashType })
   yield put(saveHash(hash))
   yield put(saveLoading(false))
