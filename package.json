@@ -3,18 +3,18 @@
   "version": "1.0.0",
   "description": "A react app to generate and verify cryptographic hash values of files.",
   "dependencies": {
-    "clipboard": "^1.7.1",
-    "react": "^16.8.5",
-    "react-dom": "^16.8.5",
-    "react-redux": "^5.1.1",
-    "redux": "^4.0.1",
-    "redux-saga": "^0.16.2"
+    "clipboard": "^2.0.4",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-redux": "^7.1.0",
+    "redux": "^4.0.4",
+    "redux-saga": "^1.0.5"
   },
   "devDependencies": {
-    "gh-pages": "^2.0.1",
-    "prettier": "^1.17.0",
+    "gh-pages": "^2.1.0",
+    "prettier": "^1.18.2",
     "react-scripts": "^3.0.1",
-    "react-test-renderer": "^16.8.5",
+    "react-test-renderer": "^16.8.6",
     "tachyons": "^4.11.1"
   },
   "scripts": {
