@@ -9,11 +9,6 @@ it('smoke test', () => {
   ReactDOM.render(<App />, container)
 })
 
-it('snapshot test', () => {
-  const tree = renderer.create(<App />).toJSON()
-  expect(tree).toMatchSnapshot()
-})
-
 it('radio button state change test', () => {
   const container = document.createElement('div')
   renderer.act(() => {
