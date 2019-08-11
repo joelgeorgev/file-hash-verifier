@@ -3,7 +3,6 @@ import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
 import createSagaMiddleware from 'redux-saga'
 import styled from 'styled-components'
-import 'tachyons/css/tachyons.min.css'
 
 import { ShellContainer } from './containers'
 import { rootReducer } from './reducers'

@@ -31,6 +31,10 @@ const Button = styled.button`
   cursor: pointer;
 `
 
+const Image = styled.img`
+  max-width: 100%;
+`
+
 export const FileHash = ({ hash }) => {
   const ref = useRef(null)
 
@@ -46,7 +50,7 @@ export const FileHash = ({ hash }) => {
       <HashWrapper>
         <TextInput type='text' id='hash' value={hash} readOnly />
         <Button ref={ref} data-clipboard-target='#hash'>
-          <img src={clippy} alt='Copy to clipboard' />
+          <Image src={clippy} alt='Copy to clipboard' />
         </Button>
       </HashWrapper>
     </Wrapper>

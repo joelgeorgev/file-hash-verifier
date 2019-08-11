@@ -10,6 +10,7 @@ const Wrapper = styled.div`
   border: 1px dashed #aaa;
 `
 const Label = styled.label`
+  padding: 0 1rem;
   font-weight: 700;
   cursor: pointer;
 `

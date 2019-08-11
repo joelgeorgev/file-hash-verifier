@@ -1,4 +1,5 @@
 import React from 'react'
+import styled from 'styled-components'
 
 import {
   FilePicker,
@@ -9,6 +10,11 @@ import {
   FileHash,
   HashVerifier
 } from '.'
+
+const Wrapper = styled.div`
+  width: 80%;
+  margin: 0 auto;
+`
 
 export const Shell = ({
   file,
@@ -25,30 +31,28 @@ export const Shell = ({
   const disabled = reading || loading
 
   return (
-    <div className='flex flex-column w-80 center'>
-      <div className='flex flex-auto flex-column'>
-        <FilePicker onChange={setFile} disabled={disabled} />
-        <HashSelector
-          hashType={hashType}
-          onChange={setHashType}
-          disabled={disabled}
-        />
-        {reading && (
-          <FileLoader progress={progress} cancelFileRead={cancelFileRead} />
-        )}
-        {arrayBuffer && (
-          <>
-            <FileDetails file={file} />
-            {loading && <HashLoader />}
-            {hash && (
-              <>
-                <FileHash hash={hash} />
-                <HashVerifier hash={hash} />
-              </>
-            )}
-          </>
-        )}
-      </div>
-    </div>
+    <Wrapper>
+      <FilePicker onChange={setFile} disabled={disabled} />
+      <HashSelector
+        hashType={hashType}
+        onChange={setHashType}
+        disabled={disabled}
+      />
+      {reading && (
+        <FileLoader progress={progress} cancelFileRead={cancelFileRead} />
+      )}
+      {arrayBuffer && (
+        <>
+          <FileDetails file={file} />
+          {loading && <HashLoader />}
+          {hash && (
+            <>
+              <FileHash hash={hash} />
+              <HashVerifier hash={hash} />
+            </>
+          )}
+        </>
+      )}
+    </Wrapper>
   )
 }

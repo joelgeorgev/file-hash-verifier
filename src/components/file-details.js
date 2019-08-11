@@ -5,8 +5,12 @@ const Wrapper = styled.div`
   margin-top: 2rem;
 `
 
-const StyledLabel = styled.label`
+const Key = styled.label`
   font-weight: 700;
+`
+
+const Value = styled.label`
+  word-break: break-all;
 `
 
 export const FileDetails = ({ file }) => {
@@ -15,12 +19,12 @@ export const FileDetails = ({ file }) => {
   return (
     <Wrapper>
       <div>
-        <StyledLabel>Name: </StyledLabel>
-        <label>{name}</label>
+        <Key>Name: </Key>
+        <Value>{name}</Value>
       </div>
       <div>
-        <StyledLabel>Size: </StyledLabel>
-        <label>{size} bytes</label>
+        <Key>Size: </Key>
+        <Value>{size} bytes</Value>
       </div>
     </Wrapper>
   )
