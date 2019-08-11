@@ -16,6 +16,7 @@ sagaMiddleware.run(saga)
 const Section = styled.section`
   display: flex;
   flex-direction: column;
+  align-items: center;
   width: 80%;
   max-width: 64rem;
   height: 100vh;
@@ -26,13 +27,12 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   flex: 1;
-  padding: 2rem;
+  margin-top: 2rem;
   overflow: auto;
 `
 
 const Footer = styled.div`
-  align-self: center;
-  padding: 2rem;
+  margin: 2rem;
 `
 
 export const App = () => (
