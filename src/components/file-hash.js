@@ -1,7 +1,35 @@
 import React, { useEffect, useRef } from 'react'
 import Clipboard from 'clipboard'
+import styled from 'styled-components'
 
 import clippy from '../assets/clippy.svg'
+
+const Wrapper = styled.div`
+  margin-top: 2rem;
+`
+
+const Label = styled.label`
+  font-weight: 700;
+`
+
+const HashWrapper = styled.div`
+  display: flex;
+  height: 2rem;
+`
+
+const TextInput = styled.input`
+  width: 100%;
+  padding: 0 0.25rem;
+  border: 1px solid #aaa;
+  border-right: 0;
+`
+
+const Button = styled.button`
+  border: 1px solid #aaa;
+  width: 2rem;
+  background-color: transparent;
+  cursor: pointer;
+`
 
 export const FileHash = ({ hash }) => {
   const ref = useRef(null)
@@ -13,24 +41,14 @@ export const FileHash = ({ hash }) => {
   }, [])
 
   return (
-    <div className='mt4'>
-      <label className='b'>Hash:</label>
-      <div className='flex h2'>
-        <input
-          type='text'
-          id='hash'
-          value={hash}
-          readOnly
-          className='w-100 ph1 bt br-0 bb bl b--light-silver'
-        />
-        <button
-          ref={ref}
-          data-clipboard-target='#hash'
-          className='bg-transparent ba b--light-silver pointer'
-        >
-          <img src={clippy} alt='Copy to clipboard' className='w1' />
-        </button>
-      </div>
-    </div>
+    <Wrapper>
+      <Label>Hash:</Label>
+      <HashWrapper>
+        <TextInput type='text' id='hash' value={hash} readOnly />
+        <Button ref={ref} data-clipboard-target='#hash'>
+          <img src={clippy} alt='Copy to clipboard' />
+        </Button>
+      </HashWrapper>
+    </Wrapper>
   )
 }

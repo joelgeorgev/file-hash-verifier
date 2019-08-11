@@ -1,4 +1,22 @@
 import React from 'react'
+import styled from 'styled-components'
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 8rem;
+  border: 1px dashed #aaa;
+`
+const Label = styled.label`
+  font-weight: 700;
+  cursor: pointer;
+`
+
+const Input = styled.input`
+  display: none;
+`
 
 export const FilePicker = ({ disabled, onChange }) => {
   const onDragOver = (e) => e.preventDefault()
@@ -11,23 +29,17 @@ export const FilePicker = ({ disabled, onChange }) => {
   }
 
   return (
-    <div
-      className='flex flex-column justify-center h4 ba b--dashed b--light-silver'
-      onDragOver={onDragOver}
-      onDragLeave={onDragLeave}
-      onDrop={onDrop}
-    >
-      <label htmlFor='file-picker' className='self-center pointer b'>
+    <Wrapper onDragOver={onDragOver} onDragLeave={onDragLeave} onDrop={onDrop}>
+      <Label htmlFor='file-picker'>
         Drop your file here or click to pick one.
-      </label>
-      <input
+      </Label>
+      <Input
         type='file'
         id='file-picker'
         multiple={false}
-        className='dn'
         onChange={onChange}
         disabled={disabled}
       />
-    </div>
+    </Wrapper>
   )
 }

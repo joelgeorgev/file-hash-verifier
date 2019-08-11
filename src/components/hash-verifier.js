@@ -19,6 +19,7 @@ const Label = styled.label`
 
 const VerifyWrapper = styled.div`
   display: flex;
+  height: 2rem;
 `
 
 const TextInput = styled.input`
