@@ -1,18 +1,27 @@
 import React from 'react'
+import styled from 'styled-components'
+
+const Wrapper = styled.div`
+  margin-top: 2rem;
+`
+
+const StyledLabel = styled.label`
+  font-weight: 700;
+`
 
 export const FileDetails = ({ file }) => {
   const { name, size } = file
 
   return (
-    <div className='mt4'>
+    <Wrapper>
       <div>
-        <label className='b'>Name: </label>
+        <StyledLabel>Name: </StyledLabel>
         <label>{name}</label>
       </div>
       <div>
-        <label className='b'>Size: </label>
+        <StyledLabel>Size: </StyledLabel>
         <label>{size} bytes</label>
       </div>
-    </div>
+    </Wrapper>
   )
 }

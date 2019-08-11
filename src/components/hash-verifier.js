@@ -1,7 +1,37 @@
 import React, { useState } from 'react'
+import styled from 'styled-components'
 
 import success from '../assets/success.svg'
 import fail from '../assets/fail.svg'
+
+const Wrapper = styled.div`
+  margin-top: 2rem;
+`
+
+const Checkbox = styled.input`
+  cursor: pointer;
+`
+
+const Label = styled.label`
+  margin-left: 0.5rem;
+  font-weight: 700;
+`
+
+const VerifyWrapper = styled.div`
+  display: flex;
+`
+
+const TextInput = styled.input`
+  width: 100%;
+  padding: 0 0.25rem;
+  border: 1px solid #aaa;
+  border-right: 0;
+`
+
+const Image = styled.img`
+  width: 2rem;
+  border: 1px solid #aaa;
+`
 
 export const HashVerifier = ({ hash }) => {
   const [verify, setVerify] = useState(false)
@@ -17,33 +47,20 @@ export const HashVerifier = ({ hash }) => {
   }
 
   return (
-    <div className='flex flex-column mt4'>
+    <Wrapper>
       <div>
-        <input
-          type='checkbox'
-          checked={verify}
-          className='pointer'
-          onChange={toggleVerify}
-        />
-        <label className='ml2 b'>Compare with:</label>
+        <Checkbox type='checkbox' checked={verify} onChange={toggleVerify} />
+        <Label>Compare with:</Label>
       </div>
       {verify && (
-        <div className='flex h2'>
-          <input
-            type='text'
-            value={text}
-            className='w-100 ph1 bt br-0 bb bl b--light-silver'
-            onChange={verifyHash}
+        <VerifyWrapper>
+          <TextInput type='text' value={text} onChange={verifyHash} />
+          <Image
+            src={match ? success : fail}
+            alt={match ? 'Success' : 'Fail'}
           />
-          <button className='bg-transparent ba b--light-silver'>
-            <img
-              src={match ? success : fail}
-              alt={match ? 'Success' : 'Fail'}
-              className='w1'
-            />
-          </button>
-        </div>
+        </VerifyWrapper>
       )}
-    </div>
+    </Wrapper>
   )
 }
