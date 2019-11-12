@@ -5,7 +5,7 @@ import {
   saveProgress,
   saveLoading,
   saveHash
-} from './index'
+} from '.'
 import {
   SET_HASH_TYPE,
   CANCEL_FILE_READ,
@@ -15,39 +15,45 @@ import {
   SAVE_HASH
 } from '../constants/ActionTypes'
 
-describe('actions test', () => {
-  it('setHashType should create SET_HASH_TYPE action', () => {
+describe('actions', () => {
+  test('setHashType creates SET_HASH_TYPE action', () => {
     const hashType = 'sha-512'
-    const result = { type: SET_HASH_TYPE, hashType }
-    expect(setHashType(hashType)).toEqual(result)
+    const expected = { type: SET_HASH_TYPE, hashType }
+
+    expect(setHashType(hashType)).toEqual(expected)
   })
 
-  it('cancelFileRead should create CANCEL_FILE_READ action', () => {
-    const result = { type: CANCEL_FILE_READ }
-    expect(cancelFileRead()).toEqual(result)
+  test('cancelFileRead creates CANCEL_FILE_READ action', () => {
+    const expected = { type: CANCEL_FILE_READ }
+
+    expect(cancelFileRead()).toEqual(expected)
   })
 
-  it('saveHashType should create SAVE_HASH_TYPE action', () => {
+  test('saveHashType creates SAVE_HASH_TYPE action', () => {
     const hashType = 'sha-512'
-    const result = { type: SAVE_HASH_TYPE, hashType }
-    expect(saveHashType(hashType)).toEqual(result)
+    const expected = { type: SAVE_HASH_TYPE, hashType }
+
+    expect(saveHashType(hashType)).toEqual(expected)
   })
 
-  it('saveProgress should create SAVE_PROGRESS action', () => {
+  test('saveProgress creates SAVE_PROGRESS action', () => {
     const progress = 100
-    const result = { type: SAVE_PROGRESS, progress }
-    expect(saveProgress(progress)).toEqual(result)
+    const expected = { type: SAVE_PROGRESS, progress }
+
+    expect(saveProgress(progress)).toEqual(expected)
   })
 
-  it('saveLoading should create SAVE_LOADING action', () => {
+  test('saveLoading creates SAVE_LOADING action', () => {
     const loading = true
-    const result = { type: SAVE_LOADING, loading }
-    expect(saveLoading(loading)).toEqual(result)
+    const expected = { type: SAVE_LOADING, loading }
+
+    expect(saveLoading(loading)).toEqual(expected)
   })
 
-  it('saveHash should create SAVE_HASH action', () => {
+  test('saveHash creates SAVE_HASH action', () => {
     const hash = 'hash'
-    const result = { type: SAVE_HASH, hash }
-    expect(saveHash(hash)).toEqual(result)
+    const expected = { type: SAVE_HASH, hash }
+
+    expect(saveHash(hash)).toEqual(expected)
   })
 })
