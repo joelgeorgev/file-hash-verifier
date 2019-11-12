@@ -2,14 +2,15 @@ import { hash } from './hash'
 import { saveHash } from '../actions'
 
 describe('hash reducer', () => {
-  it('should handle initial state', () => {
-    const result = ''
-    expect(hash(undefined, {})).toEqual(result)
+  describe('When no action is given', () => {
+    test('returns initial state', () => {
+      expect(hash(undefined, {})).toEqual('')
+    })
   })
 
-  it('should handle SAVE_HASH', () => {
+  test('handles SAVE_HASH action', () => {
     const inputHash = 'hash'
-    const result = inputHash
-    expect(hash('', saveHash(inputHash))).toEqual(result)
+
+    expect(hash('', saveHash(inputHash))).toEqual(inputHash)
   })
 })

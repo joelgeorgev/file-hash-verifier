@@ -2,14 +2,15 @@ import { progress } from './progress'
 import { saveProgress } from '../actions'
 
 describe('progress reducer', () => {
-  it('should handle initial state', () => {
-    const result = 100
-    expect(progress(undefined, {})).toEqual(result)
+  describe('When no action is given', () => {
+    test('returns initial state', () => {
+      expect(progress(undefined, {})).toEqual(100)
+    })
   })
 
-  it('should handle SAVE_PROGRESS', () => {
+  test('handles SAVE_PROGRESS action', () => {
     const progressValue = 90
-    const result = progressValue
-    expect(progress(0, saveProgress(progressValue))).toEqual(result)
+
+    expect(progress(0, saveProgress(progressValue))).toEqual(progressValue)
   })
 })

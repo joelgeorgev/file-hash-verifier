@@ -2,14 +2,15 @@ import { loading } from './loading'
 import { saveLoading } from '../actions'
 
 describe('loading reducer', () => {
-  it('should handle initial state', () => {
-    const result = false
-    expect(loading(undefined, {})).toEqual(result)
+  describe('When no action is given', () => {
+    test('returns initial state', () => {
+      expect(loading(undefined, {})).toEqual(false)
+    })
   })
 
-  it('should handle SAVE_LOADING', () => {
+  test('handles SAVE_LOADING action', () => {
     const loadingState = true
-    const result = loadingState
-    expect(loading(false, saveLoading(loadingState))).toEqual(result)
+
+    expect(loading(false, saveLoading(loadingState))).toEqual(loadingState)
   })
 })

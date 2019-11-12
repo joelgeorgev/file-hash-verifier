@@ -2,14 +2,15 @@ import { hashType } from './hashType'
 import { saveHashType } from '../actions'
 
 describe('hashType reducer', () => {
-  it('should handle initial state', () => {
-    const result = ''
-    expect(hashType(undefined, {})).toEqual(result)
+  describe('When no action is given', () => {
+    test('returns initial state', () => {
+      expect(hashType(undefined, {})).toEqual('')
+    })
   })
 
-  it('should handle SAVE_HASH_TYPE', () => {
+  test('handles SAVE_HASH_TYPE action', () => {
     const inputHashType = 'sha-512'
-    const result = inputHashType
-    expect(hashType('', saveHashType(inputHashType))).toEqual(result)
+
+    expect(hashType('', saveHashType(inputHashType))).toEqual(inputHashType)
   })
 })
