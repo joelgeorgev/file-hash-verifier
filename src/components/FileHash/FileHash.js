@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react'
 import Clipboard from 'clipboard'
 import styled from 'styled-components'
 
-import clippy from '../assets/clippy.svg'
+import clippy from '../../assets/clippy.svg'
 
 const Wrapper = styled.div`
   margin-top: 2rem;

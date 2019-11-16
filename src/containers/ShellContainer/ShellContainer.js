@@ -1,8 +1,8 @@
 import { connect } from 'react-redux'
 
-import { Shell } from '../components'
-import { setFile, setHashType, cancelFileRead } from '../actions'
-import * as selectors from '../reducers'
+import { Shell } from '../../components'
+import { setFile, setHashType, cancelFileRead } from '../../actions'
+import * as selectors from '../../reducers'
 
 const mapStateToProps = (state) => ({
   file: selectors.getFile(state),

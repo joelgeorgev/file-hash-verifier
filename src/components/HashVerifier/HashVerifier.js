@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 
-import success from '../assets/success.svg'
-import fail from '../assets/fail.svg'
+import success from '../../assets/success.svg'
+import fail from '../../assets/fail.svg'
 
 const Wrapper = styled.div`
   margin-top: 2rem;

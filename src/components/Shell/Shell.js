@@ -9,7 +9,7 @@ import {
   HashLoader,
   FileHash,
   HashVerifier
-} from '.'
+} from '..'
 
 const Wrapper = styled.div`
   margin: 0 auto;
