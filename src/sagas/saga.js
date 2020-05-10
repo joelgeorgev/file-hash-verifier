@@ -17,7 +17,7 @@ function* processHashType(action) {
   yield call(calculateHash)
 }
 
-export const saga = function*() {
+export const saga = function* () {
   yield takeEvery(SET_FILE, processFile)
   yield takeEvery(SET_HASH_TYPE, processHashType)
 }

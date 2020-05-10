@@ -36,7 +36,7 @@ const createFileReadChannel = (file) => {
   })
 }
 
-export const getArrayBuffer = function*(file) {
+export const getArrayBuffer = function* (file) {
   yield put(saveArrayBuffer(null))
   const fileReadChannel = yield call(createFileReadChannel, file)
   try {

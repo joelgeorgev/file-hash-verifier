@@ -15,7 +15,7 @@ const getHash = async ({ arrayBuffer, hashType }) => {
   return ''
 }
 
-export const calculateHash = function*() {
+export const calculateHash = function* () {
   yield put(saveHash(''))
   yield put(saveLoading(true))
   const arrayBuffer = yield select(getArrayBuffer)
