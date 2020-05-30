@@ -1,4 +1,3 @@
-export const SAVE_ARRAYBUFFER = 'SAVE_ARRAYBUFFER'
 export const SAVE_PROGRESS = 'SAVE_PROGRESS'
 export const SAVE_LOADING = 'SAVE_LOADING'
 export const SAVE_HASH = 'SAVE_HASH'
@@ -6,6 +5,7 @@ export const SAVE_HASH = 'SAVE_HASH'
 export const SELECT_FILE = 'SELECT_FILE'
 export const SELECT_HASH_TYPE = 'SELECT_HASH_TYPE'
 export const CANCEL_FILE_LOAD = 'CANCEL_FILE_LOAD'
+export const FILE_LOADED = 'FILE_LOADED'
 
 export const selectFile = (file) => ({
   type: SELECT_FILE,
@@ -21,10 +21,11 @@ export const cancelFileLoad = () => ({
   type: CANCEL_FILE_LOAD
 })
 
-export const saveArrayBuffer = (arrayBuffer) => ({
-  type: SAVE_ARRAYBUFFER,
-  arrayBuffer
+export const fileLoaded = (arrayBuffer) => ({
+  type: FILE_LOADED,
+  payload: { arrayBuffer }
 })
+
 export const saveProgress = (progress) => ({
   type: SAVE_PROGRESS,
   progress

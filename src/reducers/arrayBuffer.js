@@ -1,9 +1,13 @@
-import { SAVE_ARRAYBUFFER } from '../actions'
+import { FILE_LOADED, SELECT_FILE } from '../actions'
 
-export const arrayBuffer = (state = null, action) => {
-  switch (action.type) {
-    case SAVE_ARRAYBUFFER:
-      return action.arrayBuffer
+const initialState = null
+
+export const arrayBuffer = (state = initialState, { type, payload }) => {
+  switch (type) {
+    case FILE_LOADED:
+      return payload.arrayBuffer
+    case SELECT_FILE:
+      return initialState
     default:
       return state
   }

@@ -1,18 +1,25 @@
 import { arrayBuffer } from './arrayBuffer'
-import { saveArrayBuffer } from '../actions'
+import { fileLoaded, selectFile } from '../actions'
+
+const someFile = new File(['Hello World'], 'robots.txt', {
+  type: 'text/plain'
+})
+const someArrayBuffer = new ArrayBuffer(8)
 
 describe('arrayBuffer reducer', () => {
-  describe('When no action is given', () => {
-    test('returns initial state', () => {
-      expect(arrayBuffer(undefined, {})).toEqual(null)
-    })
+  test('returns the initial state', () => {
+    expect(arrayBuffer(undefined, {})).toEqual(null)
   })
 
-  test('handles SAVE_ARRAYBUFFER action', () => {
-    const inputArrayBuffer = new ArrayBuffer(8)
+  test('handles FILE_LOADED action', () => {
+    const action = fileLoaded(someArrayBuffer)
 
-    expect(arrayBuffer(null, saveArrayBuffer(inputArrayBuffer))).toEqual(
-      inputArrayBuffer
-    )
+    expect(arrayBuffer(null, action)).toEqual(someArrayBuffer)
+  })
+
+  test('handles SELECT_FILE action', () => {
+    const action = selectFile(someFile)
+
+    expect(arrayBuffer(someArrayBuffer, action)).toEqual(null)
   })
 })
