@@ -1,9 +1,11 @@
-import { SAVE_HASH_TYPE } from '../actions'
+import { SELECT_HASH_TYPE } from '../actions'
 
-export const hashType = (state = '', action) => {
-  switch (action.type) {
-    case SAVE_HASH_TYPE:
-      return action.hashType
+const initialState = null
+
+export const hashType = (state = initialState, { type, payload }) => {
+  switch (type) {
+    case SELECT_HASH_TYPE:
+      return payload.hashType
     default:
       return state
   }

@@ -1,5 +1,4 @@
 export const SAVE_ARRAYBUFFER = 'SAVE_ARRAYBUFFER'
-export const SAVE_HASH_TYPE = 'SAVE_HASH_TYPE'
 export const SAVE_PROGRESS = 'SAVE_PROGRESS'
 export const SAVE_LOADING = 'SAVE_LOADING'
 export const SAVE_HASH = 'SAVE_HASH'
@@ -25,10 +24,6 @@ export const cancelFileLoad = () => ({
 export const saveArrayBuffer = (arrayBuffer) => ({
   type: SAVE_ARRAYBUFFER,
   arrayBuffer
-})
-export const saveHashType = (hashType) => ({
-  type: SAVE_HASH_TYPE,
-  hashType
 })
 export const saveProgress = (progress) => ({
   type: SAVE_PROGRESS,

@@ -1,16 +1,16 @@
 import { hashType } from './hashType'
-import { saveHashType } from '../actions'
+import { selectHashType } from '../actions'
+
+const someHashType = 'sha-512'
 
 describe('hashType reducer', () => {
-  describe('When no action is given', () => {
-    test('returns initial state', () => {
-      expect(hashType(undefined, {})).toEqual('')
-    })
+  test('returns the initial state', () => {
+    expect(hashType(undefined, {})).toEqual(null)
   })
 
-  test('handles SAVE_HASH_TYPE action', () => {
-    const inputHashType = 'sha-512'
+  test('handles SELECT_HASH_TYPE action', () => {
+    const action = selectHashType(someHashType)
 
-    expect(hashType('', saveHashType(inputHashType))).toEqual(inputHashType)
+    expect(hashType(null, action)).toEqual(someHashType)
   })
 })

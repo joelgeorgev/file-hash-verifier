@@ -1,6 +1,6 @@
-import { takeEvery, put, call } from 'redux-saga/effects'
+import { takeEvery, call } from 'redux-saga/effects'
 
-import { saveHashType, SELECT_FILE, SELECT_HASH_TYPE } from '../actions'
+import { SELECT_FILE, SELECT_HASH_TYPE } from '../actions'
 import { getArrayBuffer, calculateHash } from '.'
 
 function* processFile({ payload: { file } }) {
@@ -8,8 +8,7 @@ function* processFile({ payload: { file } }) {
   yield call(calculateHash)
 }
 
-function* processHashType({ payload: { hashType } }) {
-  yield put(saveHashType(hashType))
+function* processHashType() {
   yield call(calculateHash)
 }
 
