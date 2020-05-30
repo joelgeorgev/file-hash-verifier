@@ -23,7 +23,7 @@ export const Shell = ({
   loading,
   hash,
   handleSelectFile,
-  setHashType,
+  handleSelectHashType,
   cancelFileRead
 }) => {
   const reading = progress !== 100 && progress !== -1
@@ -34,7 +34,7 @@ export const Shell = ({
       <FilePicker onChange={handleSelectFile} disabled={disabled} />
       <HashSelector
         hashType={hashType}
-        onChange={setHashType}
+        onChange={handleSelectHashType}
         disabled={disabled}
       />
       {reading && (

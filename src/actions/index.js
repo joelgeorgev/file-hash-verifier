@@ -1,4 +1,3 @@
-export const SET_HASH_TYPE = 'SET_HASH_TYPE'
 export const CANCEL_FILE_READ = 'CANCEL_FILE_READ'
 
 // Saga actions
@@ -10,16 +9,18 @@ export const SAVE_LOADING = 'SAVE_LOADING'
 export const SAVE_HASH = 'SAVE_HASH'
 
 export const SELECT_FILE = 'SELECT_FILE'
+export const SELECT_HASH_TYPE = 'SELECT_HASH_TYPE'
 
 export const selectFile = (file) => ({
   type: SELECT_FILE,
   payload: { file }
 })
 
-export const setHashType = (hashType) => ({
-  type: SET_HASH_TYPE,
-  hashType
+export const selectHashType = (hashType) => ({
+  type: SELECT_HASH_TYPE,
+  payload: { hashType }
 })
+
 export const cancelFileRead = () => ({
   type: CANCEL_FILE_READ
 })
