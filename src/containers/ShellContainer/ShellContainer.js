@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 
 import { Shell } from '../../components'
-import { setFile, setHashType, cancelFileRead } from '../../actions'
+import { selectFile, setHashType, cancelFileRead } from '../../actions'
 import * as selectors from '../../reducers'
 
 const mapStateToProps = (state) => ({
@@ -14,13 +14,13 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  setFile: (e) => {
+  handleSelectFile: (e) => {
     const files =
       e.dataTransfer && e.dataTransfer.files
         ? e.dataTransfer.files
         : e.target.files
     if (files.length) {
-      dispatch(setFile(files[0]))
+      dispatch(selectFile(files[0]))
     }
     e.target.value = null
   },

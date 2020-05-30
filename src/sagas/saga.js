@@ -1,10 +1,9 @@
 import { takeEvery, put, call } from 'redux-saga/effects'
 
-import { saveFile, saveHashType, SET_FILE, SET_HASH_TYPE } from '../actions'
+import { saveFile, saveHashType, SELECT_FILE, SET_HASH_TYPE } from '../actions'
 import { getArrayBuffer, calculateHash } from '.'
 
-function* processFile(action) {
-  const { file } = action
+function* processFile({ payload: { file } }) {
   yield put(saveFile(file))
   yield call(getArrayBuffer, file)
   yield call(calculateHash)
@@ -17,6 +16,6 @@ function* processHashType(action) {
 }
 
 export const saga = function* () {
-  yield takeEvery(SET_FILE, processFile)
+  yield takeEvery(SELECT_FILE, processFile)
   yield takeEvery(SET_HASH_TYPE, processHashType)
 }

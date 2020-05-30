@@ -22,7 +22,7 @@ export const Shell = ({
   progress,
   loading,
   hash,
-  setFile,
+  handleSelectFile,
   setHashType,
   cancelFileRead
 }) => {
@@ -31,7 +31,7 @@ export const Shell = ({
 
   return (
     <Wrapper>
-      <FilePicker onChange={setFile} disabled={disabled} />
+      <FilePicker onChange={handleSelectFile} disabled={disabled} />
       <HashSelector
         hashType={hashType}
         onChange={setHashType}

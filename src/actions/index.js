@@ -1,5 +1,3 @@
-// UI actions
-export const SET_FILE = 'SET_FILE'
 export const SET_HASH_TYPE = 'SET_HASH_TYPE'
 export const CANCEL_FILE_READ = 'CANCEL_FILE_READ'
 
@@ -11,11 +9,13 @@ export const SAVE_PROGRESS = 'SAVE_PROGRESS'
 export const SAVE_LOADING = 'SAVE_LOADING'
 export const SAVE_HASH = 'SAVE_HASH'
 
-// UI actions
-export const setFile = (file) => ({
-  type: SET_FILE,
-  file
+export const SELECT_FILE = 'SELECT_FILE'
+
+export const selectFile = (file) => ({
+  type: SELECT_FILE,
+  payload: { file }
 })
+
 export const setHashType = (hashType) => ({
   type: SET_HASH_TYPE,
   hashType
