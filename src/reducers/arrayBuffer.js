@@ -1,4 +1,4 @@
-import { SAVE_ARRAYBUFFER } from '../constants/ActionTypes'
+import { SAVE_ARRAYBUFFER } from '../actions'
 
 export const arrayBuffer = (state = null, action) => {
   switch (action.type) {

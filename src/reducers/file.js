@@ -1,4 +1,4 @@
-import { SAVE_FILE } from '../constants/ActionTypes'
+import { SAVE_FILE } from '../actions'
 
 export const file = (state = null, action) => {
   switch (action.type) {

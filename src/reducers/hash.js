@@ -1,4 +1,4 @@
-import { SAVE_HASH } from '../constants/ActionTypes'
+import { SAVE_HASH } from '../actions'
 
 export const hash = (state = '', action) => {
   switch (action.type) {

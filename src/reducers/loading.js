@@ -1,4 +1,4 @@
-import { SAVE_LOADING } from '../constants/ActionTypes'
+import { SAVE_LOADING } from '../actions'
 
 export const loading = (state = false, action) => {
   switch (action.type) {

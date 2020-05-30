@@ -1,7 +1,6 @@
 import { takeEvery, put, call } from 'redux-saga/effects'
 
-import { saveFile, saveHashType } from '../actions'
-import { SET_FILE, SET_HASH_TYPE } from '../constants/ActionTypes'
+import { saveFile, saveHashType, SET_FILE, SET_HASH_TYPE } from '../actions'
 import { getArrayBuffer, calculateHash } from '.'
 
 function* processFile(action) {

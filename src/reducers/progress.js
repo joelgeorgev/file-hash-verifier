@@ -1,4 +1,4 @@
-import { SAVE_PROGRESS } from '../constants/ActionTypes'
+import { SAVE_PROGRESS } from '../actions'
 
 export const progress = (state = 100, action) => {
   switch (action.type) {

@@ -2,7 +2,7 @@ import { eventChannel, END } from 'redux-saga'
 import { take, put, call, race } from 'redux-saga/effects'
 
 import { saveFile, saveArrayBuffer, saveProgress } from '../actions'
-import { CANCEL_FILE_READ } from '../constants/ActionTypes'
+import { CANCEL_FILE_READ } from '../actions'
 
 const createFileReadChannel = (file) => {
   return eventChannel((emitter) => {
