@@ -1,9 +1,13 @@
-import { SAVE_FILE } from '../actions'
+import { SELECT_FILE, CANCEL_FILE_LOAD } from '../actions'
 
-export const file = (state = null, action) => {
-  switch (action.type) {
-    case SAVE_FILE:
-      return action.file
+const initialState = null
+
+export const file = (state = initialState, { type, payload }) => {
+  switch (type) {
+    case SELECT_FILE:
+      return payload.file
+    case CANCEL_FILE_LOAD:
+      return initialState
     default:
       return state
   }

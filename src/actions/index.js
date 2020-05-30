@@ -1,5 +1,3 @@
-// Saga actions
-export const SAVE_FILE = 'SAVE_FILE'
 export const SAVE_ARRAYBUFFER = 'SAVE_ARRAYBUFFER'
 export const SAVE_HASH_TYPE = 'SAVE_HASH_TYPE'
 export const SAVE_PROGRESS = 'SAVE_PROGRESS'
@@ -24,11 +22,6 @@ export const cancelFileLoad = () => ({
   type: CANCEL_FILE_LOAD
 })
 
-// Saga actions
-export const saveFile = (file) => ({
-  type: SAVE_FILE,
-  file
-})
 export const saveArrayBuffer = (arrayBuffer) => ({
   type: SAVE_ARRAYBUFFER,
   arrayBuffer
