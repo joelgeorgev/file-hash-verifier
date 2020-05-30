@@ -24,7 +24,7 @@ export const Shell = ({
   hash,
   handleSelectFile,
   handleSelectHashType,
-  cancelFileRead
+  handleCancelFileLoad
 }) => {
   const reading = progress !== 100 && progress !== -1
   const disabled = reading || loading
@@ -38,7 +38,7 @@ export const Shell = ({
         disabled={disabled}
       />
       {reading && (
-        <FileLoader progress={progress} cancelFileRead={cancelFileRead} />
+        <FileLoader progress={progress} onCancel={handleCancelFileLoad} />
       )}
       {arrayBuffer && (
         <>

@@ -2,7 +2,7 @@ import { eventChannel, END } from 'redux-saga'
 import { take, put, call, race } from 'redux-saga/effects'
 
 import { saveFile, saveArrayBuffer, saveProgress } from '../actions'
-import { CANCEL_FILE_READ } from '../actions'
+import { CANCEL_FILE_LOAD } from '../actions'
 
 const createFileReadChannel = (file) => {
   return eventChannel((emitter) => {
@@ -41,9 +41,9 @@ export const getArrayBuffer = function* (file) {
   const fileReadChannel = yield call(createFileReadChannel, file)
   try {
     while (true) {
-      const { channelOutput, cancelFileRead } = yield race({
+      const { channelOutput, cancelFileLoad } = yield race({
         channelOutput: take(fileReadChannel),
-        cancelFileRead: take(CANCEL_FILE_READ)
+        cancelFileLoad: take(CANCEL_FILE_LOAD)
       })
       if (channelOutput) {
         const { progress, arrayBuffer, error } = channelOutput
@@ -56,7 +56,7 @@ export const getArrayBuffer = function* (file) {
           return
         }
         yield put(saveProgress(progress))
-      } else if (cancelFileRead) {
+      } else if (cancelFileLoad) {
         fileReadChannel.close()
         yield put(saveProgress(-1))
         yield put(saveFile(null))

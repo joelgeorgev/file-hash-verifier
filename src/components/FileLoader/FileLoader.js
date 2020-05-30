@@ -11,9 +11,9 @@ const Button = styled.button`
   margin-left: 0.5rem;
 `
 
-export const FileLoader = ({ progress, cancelFileRead }) => (
+export const FileLoader = ({ progress, onCancel }) => (
   <Wrapper>
     <label>Loading file: {progress}%</label>
-    <Button onClick={cancelFileRead}>Cancel</Button>
+    <Button onClick={onCancel}>Cancel</Button>
   </Wrapper>
 )

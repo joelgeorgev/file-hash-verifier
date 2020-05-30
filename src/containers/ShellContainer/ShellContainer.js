@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 
 import { Shell } from '../../components'
-import { selectFile, selectHashType, cancelFileRead } from '../../actions'
+import { selectFile, selectHashType, cancelFileLoad } from '../../actions'
 import * as selectors from '../../reducers'
 
 const mapStateToProps = (state) => ({
@@ -25,7 +25,7 @@ const mapDispatchToProps = (dispatch) => ({
     e.target.value = null
   },
   handleSelectHashType: (e) => dispatch(selectHashType(e.target.value)),
-  cancelFileRead: () => dispatch(cancelFileRead())
+  handleCancelFileLoad: () => dispatch(cancelFileLoad())
 })
 
 export const ShellContainer = connect(
