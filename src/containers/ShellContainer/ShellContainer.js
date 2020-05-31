@@ -8,7 +8,7 @@ const mapStateToProps = (state) => ({
   file: selectors.getFile(state),
   arrayBuffer: selectors.getArrayBuffer(state),
   hashType: selectors.getHashType(state),
-  fileLoadStatus: selectors.getFileLoadStatus(state),
+  fileLoadProgress: selectors.getFileLoadProgress(state),
   isCalculatingHash: selectors.getCalculatingHash(state),
   hash: selectors.getHash(state)
 })

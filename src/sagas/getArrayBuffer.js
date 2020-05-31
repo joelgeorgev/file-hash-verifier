@@ -1,7 +1,7 @@
 import { eventChannel, END } from 'redux-saga'
 import { take, put, call, race } from 'redux-saga/effects'
 
-import { fileLoaded, fileLoadStatus } from '../actions'
+import { fileLoaded, fileLoadProgress } from '../actions'
 import { CANCEL_FILE_LOAD } from '../actions'
 
 const createFileReadChannel = (file) => {
@@ -54,7 +54,7 @@ export const getArrayBuffer = function* (file) {
           console.error('Error during file read operation: ', error)
           return
         }
-        yield put(fileLoadStatus(progress))
+        yield put(fileLoadProgress(progress))
       } else if (cancelFileLoad) {
         fileReadChannel.close()
       }
