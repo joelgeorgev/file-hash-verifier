@@ -1,20 +1,20 @@
-import { calculatingHash } from './calculatingHash'
+import { isCalculatingHash } from './isCalculatingHash'
 import { hashCalculationStarted, hashCalculated } from '../actions'
 
-describe('calculatingHash reducer', () => {
+describe('isCalculatingHash reducer', () => {
   test('returns the initial state', () => {
-    expect(calculatingHash(undefined, {})).toEqual(false)
+    expect(isCalculatingHash(undefined, {})).toEqual(false)
   })
 
   test('handles HASH_CALCULATION_STARTED action', () => {
     const action = hashCalculationStarted()
 
-    expect(calculatingHash(false, action)).toEqual(true)
+    expect(isCalculatingHash(false, action)).toEqual(true)
   })
 
   test('handles HASH_CALCULATED action', () => {
     const action = hashCalculated()
 
-    expect(calculatingHash(true, action)).toEqual(false)
+    expect(isCalculatingHash(true, action)).toEqual(false)
   })
 })

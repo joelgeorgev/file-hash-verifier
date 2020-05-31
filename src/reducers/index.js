@@ -4,7 +4,7 @@ import { file } from './file'
 import { arrayBuffer } from './arrayBuffer'
 import { hashType } from './hashType'
 import { fileLoadStatus } from './fileLoadStatus'
-import { calculatingHash } from './calculatingHash'
+import { isCalculatingHash } from './isCalculatingHash'
 import { hash } from './hash'
 
 export const rootReducer = combineReducers({
@@ -12,7 +12,7 @@ export const rootReducer = combineReducers({
   arrayBuffer,
   hashType,
   fileLoadStatus,
-  calculatingHash,
+  isCalculatingHash,
   hash
 })
 
@@ -21,5 +21,5 @@ export const getFile = (state) => state.file
 export const getArrayBuffer = (state) => state.arrayBuffer
 export const getHashType = (state) => state.hashType
 export const getFileLoadStatus = (state) => state.fileLoadStatus
-export const isCalculatingHash = (state) => state.calculatingHash
+export const getCalculatingHash = (state) => state.isCalculatingHash
 export const getHash = (state) => state.hash

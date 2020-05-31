@@ -9,7 +9,7 @@ const mapStateToProps = (state) => ({
   arrayBuffer: selectors.getArrayBuffer(state),
   hashType: selectors.getHashType(state),
   fileLoadStatus: selectors.getFileLoadStatus(state),
-  calculatingHash: selectors.isCalculatingHash(state),
+  isCalculatingHash: selectors.getCalculatingHash(state),
   hash: selectors.getHash(state)
 })
 
