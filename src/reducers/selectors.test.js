@@ -33,13 +33,13 @@ describe('Selectors', () => {
     })
   })
 
-  describe('getProgress', () => {
-    const { getProgress } = selectors
+  describe('getFileLoadStatus', () => {
+    const { getFileLoadStatus } = selectors
 
-    test('selects progress from state', () => {
-      const progress = 90
+    test('selects file load status from state', () => {
+      const fileLoadStatus = 90
 
-      expect(getProgress({ progress })).toEqual(progress)
+      expect(getFileLoadStatus({ fileLoadStatus })).toEqual(fileLoadStatus)
     })
   })
 

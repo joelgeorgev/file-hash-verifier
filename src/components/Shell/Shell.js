@@ -19,15 +19,14 @@ export const Shell = ({
   file,
   arrayBuffer,
   hashType,
-  progress,
+  fileLoadStatus,
   loading,
   hash,
   handleSelectFile,
   handleSelectHashType,
   handleCancelFileLoad
 }) => {
-  const reading = progress !== 100 && progress !== -1
-  const disabled = reading || loading
+  const disabled = fileLoadStatus || loading
 
   return (
     <Wrapper>
@@ -37,8 +36,8 @@ export const Shell = ({
         onChange={handleSelectHashType}
         disabled={disabled}
       />
-      {reading && (
-        <FileLoader progress={progress} onCancel={handleCancelFileLoad} />
+      {fileLoadStatus && (
+        <FileLoader progress={fileLoadStatus} onCancel={handleCancelFileLoad} />
       )}
       {arrayBuffer && (
         <>

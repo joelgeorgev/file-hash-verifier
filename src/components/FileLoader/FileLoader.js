@@ -14,6 +14,6 @@ const Button = styled.button`
 export const FileLoader = ({ progress, onCancel }) => (
   <Wrapper>
     <label>Loading file: {progress}%</label>
-    <Button onClick={onCancel}>Cancel</Button>
+    {progress !== 100 && <Button onClick={onCancel}>Cancel</Button>}
   </Wrapper>
 )
