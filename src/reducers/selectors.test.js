@@ -43,13 +43,13 @@ describe('Selectors', () => {
     })
   })
 
-  describe('getLoading', () => {
-    const { getLoading } = selectors
+  describe('isCalculatingHash', () => {
+    const { isCalculatingHash } = selectors
 
-    test('selects loading from state', () => {
-      const loading = true
+    test('selects calculating hash from state', () => {
+      const calculatingHash = true
 
-      expect(getLoading({ loading })).toEqual(loading)
+      expect(isCalculatingHash({ calculatingHash })).toEqual(calculatingHash)
     })
   })
 

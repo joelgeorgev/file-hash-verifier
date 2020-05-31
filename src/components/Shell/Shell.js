@@ -20,13 +20,13 @@ export const Shell = ({
   arrayBuffer,
   hashType,
   fileLoadStatus,
-  loading,
+  calculatingHash,
   hash,
   handleSelectFile,
   handleSelectHashType,
   handleCancelFileLoad
 }) => {
-  const disabled = fileLoadStatus || loading
+  const disabled = fileLoadStatus || calculatingHash
 
   return (
     <Wrapper>
@@ -42,7 +42,7 @@ export const Shell = ({
       {arrayBuffer && (
         <>
           <FileDetails file={file} />
-          {loading && <HashLoader />}
+          {calculatingHash && <HashLoader />}
           {hash && (
             <>
               <FileHash hash={hash} />

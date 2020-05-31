@@ -1,11 +1,10 @@
-export const SAVE_LOADING = 'SAVE_LOADING'
-export const SAVE_HASH = 'SAVE_HASH'
-
 export const SELECT_FILE = 'SELECT_FILE'
 export const SELECT_HASH_TYPE = 'SELECT_HASH_TYPE'
 export const CANCEL_FILE_LOAD = 'CANCEL_FILE_LOAD'
 export const FILE_LOADED = 'FILE_LOADED'
 export const FILE_LOAD_STATUS = 'FILE_LOAD_STATUS'
+export const HASH_CALCULATION_STARTED = 'HASH_CALCULATION_STARTED'
+export const HASH_CALCULATED = 'HASH_CALCULATED'
 
 export const selectFile = (file) => ({
   type: SELECT_FILE,
@@ -31,11 +30,11 @@ export const fileLoadStatus = (status) => ({
   payload: { status }
 })
 
-export const saveLoading = (loading) => ({
-  type: SAVE_LOADING,
-  loading
+export const hashCalculationStarted = () => ({
+  type: HASH_CALCULATION_STARTED
 })
-export const saveHash = (hash) => ({
-  type: SAVE_HASH,
-  hash
+
+export const hashCalculated = (hash) => ({
+  type: HASH_CALCULATED,
+  payload: { hash }
 })

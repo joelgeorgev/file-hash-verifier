@@ -1,16 +1,28 @@
 import { hash } from './hash'
-import { saveHash } from '../actions'
+import { hashCalculated, selectFile, selectHashType } from '../actions'
+
+const someHash = 'hash'
 
 describe('hash reducer', () => {
-  describe('When no action is given', () => {
-    test('returns initial state', () => {
-      expect(hash(undefined, {})).toEqual('')
-    })
+  test('returns the initial state', () => {
+    expect(hash(undefined, {})).toEqual(null)
   })
 
-  test('handles SAVE_HASH action', () => {
-    const inputHash = 'hash'
+  test('handles HASH_CALCULATED action', () => {
+    const action = hashCalculated(someHash)
 
-    expect(hash('', saveHash(inputHash))).toEqual(inputHash)
+    expect(hash(null, action)).toEqual(someHash)
+  })
+
+  test('handles SELECT_FILE action', () => {
+    const action = selectFile()
+
+    expect(hash(someHash, action)).toEqual(null)
+  })
+
+  test('handles SELECT_HASH_TYPE action', () => {
+    const action = selectHashType()
+
+    expect(hash(someHash, action)).toEqual(null)
   })
 })
