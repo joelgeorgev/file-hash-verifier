@@ -1,9 +1,6 @@
 import { arrayBuffer } from './arrayBuffer'
 import { fileLoaded, selectFile } from '../actions'
 
-const someFile = new File(['Hello World'], 'robots.txt', {
-  type: 'text/plain'
-})
 const someArrayBuffer = new ArrayBuffer(8)
 
 describe('arrayBuffer reducer', () => {
@@ -18,7 +15,7 @@ describe('arrayBuffer reducer', () => {
   })
 
   test('handles SELECT_FILE action', () => {
-    const action = selectFile(someFile)
+    const action = selectFile()
 
     expect(arrayBuffer(someArrayBuffer, action)).toEqual(null)
   })
