@@ -17,14 +17,14 @@ const Wrapper = styled.div`
 
 export const Shell = ({
   file,
+  fileLoadProgress,
   arrayBuffer,
   hashType,
-  fileLoadProgress,
   isCalculatingHash,
   hash,
   handleSelectFile,
-  handleSelectHashType,
-  handleCancelFileLoad
+  handleCancelFileLoad,
+  handleSelectHashType
 }) => {
   const disabled = fileLoadProgress || isCalculatingHash
 
