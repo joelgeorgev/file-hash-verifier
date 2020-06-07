@@ -5,12 +5,12 @@ import createSagaMiddleware from 'redux-saga'
 import styled from 'styled-components'
 
 import { ShellContainer } from './containers'
-import { rootReducer } from './reducers'
+import { reducer } from './reducers'
 import { saga } from './sagas'
 import github from './assets/github.svg'
 
 const sagaMiddleware = createSagaMiddleware()
-const store = createStore(rootReducer, applyMiddleware(sagaMiddleware))
+const store = createStore(reducer, applyMiddleware(sagaMiddleware))
 sagaMiddleware.run(saga)
 
 const Section = styled.section`
