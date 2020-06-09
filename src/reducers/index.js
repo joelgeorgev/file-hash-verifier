@@ -75,7 +75,7 @@ export const reducer = (state = initialState, action) => {
     case HASH_CALCULATED:
       return hashCalculated(state, action)
     default:
-      return initialState
+      return state
   }
 }
 
