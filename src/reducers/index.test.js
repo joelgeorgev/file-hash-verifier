@@ -5,7 +5,6 @@ import {
   cancelFileLoad,
   fileLoaded,
   selectHashType,
-  hashCalculationStarted,
   hashCalculated
 } from '../actions'
 
@@ -132,17 +131,49 @@ describe('reducer', () => {
     })
   })
 
-  describe('When hash calculation is started', () => {
-    const prevState = createState({ isCalculatingHash: false })
-    const action = hashCalculationStarted()
+  describe('Given the file is loaded', () => {
+    const prevState = createState({ arrayBuffer })
     let newState
 
-    beforeEach(() => {
-      newState = reducer(prevState, action)
-    })
+    describe('When a hash type is selected', () => {
+      const action = selectHashType(hashType)
 
-    test('enables hash calculation', () => {
-      expect(newState).toEqual(createState({ isCalculatingHash: true }))
+      beforeEach(() => {
+        newState = reducer(prevState, action)
+      })
+
+      test('enables hash calculation', () => {
+        expect(newState).toEqual(
+          createState({
+            arrayBuffer,
+            hashType,
+            isCalculatingHash: true
+          })
+        )
+      })
+    })
+  })
+
+  describe('Given a hash type is selected', () => {
+    const prevState = createState({ hashType })
+    let newState
+
+    describe('When the file is loaded', () => {
+      const action = fileLoaded(arrayBuffer)
+
+      beforeEach(() => {
+        newState = reducer(prevState, action)
+      })
+
+      test('enables hash calculation', () => {
+        expect(newState).toEqual(
+          createState({
+            hashType,
+            arrayBuffer,
+            isCalculatingHash: true
+          })
+        )
+      })
     })
   })
 

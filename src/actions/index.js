@@ -3,7 +3,6 @@ export const FILE_LOAD_PROGRESS = 'FILE_LOAD_PROGRESS'
 export const CANCEL_FILE_LOAD = 'CANCEL_FILE_LOAD'
 export const FILE_LOADED = 'FILE_LOADED'
 export const SELECT_HASH_TYPE = 'SELECT_HASH_TYPE'
-export const HASH_CALCULATION_STARTED = 'HASH_CALCULATION_STARTED'
 export const HASH_CALCULATED = 'HASH_CALCULATED'
 
 export const selectFile = (file) => ({
@@ -28,10 +27,6 @@ export const fileLoaded = (arrayBuffer) => ({
 export const selectHashType = (hashType) => ({
   type: SELECT_HASH_TYPE,
   payload: { hashType }
-})
-
-export const hashCalculationStarted = () => ({
-  type: HASH_CALCULATION_STARTED
 })
 
 export const hashCalculated = (hash) => ({

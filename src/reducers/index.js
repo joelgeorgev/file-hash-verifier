@@ -4,7 +4,6 @@ import {
   CANCEL_FILE_LOAD,
   FILE_LOADED,
   SELECT_HASH_TYPE,
-  HASH_CALCULATION_STARTED,
   HASH_CALCULATED
 } from '../actions'
 
@@ -38,18 +37,15 @@ const cancelFileLoad = (state) => ({
 const fileLoaded = (state, { payload }) => ({
   ...state,
   arrayBuffer: payload.arrayBuffer,
-  fileLoadProgress: initialState.fileLoadProgress
+  fileLoadProgress: initialState.fileLoadProgress,
+  isCalculatingHash: state.hashType ? true : false
 })
 
 const selectHashType = (state, { payload }) => ({
   ...state,
   hashType: payload.hashType,
-  hash: initialState.hash
-})
-
-const hashCalculationStarted = (state) => ({
-  ...state,
-  isCalculatingHash: true
+  hash: initialState.hash,
+  isCalculatingHash: state.arrayBuffer ? true : false
 })
 
 const hashCalculated = (state, { payload }) => ({
@@ -70,8 +66,6 @@ export const reducer = (state = initialState, action) => {
       return fileLoaded(state, action)
     case SELECT_HASH_TYPE:
       return selectHashType(state, action)
-    case HASH_CALCULATION_STARTED:
-      return hashCalculationStarted(state)
     case HASH_CALCULATED:
       return hashCalculated(state, action)
     default:

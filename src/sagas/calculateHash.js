@@ -1,6 +1,6 @@
 import { put, call, select } from 'redux-saga/effects'
 
-import { hashCalculationStarted, hashCalculated } from '../actions'
+import { hashCalculated } from '../actions'
 import { getArrayBuffer, getHashType } from '../reducers'
 
 const getHash = async ({ arrayBuffer, hashType }) => {
@@ -16,8 +16,6 @@ const getHash = async ({ arrayBuffer, hashType }) => {
 }
 
 export const calculateHash = function* () {
-  // TODO: Move enabling calculating hash to the reducer
-  yield put(hashCalculationStarted())
   const arrayBuffer = yield select(getArrayBuffer)
   const hashType = yield select(getHashType)
   const hash = yield call(getHash, { arrayBuffer, hashType })
