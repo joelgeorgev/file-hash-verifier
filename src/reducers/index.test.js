@@ -32,14 +32,15 @@ describe('reducer', () => {
   })
 
   describe('When a file is selected', () => {
-    const prevState = createState({
-      arrayBuffer,
-      hash
-    })
-    const action = selectFile(file)
     let newState
 
     beforeEach(() => {
+      const prevState = createState({
+        arrayBuffer,
+        hash
+      })
+      const action = selectFile(file)
+
       newState = reducer(prevState, action)
     })
 
@@ -55,11 +56,12 @@ describe('reducer', () => {
   })
 
   describe('When the file load is in progress', () => {
-    const prevState = createState({ fileLoadProgress: null })
-    const action = fileLoadProgress(progress)
     let newState
 
     beforeEach(() => {
+      const prevState = createState({ fileLoadProgress: null })
+      const action = fileLoadProgress(progress)
+
       newState = reducer(prevState, action)
     })
 
@@ -69,14 +71,15 @@ describe('reducer', () => {
   })
 
   describe('When the file load is cancelled', () => {
-    const prevState = createState({
-      file,
-      fileLoadProgress: progress
-    })
-    const action = cancelFileLoad()
     let newState
 
     beforeEach(() => {
+      const prevState = createState({
+        file,
+        fileLoadProgress: progress
+      })
+      const action = cancelFileLoad()
+
       newState = reducer(prevState, action)
     })
 
@@ -91,14 +94,15 @@ describe('reducer', () => {
   })
 
   describe('When the file is loaded', () => {
-    const prevState = createState({
-      arrayBuffer: null,
-      fileLoadProgress: progress
-    })
-    const action = fileLoaded(arrayBuffer)
     let newState
 
     beforeEach(() => {
+      const prevState = createState({
+        arrayBuffer: null,
+        fileLoadProgress: progress
+      })
+      const action = fileLoaded(arrayBuffer)
+
       newState = reducer(prevState, action)
     })
 
@@ -113,11 +117,12 @@ describe('reducer', () => {
   })
 
   describe('When a hash type is selected', () => {
-    const prevState = createState({ hash })
-    const action = selectHashType(hashType)
     let newState
 
     beforeEach(() => {
+      const prevState = createState({ hash })
+      const action = selectHashType(hashType)
+
       newState = reducer(prevState, action)
     })
 
@@ -132,13 +137,13 @@ describe('reducer', () => {
   })
 
   describe('Given the file is loaded', () => {
-    const prevState = createState({ arrayBuffer })
     let newState
 
     describe('When a hash type is selected', () => {
-      const action = selectHashType(hashType)
-
       beforeEach(() => {
+        const prevState = createState({ arrayBuffer })
+        const action = selectHashType(hashType)
+
         newState = reducer(prevState, action)
       })
 
@@ -155,13 +160,13 @@ describe('reducer', () => {
   })
 
   describe('Given a hash type is selected', () => {
-    const prevState = createState({ hashType })
     let newState
 
     describe('When the file is loaded', () => {
-      const action = fileLoaded(arrayBuffer)
-
       beforeEach(() => {
+        const prevState = createState({ hashType })
+        const action = fileLoaded(arrayBuffer)
+
         newState = reducer(prevState, action)
       })
 
@@ -178,14 +183,15 @@ describe('reducer', () => {
   })
 
   describe('When hash is calculated', () => {
-    const prevState = createState({
-      isCalculatingHash: true,
-      hash: null
-    })
-    const action = hashCalculated(hash)
     let newState
 
     beforeEach(() => {
+      const prevState = createState({
+        isCalculatingHash: true,
+        hash: null
+      })
+      const action = hashCalculated(hash)
+
       newState = reducer(prevState, action)
     })
 
