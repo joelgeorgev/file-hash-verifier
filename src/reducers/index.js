@@ -72,10 +72,3 @@ export const reducer = (state = initialState, action) => {
       return state
   }
 }
-
-export const getFile = (state) => state.file
-export const getFileLoadProgress = (state) => state.fileLoadProgress
-export const getArrayBuffer = (state) => state.arrayBuffer
-export const getHashType = (state) => state.hashType
-export const getCalculatingHash = (state) => state.isCalculatingHash
-export const getHash = (state) => state.hash
