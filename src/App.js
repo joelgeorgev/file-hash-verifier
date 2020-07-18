@@ -13,7 +13,7 @@ const sagaMiddleware = createSagaMiddleware()
 const store = createStore(reducer, applyMiddleware(sagaMiddleware))
 sagaMiddleware.run(saga)
 
-const Section = styled.section`
+const Main = styled.main`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -23,7 +23,7 @@ const Section = styled.section`
   margin: 0 auto;
 `
 
-const Wrapper = styled.div`
+const Section = styled.section`
   display: flex;
   flex-direction: column;
   flex: 1;
@@ -31,23 +31,23 @@ const Wrapper = styled.div`
   overflow: auto;
 `
 
-const Footer = styled.div`
+const Footer = styled.footer`
   margin: 2rem;
 `
 
 export const App = () => (
-  <main>
+  <Main>
     <Section>
-      <Wrapper>
+      <article>
         <Provider store={store}>
           <ShellContainer />
         </Provider>
-      </Wrapper>
-      <Footer>
-        <a href='https://github.com/joelgeorgev/file-hash-verifier'>
-          <img src={github} alt='GitHub' />
-        </a>
-      </Footer>
+      </article>
     </Section>
-  </main>
+    <Footer>
+      <a href='https://github.com/joelgeorgev/file-hash-verifier'>
+        <img src={github} alt='GitHub repository' />
+      </a>
+    </Footer>
+  </Main>
 )
