@@ -36,7 +36,7 @@ const Footer = styled.div`
 `
 
 export const App = () => (
-  <main role='main'>
+  <main>
     <Section>
       <Wrapper>
         <Provider store={store}>
