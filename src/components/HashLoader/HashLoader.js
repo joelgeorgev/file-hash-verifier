@@ -7,8 +7,4 @@ const Wrapper = styled.div`
   text-align: center;
 `
 
-export const HashLoader = () => (
-  <Wrapper>
-    <label>Calculating Hash...</label>
-  </Wrapper>
-)
+export const HashLoader = () => <Wrapper>Calculating Hash...</Wrapper>
