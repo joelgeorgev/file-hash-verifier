@@ -7,13 +7,14 @@ const Wrapper = styled.div`
   text-align: center;
 `
 
-const Button = styled.button`
-  margin-left: 0.5rem;
+const Progress = styled.progress`
+  margin: 0 1rem;
 `
 
 export const FileLoader = ({ progress, onCancel }) => (
   <Wrapper>
-    <label>Loading file: {progress}%</label>
-    {progress !== 100 && <Button onClick={onCancel}>Cancel</Button>}
+    <label htmlFor='file-load-progress'>Loading file:</label>
+    <Progress id='file-load-progress' max='100' value={`${progress}`} />
+    {progress !== 100 && <button onClick={onCancel}>Cancel</button>}
   </Wrapper>
 )
