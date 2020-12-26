@@ -46,7 +46,7 @@ export const App = () => (
     </Section>
     <Footer>
       <a href='https://github.com/joelgeorgev/file-hash-verifier'>
-        <img src={github} alt='GitHub repository' />
+        <img src={github} alt='Go to GitHub repository page' />
       </a>
     </Footer>
   </Main>
