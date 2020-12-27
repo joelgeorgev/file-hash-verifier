@@ -26,6 +26,7 @@ const Main = styled.main`
 const Header = styled.header`
   text-align: center;
 `
+
 const Section = styled.section`
   display: flex;
   flex-direction: column;
