@@ -13,14 +13,20 @@
   },
   "devDependencies": {
     "@testing-library/react": "^11.2.6",
+    "@types/react": "^17.0.3",
+    "@types/react-dom": "^17.0.3",
+    "@types/styled-components": "^5.1.9",
     "gh-pages": "^3.1.0",
     "prettier": "^2.0.5",
-    "react-scripts": "^4.0.3"
+    "react-scripts": "^4.0.3",
+    "typescript": "^4.2.4"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "format": "prettier --check \"./**/*.{js,json,yml,md}\"",
+    "compile": "tsc",
+    "compile:watch": "tsc --watch",
+    "format": "prettier --check \"./**/*.{ts,tsx,js,json,yml,md}\"",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
