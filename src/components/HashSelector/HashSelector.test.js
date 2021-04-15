@@ -31,47 +31,27 @@ describe('HashSelector', () => {
     expect(findFourthRadioButton()).toBeDefined()
   })
 
-  describe('When hashType is', () => {
-    ;[
-      {
-        hashType: 'sha-1',
-        checkedStates: [true, false, false, false]
-      },
-      {
-        hashType: 'sha-256',
-        checkedStates: [false, true, false, false]
-      },
-      {
-        hashType: 'sha-384',
-        checkedStates: [false, false, true, false]
-      },
-      {
-        hashType: 'sha-512',
-        checkedStates: [false, false, false, true]
-      }
-    ].forEach(({ hashType, checkedStates }) => {
-      describe(`${hashType}`, () => {
-        test('renders the radio buttons as checked', () => {
-          renderHashSelector({ hashType })
+  describe.each([
+    ['sha-1', [true, false, false, false]],
+    ['sha-256', [false, true, false, false]],
+    ['sha-384', [false, false, true, false]],
+    ['sha-512', [false, false, false, true]]
+  ])('When `hashType` is "%s"', (hashType, checkedStates) => {
+    test('renders the corresponding radio button as checked', () => {
+      renderHashSelector({ hashType })
 
-          expect(findFirstRadioButton().checked).toEqual(checkedStates[0])
-          expect(findSecondRadioButton().checked).toEqual(checkedStates[1])
-          expect(findThirdRadioButton().checked).toEqual(checkedStates[2])
-          expect(findFourthRadioButton().checked).toEqual(checkedStates[3])
-        })
-      })
+      expect(findFirstRadioButton().checked).toEqual(checkedStates[0])
+      expect(findSecondRadioButton().checked).toEqual(checkedStates[1])
+      expect(findThirdRadioButton().checked).toEqual(checkedStates[2])
+      expect(findFourthRadioButton().checked).toEqual(checkedStates[3])
     })
   })
 
-  describe('When `isDisabled` is', () => {
-    ;[true, false].forEach((isDisabled) => {
-      describe(`${isDisabled}`, () => {
-        test(`sets disabled as ${isDisabled} on the field set element`, () => {
-          renderHashSelector({ isDisabled })
+  describe.each([true, false])('When `isDisabled` is %s', (isDisabled) => {
+    test(`sets disabled as ${isDisabled} on the field set element`, () => {
+      renderHashSelector({ isDisabled })
 
-          expect(findFieldSet().disabled).toEqual(isDisabled)
-        })
-      })
+      expect(findFieldSet().disabled).toEqual(isDisabled)
     })
   })
 })
