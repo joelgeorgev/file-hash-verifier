@@ -1,23 +1,28 @@
-import React from 'react'
+import { ComponentProps } from 'react'
 import { render, screen, fireEvent } from '@testing-library/react'
 
 import { HashSelector } from '.'
 
-const createDefaultProps = () => ({
-  hashType: '',
+type Props = ComponentProps<typeof HashSelector>
+
+const createDefaultProps = (): Props => ({
+  hashType: null,
   isDisabled: false,
   onChange: () => {}
 })
 
-const renderHashSelector = (props) =>
+const renderHashSelector = (props?: Partial<Props>) =>
   render(<HashSelector {...createDefaultProps()} {...props} />)
 
-const findFieldSet = () => screen.getByRole('group')
-const findRadioButtons = () => screen.getAllByRole('radio')
-const findRadioButton = (label) => screen.getByLabelText(label)
+const findFieldSet = (): HTMLFieldSetElement =>
+  screen.getByRole('group') as HTMLFieldSetElement
+const findRadioButtons = (): HTMLInputElement[] =>
+  screen.getAllByRole('radio') as HTMLInputElement[]
+const findRadioButton = (label: string): HTMLInputElement =>
+  screen.getByLabelText(label) as HTMLInputElement
 
 describe('HashSelector', () => {
-  test.each([
+  test.each<[string, Props['hashType']]>([
     ['SHA-1', 'sha-1'],
     ['SHA-256', 'sha-256'],
     ['SHA-384', 'sha-384'],
@@ -36,7 +41,7 @@ describe('HashSelector', () => {
     expect(onChange).toHaveBeenLastCalledWith(value)
   })
 
-  describe.each([
+  describe.each<[Props['hashType'], boolean[]]>([
     ['sha-1', [true, false, false, false]],
     ['sha-256', [false, true, false, false]],
     ['sha-384', [false, false, true, false]],
