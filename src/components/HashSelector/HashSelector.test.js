@@ -12,8 +12,8 @@ const createDefaultProps = () => ({
 const renderHashSelector = (props) =>
   render(<HashSelector {...createDefaultProps()} {...props} />)
 
+const findFieldSet = () => screen.getByRole('group')
 const findRadioButtons = () => screen.getAllByRole('radio')
-
 const findFirstRadioButton = () => screen.getByLabelText('SHA-1')
 const findSecondRadioButton = () => screen.getByLabelText('SHA-256')
 const findThirdRadioButton = () => screen.getByLabelText('SHA-384')
@@ -66,13 +66,10 @@ describe('HashSelector', () => {
   describe('When disabled is', () => {
     ;[true, false].forEach((disabled) => {
       describe(`${disabled}`, () => {
-        test(`sets disabled as ${disabled} on the radio buttons`, () => {
+        test(`sets disabled as ${disabled} on the field set element`, () => {
           renderHashSelector({ disabled })
 
-          expect(findFirstRadioButton().disabled).toEqual(disabled)
-          expect(findSecondRadioButton().disabled).toEqual(disabled)
-          expect(findThirdRadioButton().disabled).toEqual(disabled)
-          expect(findFourthRadioButton().disabled).toEqual(disabled)
+          expect(findFieldSet().disabled).toEqual(disabled)
         })
       })
     })
