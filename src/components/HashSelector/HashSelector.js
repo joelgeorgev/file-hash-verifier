@@ -14,7 +14,12 @@ const Input = styled.input`
   margin: 0 1rem;
 `
 
-const name = 'hash-type'
+const radioButtons = [
+  ['SHA-1', 'sha-1'],
+  ['SHA-256', 'sha-256'],
+  ['SHA-384', 'sha-384'],
+  ['SHA-512', 'sha-512']
+]
 
 export const HashSelector = ({ hashType, isDisabled, onChange }) => {
   const handleChange = (event) => {
@@ -23,46 +28,18 @@ export const HashSelector = ({ hashType, isDisabled, onChange }) => {
 
   return (
     <FieldSet disabled={isDisabled}>
-      <label>
-        <Input
-          type='radio'
-          name={name}
-          value='sha-1'
-          checked={'sha-1' === hashType}
-          onChange={handleChange}
-        />
-        SHA-1
-      </label>
-      <label>
-        <Input
-          type='radio'
-          name={name}
-          value='sha-256'
-          checked={'sha-256' === hashType}
-          onChange={handleChange}
-        />
-        SHA-256
-      </label>
-      <label>
-        <Input
-          type='radio'
-          name={name}
-          value='sha-384'
-          checked={'sha-384' === hashType}
-          onChange={handleChange}
-        />
-        SHA-384
-      </label>
-      <label>
-        <Input
-          type='radio'
-          name={name}
-          value='sha-512'
-          checked={'sha-512' === hashType}
-          onChange={handleChange}
-        />
-        SHA-512
-      </label>
+      {radioButtons.map(([label, value]) => (
+        <label key={value}>
+          <Input
+            type='radio'
+            name='hash-type'
+            value={value}
+            checked={value === hashType}
+            onChange={handleChange}
+          />
+          {label}
+        </label>
+      ))}
     </FieldSet>
   )
 }
