@@ -1,10 +1,10 @@
 import React from 'react'
-import { render, screen } from '@testing-library/react'
+import { render, screen, fireEvent } from '@testing-library/react'
 
 import { HashSelector } from '.'
 
 const createDefaultProps = () => ({
-  hashType: 'sha-1',
+  hashType: '',
   isDisabled: false,
   onChange: () => {}
 })
@@ -14,21 +14,26 @@ const renderHashSelector = (props) =>
 
 const findFieldSet = () => screen.getByRole('group')
 const findRadioButtons = () => screen.getAllByRole('radio')
-const findFirstRadioButton = () => screen.getByLabelText('SHA-1')
-const findSecondRadioButton = () => screen.getByLabelText('SHA-256')
-const findThirdRadioButton = () => screen.getByLabelText('SHA-384')
-const findFourthRadioButton = () => screen.getByLabelText('SHA-512')
+const findRadioButton = (label) => screen.getByLabelText(label)
 
 describe('HashSelector', () => {
-  test('renders four radio buttons', () => {
-    renderHashSelector()
+  test.each([
+    ['SHA-1', 'sha-1'],
+    ['SHA-256', 'sha-256'],
+    ['SHA-384', 'sha-384'],
+    ['SHA-512', 'sha-512']
+  ])('renders "%s" radio button', (label, value) => {
+    const onChange = jest.fn()
+    renderHashSelector({ onChange })
 
-    expect(findRadioButtons()).toHaveLength(4)
+    const radioButton = findRadioButton(label)
 
-    expect(findFirstRadioButton()).toBeDefined()
-    expect(findSecondRadioButton()).toBeDefined()
-    expect(findThirdRadioButton()).toBeDefined()
-    expect(findFourthRadioButton()).toBeDefined()
+    expect(radioButton).toBeDefined()
+
+    fireEvent.click(radioButton)
+
+    expect(onChange).toHaveBeenCalledTimes(1)
+    expect(onChange).toHaveBeenLastCalledWith(value)
   })
 
   describe.each([
@@ -40,10 +45,12 @@ describe('HashSelector', () => {
     test('renders the corresponding radio button as checked', () => {
       renderHashSelector({ hashType })
 
-      expect(findFirstRadioButton().checked).toEqual(checkedStates[0])
-      expect(findSecondRadioButton().checked).toEqual(checkedStates[1])
-      expect(findThirdRadioButton().checked).toEqual(checkedStates[2])
-      expect(findFourthRadioButton().checked).toEqual(checkedStates[3])
+      const radioButtons = findRadioButtons()
+
+      expect(radioButtons[0].checked).toEqual(checkedStates[0])
+      expect(radioButtons[1].checked).toEqual(checkedStates[1])
+      expect(radioButtons[2].checked).toEqual(checkedStates[2])
+      expect(radioButtons[3].checked).toEqual(checkedStates[3])
     })
   })
 

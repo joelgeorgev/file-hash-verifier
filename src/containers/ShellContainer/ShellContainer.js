@@ -24,7 +24,7 @@ const mapDispatchToProps = (dispatch) => ({
     e.target.value = null
   },
   handleCancelFileLoad: () => dispatch(cancelFileLoad()),
-  handleSelectHashType: (e) => dispatch(selectHashType(e.target.value))
+  handleSelectHashType: (hashType) => dispatch(selectHashType(hashType))
 })
 
 export const ShellContainer = connect(

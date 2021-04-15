@@ -16,47 +16,53 @@ const Input = styled.input`
 
 const name = 'hash-type'
 
-export const HashSelector = ({ hashType, isDisabled, onChange }) => (
-  <FieldSet disabled={isDisabled}>
-    <label>
-      <Input
-        type='radio'
-        name={name}
-        value='sha-1'
-        checked={'sha-1' === hashType}
-        onChange={onChange}
-      />
-      SHA-1
-    </label>
-    <label>
-      <Input
-        type='radio'
-        name={name}
-        value='sha-256'
-        checked={'sha-256' === hashType}
-        onChange={onChange}
-      />
-      SHA-256
-    </label>
-    <label>
-      <Input
-        type='radio'
-        name={name}
-        value='sha-384'
-        checked={'sha-384' === hashType}
-        onChange={onChange}
-      />
-      SHA-384
-    </label>
-    <label>
-      <Input
-        type='radio'
-        name={name}
-        value='sha-512'
-        checked={'sha-512' === hashType}
-        onChange={onChange}
-      />
-      SHA-512
-    </label>
-  </FieldSet>
-)
+export const HashSelector = ({ hashType, isDisabled, onChange }) => {
+  const handleChange = (event) => {
+    onChange(event.target.value)
+  }
+
+  return (
+    <FieldSet disabled={isDisabled}>
+      <label>
+        <Input
+          type='radio'
+          name={name}
+          value='sha-1'
+          checked={'sha-1' === hashType}
+          onChange={handleChange}
+        />
+        SHA-1
+      </label>
+      <label>
+        <Input
+          type='radio'
+          name={name}
+          value='sha-256'
+          checked={'sha-256' === hashType}
+          onChange={handleChange}
+        />
+        SHA-256
+      </label>
+      <label>
+        <Input
+          type='radio'
+          name={name}
+          value='sha-384'
+          checked={'sha-384' === hashType}
+          onChange={handleChange}
+        />
+        SHA-384
+      </label>
+      <label>
+        <Input
+          type='radio'
+          name={name}
+          value='sha-512'
+          checked={'sha-512' === hashType}
+          onChange={handleChange}
+        />
+        SHA-512
+      </label>
+    </FieldSet>
+  )
+}
