@@ -16,8 +16,8 @@ const Input = styled.input`
 
 const name = 'hash-type'
 
-export const HashSelector = ({ hashType, disabled, onChange }) => (
-  <FieldSet disabled={disabled}>
+export const HashSelector = ({ hashType, isDisabled, onChange }) => (
+  <FieldSet disabled={isDisabled}>
     <label>
       <Input
         type='radio'

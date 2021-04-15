@@ -5,7 +5,7 @@ import { HashSelector } from '.'
 
 const createDefaultProps = () => ({
   hashType: 'sha-1',
-  disabled: false,
+  isDisabled: false,
   onChange: () => {}
 })
 
@@ -63,13 +63,13 @@ describe('HashSelector', () => {
     })
   })
 
-  describe('When disabled is', () => {
-    ;[true, false].forEach((disabled) => {
-      describe(`${disabled}`, () => {
-        test(`sets disabled as ${disabled} on the field set element`, () => {
-          renderHashSelector({ disabled })
+  describe('When `isDisabled` is', () => {
+    ;[true, false].forEach((isDisabled) => {
+      describe(`${isDisabled}`, () => {
+        test(`sets disabled as ${isDisabled} on the field set element`, () => {
+          renderHashSelector({ isDisabled })
 
-          expect(findFieldSet().disabled).toEqual(disabled)
+          expect(findFieldSet().disabled).toEqual(isDisabled)
         })
       })
     })

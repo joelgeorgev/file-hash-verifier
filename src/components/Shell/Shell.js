@@ -33,8 +33,8 @@ export const Shell = ({
       <FilePicker onChange={handleSelectFile} disabled={disabled} />
       <HashSelector
         hashType={hashType}
+        isDisabled={disabled}
         onChange={handleSelectHashType}
-        disabled={disabled}
       />
       {fileLoadProgress && (
         <FileLoader
