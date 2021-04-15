@@ -1,23 +1,30 @@
-import React from 'react'
+import { ComponentProps } from 'react'
 import { render, screen, fireEvent } from '@testing-library/react'
 
 import { FileLoader } from '.'
 
-const createDefaultProps = () => ({ progress: 50 })
+type Props = ComponentProps<typeof FileLoader>
 
-const renderFileLoader = (props) =>
+const createDefaultProps = (): Props => ({ progress: 50, onCancel: () => {} })
+
+const renderFileLoader = (props?: Partial<Props>) =>
   render(<FileLoader {...createDefaultProps()} {...props} />)
 
-const findProgressBar = () => screen.getByRole('progressbar')
-const findLabel = () => screen.getByLabelText('Loading file:')
-const findCancelButton = () => screen.getByRole('button')
-const queryCancelButton = () => screen.queryByRole('button')
+const findProgressBar = (): HTMLProgressElement =>
+  screen.getByRole('progressbar') as HTMLProgressElement
+const findLabel = (): HTMLLabelElement =>
+  screen.getByLabelText('Loading file:') as HTMLLabelElement
+const findCancelButton = (): HTMLButtonElement =>
+  screen.getByRole('button') as HTMLButtonElement
+const queryCancelButton = (): HTMLButtonElement =>
+  screen.queryByRole('button') as HTMLButtonElement
 
 describe('FileLoader', () => {
   test('renders a progress bar', () => {
     renderFileLoader({ progress: 90 })
 
     const progressBar = findProgressBar()
+
     expect(progressBar).toBeDefined()
     expect(progressBar.getAttribute('max')).toEqual('100')
     expect(progressBar.getAttribute('value')).toEqual('90')
@@ -34,21 +41,18 @@ describe('FileLoader', () => {
       renderFileLoader()
 
       const cancelButton = findCancelButton()
+
       expect(cancelButton).toBeDefined()
       expect(cancelButton.textContent).toEqual('Cancel')
     })
 
     describe('When the cancel button is clicked', () => {
-      let onCancel
-
-      beforeEach(() => {
-        onCancel = jest.fn()
+      test('invokes the callback function', () => {
+        const onCancel = jest.fn()
         renderFileLoader({ onCancel })
 
         fireEvent.click(findCancelButton())
-      })
 
-      test('invokes the callback function', () => {
         expect(onCancel).toHaveBeenCalledTimes(1)
       })
     })

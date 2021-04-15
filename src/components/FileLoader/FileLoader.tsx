@@ -1,5 +1,9 @@
-import React from 'react'
 import styled from 'styled-components'
+
+interface Props {
+  progress: number
+  onCancel: () => void
+}
 
 const Wrapper = styled.div`
   margin-top: 2rem;
@@ -11,7 +15,7 @@ const Progress = styled.progress`
   margin: 0 1rem;
 `
 
-export const FileLoader = ({ progress, onCancel }) => (
+export const FileLoader = ({ progress, onCancel }: Props) => (
   <Wrapper>
     <label htmlFor='file-load-progress'>Loading file:</label>
     <Progress id='file-load-progress' max='100' value={`${progress}`} />
