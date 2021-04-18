@@ -13,16 +13,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  handleSelectFile: (e) => {
-    const files =
-      e.dataTransfer && e.dataTransfer.files
-        ? e.dataTransfer.files
-        : e.target.files
-    if (files.length) {
-      dispatch(selectFile(files[0]))
-    }
-    e.target.value = null
-  },
+  handleSelectFile: (file) => dispatch(selectFile(file)),
   handleCancelFileLoad: () => dispatch(cancelFileLoad()),
   handleSelectHashType: (hashType) => dispatch(selectHashType(hashType))
 })
