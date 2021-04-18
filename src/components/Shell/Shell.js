@@ -26,14 +26,14 @@ export const Shell = ({
   handleCancelFileLoad,
   handleSelectHashType
 }) => {
-  const disabled = fileLoadProgress || isCalculatingHash
+  const isDisabled = fileLoadProgress || isCalculatingHash
 
   return (
     <Wrapper>
-      <FilePicker onChange={handleSelectFile} disabled={disabled} />
+      <FilePicker isDisabled={isDisabled} onSelect={handleSelectFile} />
       <HashSelector
         hashType={hashType}
-        isDisabled={disabled}
+        isDisabled={isDisabled}
         onSelect={handleSelectHashType}
       />
       {fileLoadProgress && (

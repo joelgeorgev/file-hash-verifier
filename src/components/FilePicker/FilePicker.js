@@ -7,15 +7,15 @@ const Label = styled.label`
   margin-bottom: 1rem;
 `
 
-export const FilePicker = ({ disabled, onChange }) => (
+export const FilePicker = ({ isDisabled, onSelect }) => (
   <>
     <Label htmlFor='file-picker'>Click to pick a file.</Label>
     <input
       type='file'
       id='file-picker'
       multiple={false}
-      disabled={disabled}
-      onChange={(event) => onChange(event.target.files[0])}
+      disabled={isDisabled}
+      onChange={(event) => onSelect(event.target.files[0])}
     />
   </>
 )
