@@ -1,16 +1,17 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const Wrapper = styled.div`
+const Wrapper = styled.dl`
   margin-top: 2rem;
 `
 
-const Key = styled.label`
+const Key = styled.dt`
   font-weight: 700;
 `
 
-const Value = styled.label`
+const Value = styled.dd`
   word-break: break-all;
+  margin-bottom: 0.5rem;
 `
 
 export const FileDetails = ({ file }) => {
@@ -18,14 +19,10 @@ export const FileDetails = ({ file }) => {
 
   return (
     <Wrapper>
-      <div>
-        <Key>Name: </Key>
-        <Value>{name}</Value>
-      </div>
-      <div>
-        <Key>Size: </Key>
-        <Value>{size} bytes</Value>
-      </div>
+      <Key>Name</Key>
+      <Value>{name}</Value>
+      <Key>Size</Key>
+      <Value>{size} bytes</Value>
     </Wrapper>
   )
 }
