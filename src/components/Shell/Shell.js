@@ -44,7 +44,7 @@ export const Shell = ({
       )}
       {arrayBuffer && (
         <>
-          <FileDetails file={file} />
+          <FileDetails name={file.name} size={file.size} />
           {isCalculatingHash && <HashLoader />}
           {hash && (
             <>

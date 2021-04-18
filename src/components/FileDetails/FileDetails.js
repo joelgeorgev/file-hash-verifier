@@ -14,15 +14,11 @@ const Value = styled.dd`
   margin-bottom: 0.5rem;
 `
 
-export const FileDetails = ({ file }) => {
-  const { name, size } = file
-
-  return (
-    <Wrapper>
-      <Key>Name</Key>
-      <Value>{name}</Value>
-      <Key>Size</Key>
-      <Value>{size} bytes</Value>
-    </Wrapper>
-  )
-}
+export const FileDetails = ({ name, size }) => (
+  <Wrapper>
+    <Key>Name</Key>
+    <Value>{name}</Value>
+    <Key>Size</Key>
+    <Value>{size} bytes</Value>
+  </Wrapper>
+)
