@@ -1,5 +1,9 @@
-import React from 'react'
 import styled from 'styled-components'
+
+interface Props {
+  name: string
+  size: number
+}
 
 const Wrapper = styled.dl`
   margin-top: 2rem;
@@ -14,7 +18,7 @@ const Value = styled.dd`
   margin-bottom: 0.5rem;
 `
 
-export const FileDetails = ({ name, size }) => (
+export const FileDetails = ({ name, size }: Props) => (
   <Wrapper>
     <Key>Name</Key>
     <Value>{name}</Value>
