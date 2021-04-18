@@ -8,7 +8,7 @@ type Props = ComponentProps<typeof HashSelector>
 const createDefaultProps = (): Props => ({
   hashType: null,
   isDisabled: false,
-  onChange: () => {}
+  onSelect: () => {}
 })
 
 const renderHashSelector = (props?: Partial<Props>) =>
@@ -28,8 +28,8 @@ describe('HashSelector', () => {
     ['SHA-384', 'sha-384'],
     ['SHA-512', 'sha-512']
   ])('renders "%s" radio button', (label, value) => {
-    const onChange = jest.fn()
-    renderHashSelector({ onChange })
+    const onSelect = jest.fn()
+    renderHashSelector({ onSelect })
 
     const radioButton = findRadioButton(label)
 
@@ -37,8 +37,8 @@ describe('HashSelector', () => {
 
     fireEvent.click(radioButton)
 
-    expect(onChange).toHaveBeenCalledTimes(1)
-    expect(onChange).toHaveBeenLastCalledWith(value)
+    expect(onSelect).toHaveBeenCalledTimes(1)
+    expect(onSelect).toHaveBeenLastCalledWith(value)
   })
 
   describe.each<[Props['hashType'], boolean[]]>([

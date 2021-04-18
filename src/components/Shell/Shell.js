@@ -34,7 +34,7 @@ export const Shell = ({
       <HashSelector
         hashType={hashType}
         isDisabled={disabled}
-        onChange={handleSelectHashType}
+        onSelect={handleSelectHashType}
       />
       {fileLoadProgress && (
         <FileLoader

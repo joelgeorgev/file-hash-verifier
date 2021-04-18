@@ -5,7 +5,7 @@ type HashType = 'sha-1' | 'sha-256' | 'sha-384' | 'sha-512'
 interface Props {
   hashType: HashType | null
   isDisabled: boolean
-  onChange: (hashType: HashType) => void
+  onSelect: (hashType: HashType) => void
 }
 
 const FieldSet = styled.fieldset`
@@ -28,7 +28,7 @@ const radioButtons: [string, HashType][] = [
   ['SHA-512', 'sha-512']
 ]
 
-export const HashSelector = ({ hashType, isDisabled, onChange }: Props) => (
+export const HashSelector = ({ hashType, isDisabled, onSelect }: Props) => (
   <FieldSet disabled={isDisabled}>
     {radioButtons.map(([label, value]) => (
       <label key={value}>
@@ -37,7 +37,7 @@ export const HashSelector = ({ hashType, isDisabled, onChange }: Props) => (
           name='hash-type'
           value={value}
           checked={value === hashType}
-          onChange={(event) => onChange(event.target.value as typeof value)}
+          onChange={(event) => onSelect(event.target.value as typeof value)}
         />
         {label}
       </label>
