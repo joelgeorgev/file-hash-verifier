@@ -1,5 +1,9 @@
-import React from 'react'
 import styled from 'styled-components'
+
+interface Props {
+  isDisabled: boolean
+  onSelect: (file: File) => void
+}
 
 const Label = styled.label`
   display: block;
@@ -7,7 +11,7 @@ const Label = styled.label`
   margin-bottom: 1rem;
 `
 
-export const FilePicker = ({ isDisabled, onSelect }) => (
+export const FilePicker = ({ isDisabled, onSelect }: Props) => (
   <>
     <Label htmlFor='file-picker'>Click to pick a file.</Label>
     <input
@@ -15,7 +19,13 @@ export const FilePicker = ({ isDisabled, onSelect }) => (
       id='file-picker'
       multiple={false}
       disabled={isDisabled}
-      onChange={(event) => onSelect(event.target.files[0])}
+      onChange={(event) => {
+        const { files } = event.target
+
+        if (files) {
+          onSelect(files[0])
+        }
+      }}
     />
   </>
 )

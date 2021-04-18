@@ -1,11 +1,20 @@
-import React from 'react'
+import { ComponentProps } from 'react'
 import { render, screen, fireEvent } from '@testing-library/react'
 
 import { FilePicker } from '.'
 
-const renderFilePicker = (props) => render(<FilePicker {...props} />)
+type Props = ComponentProps<typeof FilePicker>
 
-const findFilePicker = () => screen.getByLabelText('Click to pick a file.')
+const createDefaultProps = (): Props => ({
+  isDisabled: false,
+  onSelect: () => {}
+})
+
+const renderFilePicker = (props?: Partial<Props>) =>
+  render(<FilePicker {...createDefaultProps()} {...props} />)
+
+const findFilePicker = (): HTMLInputElement =>
+  screen.getByLabelText('Click to pick a file.') as HTMLInputElement
 
 describe('FilePicker', () => {
   test('renders a file picker', () => {
@@ -35,5 +44,14 @@ describe('FilePicker', () => {
 
     expect(onSelect).toHaveBeenCalledTimes(1)
     expect(onSelect).toHaveBeenCalledWith(file)
+  })
+
+  test('does NOT invoke the callback function if there is NO file', () => {
+    const onSelect = jest.fn()
+    renderFilePicker({ onSelect })
+
+    fireEvent.change(findFilePicker(), { target: { files: null } })
+
+    expect(onSelect).toHaveBeenCalledTimes(0)
   })
 })
