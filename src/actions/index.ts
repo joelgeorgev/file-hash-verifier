@@ -1,5 +1,7 @@
 import { AnyAction } from 'redux'
 
+import { HashType } from '../types'
+
 export const SELECT_FILE = 'SELECT_FILE'
 export const FILE_LOAD_PROGRESS = 'FILE_LOAD_PROGRESS'
 export const CANCEL_FILE_LOAD = 'CANCEL_FILE_LOAD'
@@ -29,7 +31,7 @@ export interface FileLoadedAction extends AnyAction {
 
 export interface SelectHashTypeAction extends AnyAction {
   type: typeof SELECT_HASH_TYPE
-  payload: { hashType: string }
+  payload: { hashType: HashType }
 }
 
 export interface HashCalculatedAction extends AnyAction {
@@ -57,7 +59,7 @@ export const fileLoaded = (arrayBuffer: ArrayBuffer): FileLoadedAction => ({
   payload: { arrayBuffer }
 })
 
-export const selectHashType = (hashType: string): SelectHashTypeAction => ({
+export const selectHashType = (hashType: HashType): SelectHashTypeAction => ({
   type: SELECT_HASH_TYPE,
   payload: { hashType }
 })
