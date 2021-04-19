@@ -1,4 +1,4 @@
-import { reducer } from '.'
+import { reducer, State } from '.'
 import {
   selectFile,
   fileLoadProgress,
@@ -8,7 +8,7 @@ import {
   hashCalculated
 } from '../actions'
 
-const createState = (partialState) => ({
+const createState = (partialState?: Partial<State>): State => ({
   file: null,
   fileLoadProgress: null,
   arrayBuffer: null,
@@ -28,11 +28,11 @@ const hash = 'hash'
 
 describe('reducer', () => {
   test('returns the initial state', () => {
-    expect(reducer(undefined, {})).toEqual(createState())
+    expect(reducer(undefined, { type: 'some action' })).toEqual(createState())
   })
 
   describe('When a file is selected', () => {
-    let newState
+    let newState: State
 
     beforeEach(() => {
       const prevState = createState({
@@ -56,7 +56,7 @@ describe('reducer', () => {
   })
 
   describe('When the file load is in progress', () => {
-    let newState
+    let newState: State
 
     beforeEach(() => {
       const prevState = createState({ fileLoadProgress: null })
@@ -71,7 +71,7 @@ describe('reducer', () => {
   })
 
   describe('When the file load is cancelled', () => {
-    let newState
+    let newState: State
 
     beforeEach(() => {
       const prevState = createState({
@@ -94,7 +94,7 @@ describe('reducer', () => {
   })
 
   describe('When the file is loaded', () => {
-    let newState
+    let newState: State
 
     beforeEach(() => {
       const prevState = createState({
@@ -117,7 +117,7 @@ describe('reducer', () => {
   })
 
   describe('When a hash type is selected', () => {
-    let newState
+    let newState: State
 
     beforeEach(() => {
       const prevState = createState({ hash })
@@ -137,7 +137,7 @@ describe('reducer', () => {
   })
 
   describe('Given the file is loaded', () => {
-    let newState
+    let newState: State
 
     describe('When a hash type is selected', () => {
       beforeEach(() => {
@@ -160,7 +160,7 @@ describe('reducer', () => {
   })
 
   describe('Given a hash type is selected', () => {
-    let newState
+    let newState: State
 
     describe('When the file is loaded', () => {
       beforeEach(() => {
@@ -183,7 +183,7 @@ describe('reducer', () => {
   })
 
   describe('When hash is calculated', () => {
-    let newState
+    let newState: State
 
     beforeEach(() => {
       const prevState = createState({
