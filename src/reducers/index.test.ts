@@ -1,4 +1,4 @@
-import { reducer, State } from '.'
+import { reducer } from '.'
 import {
   selectFile,
   fileLoadProgress,
@@ -7,6 +7,8 @@ import {
   selectHashType,
   hashCalculated
 } from '../actions'
+
+type State = ReturnType<typeof reducer>
 
 const createState = (partialState?: Partial<State>): State => ({
   file: null,

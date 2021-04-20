@@ -3,7 +3,7 @@ import { AnyAction } from 'redux'
 import * as Actions from '../actions'
 import { HashType } from '../types'
 
-export interface State {
+interface State {
   file: File | null
   fileLoadProgress: number | null
   arrayBuffer: ArrayBuffer | null
