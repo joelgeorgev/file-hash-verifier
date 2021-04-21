@@ -1,7 +1,9 @@
 import styled from 'styled-components'
 
+import { FileLoadProgress } from '../../types'
+
 interface Props {
-  progress: number
+  progress: FileLoadProgress
   onCancel: () => void
 }
 

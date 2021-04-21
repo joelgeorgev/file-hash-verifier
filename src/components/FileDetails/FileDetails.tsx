@@ -1,8 +1,10 @@
 import styled from 'styled-components'
 
+import { FileName, FileSize } from '../../types'
+
 interface Props {
-  name: string
-  size: number
+  name: FileName
+  size: FileSize
 }
 
 const Wrapper = styled.dl`

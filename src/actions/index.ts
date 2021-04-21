@@ -1,6 +1,6 @@
 import { AnyAction } from 'redux'
 
-import { HashType } from '../types'
+import { FileLoadProgress, HashType, Hash } from '../types'
 
 export const SELECT_FILE = 'SELECT_FILE'
 export const FILE_LOAD_PROGRESS = 'FILE_LOAD_PROGRESS'
@@ -17,7 +17,7 @@ export interface SelectFileAction extends AnyAction {
 
 export interface FileLoadProgressAction extends AnyAction {
   type: typeof FILE_LOAD_PROGRESS
-  payload: { progress: number }
+  payload: { progress: FileLoadProgress }
 }
 
 export interface CancelFileLoadAction extends AnyAction {
@@ -36,7 +36,7 @@ export interface SelectHashTypeAction extends AnyAction {
 
 export interface HashCalculatedAction extends AnyAction {
   type: typeof HASH_CALCULATED
-  payload: { hash: string }
+  payload: { hash: Hash }
 }
 
 /* Action Creators */
@@ -45,7 +45,9 @@ export const selectFile = (file: File): SelectFileAction => ({
   payload: { file }
 })
 
-export const fileLoadProgress = (progress: number): FileLoadProgressAction => ({
+export const fileLoadProgress = (
+  progress: FileLoadProgress
+): FileLoadProgressAction => ({
   type: FILE_LOAD_PROGRESS,
   payload: { progress }
 })
@@ -64,7 +66,7 @@ export const selectHashType = (hashType: HashType): SelectHashTypeAction => ({
   payload: { hashType }
 })
 
-export const hashCalculated = (hash: string): HashCalculatedAction => ({
+export const hashCalculated = (hash: Hash): HashCalculatedAction => ({
   type: HASH_CALCULATED,
   payload: { hash }
 })

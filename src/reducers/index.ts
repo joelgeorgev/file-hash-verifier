@@ -1,15 +1,15 @@
 import { AnyAction } from 'redux'
 
 import * as Actions from '../actions'
-import { HashType } from '../types'
+import { FileLoadProgress, HashType, Hash } from '../types'
 
 interface State {
   file: File | null
-  fileLoadProgress: number | null
+  fileLoadProgress: FileLoadProgress | null
   arrayBuffer: ArrayBuffer | null
   hashType: HashType | null
   isCalculatingHash: boolean
-  hash: string | null
+  hash: Hash | null
 }
 
 const initialState: State = {
