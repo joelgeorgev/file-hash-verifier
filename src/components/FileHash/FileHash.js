@@ -1,5 +1,5 @@
-import React, { useEffect, useRef } from 'react'
-import Clipboard from 'clipboard'
+import React from 'react'
+import copy from 'clipboard-copy'
 import styled from 'styled-components'
 
 import clippy from '../../assets/clippy.svg'
@@ -35,24 +35,14 @@ const Image = styled.img`
   max-width: 100%;
 `
 
-export const FileHash = ({ hash }) => {
-  const ref = useRef(null)
-
-  useEffect(() => {
-    const { current: element } = ref
-    const clipboard = new Clipboard(element)
-    return () => clipboard.destroy()
-  }, [])
-
-  return (
-    <Wrapper>
-      <Label>Hash:</Label>
-      <HashWrapper>
-        <TextInput type='text' id='hash' value={hash} readOnly />
-        <Button ref={ref} data-clipboard-target='#hash'>
-          <Image src={clippy} alt='Copy to clipboard' />
-        </Button>
-      </HashWrapper>
-    </Wrapper>
-  )
-}
+export const FileHash = ({ hash }) => (
+  <Wrapper>
+    <Label>Hash:</Label>
+    <HashWrapper>
+      <TextInput type='text' value={hash} readOnly />
+      <Button onClick={() => copy(hash)}>
+        <Image src={clippy} alt='Copy to clipboard' />
+      </Button>
+    </HashWrapper>
+  </Wrapper>
+)

@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A react app to generate and verify cryptographic hash values of files.",
   "dependencies": {
-    "clipboard": "^2.0.8",
+    "clipboard-copy": "^4.0.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.3",
