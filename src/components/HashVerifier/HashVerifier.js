@@ -8,12 +8,7 @@ const Wrapper = styled.div`
   margin-top: 2rem;
 `
 
-const Checkbox = styled.input`
-  cursor: pointer;
-`
-
 const Label = styled.label`
-  margin-left: 0.5rem;
   font-weight: 700;
 `
 
@@ -26,7 +21,7 @@ const TextInput = styled.input`
   width: 100%;
   padding: 0 0.25rem;
   border: 1px solid #aaa;
-  border-right: 0;
+  ${({ value }) => value && ` border-right: 0;`}
 `
 
 const Image = styled.img`
@@ -35,33 +30,33 @@ const Image = styled.img`
 `
 
 export const HashVerifier = ({ hash }) => {
-  const [verify, setVerify] = useState(false)
   const [text, setText] = useState('')
-  const [match, setMatch] = useState(false)
+  const [isMatch, setMatch] = useState(false)
 
-  const toggleVerify = (e) => setVerify(e.target.checked)
+  const handleChange = (event) => {
+    const inputText = event.target.value
 
-  const verifyHash = (e) => {
-    const inputText = e.target.value
     setText(inputText)
     setMatch(hash === inputText.replace(/ /g, '').toLowerCase())
   }
 
   return (
     <Wrapper>
-      <div>
-        <Checkbox type='checkbox' checked={verify} onChange={toggleVerify} />
-        <Label>Compare with:</Label>
-      </div>
-      {verify && (
-        <VerifyWrapper>
-          <TextInput type='text' value={text} onChange={verifyHash} />
+      <Label htmlFor='hash-verify'>Compare with:</Label>
+      <VerifyWrapper>
+        <TextInput
+          type='text'
+          id='hash-verify'
+          value={text}
+          onChange={handleChange}
+        />
+        {text && (
           <Image
-            src={match ? success : fail}
-            alt={match ? 'Success' : 'Fail'}
+            src={isMatch ? success : fail}
+            alt={isMatch ? 'Success' : 'Fail'}
           />
-        </VerifyWrapper>
-      )}
+        )}
+      </VerifyWrapper>
     </Wrapper>
   )
 }
