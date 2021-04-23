@@ -42,9 +42,9 @@ const Image = styled.img`
 
 export const FileHash = ({ hash }: Props) => (
   <Wrapper>
-    <Label>Hash:</Label>
+    <Label htmlFor='hash'>Hash:</Label>
     <HashWrapper>
-      <TextInput type='text' value={hash} readOnly />
+      <TextInput type='text' id='hash' value={hash} readOnly />
       <Button onClick={() => copy(hash)}>
         <Image src={clippy} alt='Copy to clipboard' />
       </Button>
