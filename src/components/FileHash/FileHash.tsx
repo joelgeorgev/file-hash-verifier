@@ -1,8 +1,13 @@
-import React from 'react'
 import copy from 'clipboard-copy'
 import styled from 'styled-components'
 
+import { Hash } from '../../types'
+
 import clippy from '../../assets/clippy.svg'
+
+interface Props {
+  hash: Hash
+}
 
 const Wrapper = styled.div`
   margin-top: 2rem;
@@ -35,7 +40,7 @@ const Image = styled.img`
   max-width: 100%;
 `
 
-export const FileHash = ({ hash }) => (
+export const FileHash = ({ hash }: Props) => (
   <Wrapper>
     <Label>Hash:</Label>
     <HashWrapper>
