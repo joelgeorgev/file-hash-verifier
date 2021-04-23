@@ -1,8 +1,14 @@
-import React, { useState } from 'react'
+import { useState, ChangeEvent } from 'react'
 import styled from 'styled-components'
+
+import { Hash } from '../../types'
 
 import success from '../../assets/success.svg'
 import fail from '../../assets/fail.svg'
+
+interface Props {
+  hash: Hash
+}
 
 const Wrapper = styled.div`
   margin-top: 2rem;
@@ -29,11 +35,11 @@ const Image = styled.img`
   border: 1px solid #aaa;
 `
 
-export const HashVerifier = ({ hash }) => {
-  const [text, setText] = useState('')
-  const [isMatch, setMatch] = useState(false)
+export const HashVerifier = ({ hash }: Props) => {
+  const [text, setText] = useState<string>('')
+  const [isMatch, setMatch] = useState<boolean>(false)
 
-  const handleChange = (event) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const inputText = event.target.value
 
     setText(inputText)
