@@ -3,7 +3,7 @@ import { Provider } from 'react-redux'
 import createSagaMiddleware from 'redux-saga'
 import styled from 'styled-components'
 
-import { ShellContainer } from './containers'
+import { Shell } from './components'
 import { reducer } from './reducers'
 import { saga } from './sagas'
 import github from './assets/github.svg'
@@ -45,7 +45,7 @@ export const App = () => (
     <Section>
       <article>
         <Provider store={store}>
-          <ShellContainer />
+          <Shell />
         </Provider>
       </article>
     </Section>

@@ -1,4 +1,5 @@
 import React from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import styled from 'styled-components'
 
 import {
@@ -10,36 +11,42 @@ import {
   FileHash,
   HashVerifier
 } from '..'
+import { selectFile, cancelFileLoad, selectHashType } from '../../actions'
 
 const Wrapper = styled.div`
   margin: 0 auto;
 `
 
-export const Shell = ({
-  file,
-  fileLoadProgress,
-  arrayBuffer,
-  hashType,
-  isCalculatingHash,
-  hash,
-  handleSelectFile,
-  handleCancelFileLoad,
-  handleSelectHashType
-}) => {
+export const Shell = () => {
+  const state = useSelector((state) => state)
+  const dispatch = useDispatch()
+
+  const {
+    file,
+    fileLoadProgress,
+    arrayBuffer,
+    hashType,
+    isCalculatingHash,
+    hash
+  } = state
+
   const isDisabled = fileLoadProgress || isCalculatingHash
 
   return (
     <Wrapper>
-      <FilePicker isDisabled={isDisabled} onSelect={handleSelectFile} />
+      <FilePicker
+        isDisabled={isDisabled}
+        onSelect={(file) => dispatch(selectFile(file))}
+      />
       <HashSelector
         hashType={hashType}
         isDisabled={isDisabled}
-        onSelect={handleSelectHashType}
+        onSelect={(hashType) => dispatch(selectHashType(hashType))}
       />
       {fileLoadProgress && (
         <FileLoader
           progress={fileLoadProgress}
-          onCancel={handleCancelFileLoad}
+          onCancel={() => dispatch(cancelFileLoad())}
         />
       )}
       {arrayBuffer && (
