@@ -1,10 +1,10 @@
 import { takeEvery, call } from 'redux-saga/effects'
 
-import { SELECT_FILE, SELECT_HASH_TYPE } from '../actions'
+import { SELECT_FILE, SELECT_HASH_TYPE, selectFile } from '../actions'
 import { getArrayBuffer, calculateHash } from '.'
 
-function* processFile({ payload: { file } }) {
-  yield call(getArrayBuffer, file)
+function* processFile(action: ReturnType<typeof selectFile>) {
+  yield call(getArrayBuffer, action.payload.file)
   yield call(calculateHash)
 }
 
