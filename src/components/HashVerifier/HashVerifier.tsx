@@ -10,6 +10,10 @@ interface Props {
   hash: Hash
 }
 
+interface StyleProps {
+  value: string
+}
+
 const Wrapper = styled.div`
   margin-top: 2rem;
 `
@@ -23,7 +27,7 @@ const VerifyWrapper = styled.div`
   height: 2rem;
 `
 
-const TextInput = styled.input`
+const TextInput = styled.input<StyleProps>`
   width: 100%;
   padding: 0 0.25rem;
   border: 1px solid #aaa;
@@ -59,7 +63,7 @@ export const HashVerifier = ({ hash }: Props) => {
         {text && (
           <Image
             src={isMatch ? success : fail}
-            alt={isMatch ? 'Success' : 'Fail'}
+            alt={isMatch ? 'Hashes match' : 'Hashes do not match'}
           />
         )}
       </VerifyWrapper>
