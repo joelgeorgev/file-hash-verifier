@@ -35,6 +35,7 @@
   },
   "repository": "https://github.com/joelgeorgev/file-hash-verifier",
   "keywords": [
+    "typescript",
     "React",
     "reactjs",
     "file",
