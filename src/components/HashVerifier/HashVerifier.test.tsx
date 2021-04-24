@@ -41,9 +41,7 @@ describe('HashVerifier', () => {
     test('renders an image indicating a mismatch', () => {
       renderHashVerifier({ hash })
 
-      const textField = findTextField()
-
-      fireEvent.change(textField, { target: { value: 'h' } })
+      fireEvent.change(findTextField(), { target: { value: 'h' } })
 
       expect(findImage(mismatchImageAltText)).toBeDefined()
       expect(queryImage(matchImageAltText)).toEqual(null)
@@ -56,9 +54,7 @@ describe('HashVerifier', () => {
       test('renders an image indicating a match', () => {
         renderHashVerifier({ hash })
 
-        const textField = findTextField()
-
-        fireEvent.change(textField, { target: { value: text } })
+        fireEvent.change(findTextField(), { target: { value: text } })
 
         expect(findImage(matchImageAltText)).toBeDefined()
         expect(queryImage(mismatchImageAltText)).toEqual(null)
