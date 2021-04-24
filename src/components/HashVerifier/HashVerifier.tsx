@@ -27,7 +27,7 @@ const TextInput = styled.input`
   width: 100%;
   padding: 0 0.25rem;
   border: 1px solid #aaa;
-  ${({ value }) => value && ` border-right: 0;`}
+  ${({ value }) => value && `border-right: 0;`}
 `
 
 const Image = styled.img`
