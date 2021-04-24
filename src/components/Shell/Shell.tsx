@@ -1,7 +1,6 @@
-import React from 'react'
-import { useSelector, useDispatch } from 'react-redux'
 import styled from 'styled-components'
 
+import { useSelector, useDispatch } from '../../hooks'
 import {
   FilePicker,
   HashSelector,
@@ -30,7 +29,7 @@ export const Shell = () => {
     hash
   } = state
 
-  const isDisabled = fileLoadProgress || isCalculatingHash
+  const isDisabled = Boolean(fileLoadProgress) || isCalculatingHash
 
   return (
     <Wrapper>
@@ -51,7 +50,7 @@ export const Shell = () => {
       )}
       {arrayBuffer && (
         <>
-          <FileDetails name={file.name} size={file.size} />
+          {file && <FileDetails name={file.name} size={file.size} />}
           {isCalculatingHash && <HashLoader />}
           {hash && (
             <>

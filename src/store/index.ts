@@ -9,3 +9,6 @@ const sagaMiddleware = createSagaMiddleware()
 export const store = createStore(reducer, applyMiddleware(sagaMiddleware))
 
 sagaMiddleware.run(saga)
+
+export type State = ReturnType<typeof store.getState>
+export type Dispatch = typeof store.dispatch
