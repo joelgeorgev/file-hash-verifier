@@ -43,7 +43,7 @@ export const HashVerifier = ({ hash }: Props) => {
   const [text, setText] = useState<string>('')
   const [isMatch, setMatch] = useState<boolean>(false)
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
     const inputText = event.target.value
 
     setText(inputText)
