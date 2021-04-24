@@ -38,7 +38,7 @@ describe('reducer', () => {
   })
 
   describe('When a file is selected', () => {
-    test('returns the file AND clears any array buffer AND hash', () => {
+    test('returns the file details AND clears any array buffer AND hash', () => {
       const prevState = createState({
         arrayBuffer,
         hash
@@ -48,7 +48,7 @@ describe('reducer', () => {
 
       expect(newState).toEqual(
         createState({
-          file,
+          file: { name: file.name, size: file.size },
           arrayBuffer: null,
           hash: null
         })

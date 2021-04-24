@@ -1,10 +1,15 @@
 import { AnyAction } from 'redux'
 
 import * as Actions from '../actions'
-import { FileLoadProgress, HashType, Hash } from '../types'
+import { FileName, FileSize, FileLoadProgress, HashType, Hash } from '../types'
+
+interface FileDetails {
+  name: FileName
+  size: FileSize
+}
 
 interface State {
-  file: File | null
+  file: FileDetails | null
   fileLoadProgress: FileLoadProgress | null
   arrayBuffer: ArrayBuffer | null
   hashType: HashType | null
@@ -21,12 +26,16 @@ const initialState: State = {
   hash: null
 }
 
-const selectFile = (state: State, action: Actions.SelectFileAction): State => ({
-  ...state,
-  file: action.payload.file,
-  arrayBuffer: initialState.arrayBuffer,
-  hash: initialState.hash
-})
+const selectFile = (state: State, action: Actions.SelectFileAction): State => {
+  const { name, size } = action.payload.file
+
+  return {
+    ...state,
+    file: { name, size },
+    arrayBuffer: initialState.arrayBuffer,
+    hash: initialState.hash
+  }
+}
 
 const fileLoadProgress = (
   state: State,
