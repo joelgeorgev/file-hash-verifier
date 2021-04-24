@@ -1,16 +1,10 @@
-import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
-import createSagaMiddleware from 'redux-saga'
 import styled from 'styled-components'
 
 import { Shell } from './components'
-import { reducer } from './reducers'
-import { saga } from './sagas'
-import github from './assets/github.svg'
+import { store } from './store'
 
-const sagaMiddleware = createSagaMiddleware()
-const store = createStore(reducer, applyMiddleware(sagaMiddleware))
-sagaMiddleware.run(saga)
+import github from './assets/github.svg'
 
 const Main = styled.main`
   display: flex;
