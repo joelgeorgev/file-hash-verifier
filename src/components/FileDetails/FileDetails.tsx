@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-import { FileName, FileSize } from '../../types'
+import type { FileName, FileSize } from '../../types'
 
 interface Props {
   name: FileName

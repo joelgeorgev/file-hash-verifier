@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-import { HashType } from '../../types'
+import type { HashType } from '../../types'
 
 interface Props {
   hashType: HashType | null

@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-import { FileLoadProgress } from '../../types'
+import type { FileLoadProgress } from '../../types'
 
 interface Props {
   progress: FileLoadProgress

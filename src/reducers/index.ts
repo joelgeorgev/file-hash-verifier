@@ -1,7 +1,13 @@
-import { AnyAction } from 'redux'
+import type { AnyAction } from 'redux'
 
 import * as Actions from '../actions'
-import { FileName, FileSize, FileLoadProgress, HashType, Hash } from '../types'
+import type {
+  FileName,
+  FileSize,
+  FileLoadProgress,
+  HashType,
+  Hash
+} from '../types'
 
 interface FileDetails {
   name: FileName

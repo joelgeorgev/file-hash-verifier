@@ -1,6 +1,6 @@
-import { AnyAction } from 'redux'
+import type { AnyAction } from 'redux'
 
-import { FileLoadProgress, HashType, Hash } from '../types'
+import type { FileLoadProgress, HashType, Hash } from '../types'
 
 export const SELECT_FILE = 'SELECT_FILE'
 export const FILE_LOAD_PROGRESS = 'FILE_LOAD_PROGRESS'

@@ -1,8 +1,8 @@
 import { put, call, select } from 'redux-saga/effects'
 
 import { hashCalculated } from '../actions'
-import { State } from '../store'
-import { Hash } from '../types'
+import type { State } from '../store'
+import type { Hash } from '../types'
 
 type ArrayBuffer = State['arrayBuffer']
 type HashType = State['hashType']

@@ -1,7 +1,7 @@
 import copy from 'clipboard-copy'
 import styled from 'styled-components'
 
-import { Hash } from '../../types'
+import type { Hash } from '../../types'
 
 import clippy from '../../assets/clippy.svg'
 

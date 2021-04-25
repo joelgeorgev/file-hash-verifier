@@ -1,7 +1,7 @@
 import { useState, ChangeEvent } from 'react'
 import styled from 'styled-components'
 
-import { Hash } from '../../types'
+import type { Hash } from '../../types'
 
 import success from '../../assets/success.svg'
 import fail from '../../assets/fail.svg'
