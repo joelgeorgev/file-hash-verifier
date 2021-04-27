@@ -29,9 +29,16 @@
     "compile:watch": "tsc --watch",
     "format": "prettier --check \"./**/*.{ts,tsx,json,yml,md}\"",
     "test": "react-scripts test --env=jsdom",
+    "coverage": "npm test -- --coverage",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{ts,tsx}",
+      "!src/index.tsx"
+    ]
   },
   "repository": "https://github.com/joelgeorgev/file-hash-verifier",
   "keywords": [
