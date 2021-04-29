@@ -46,12 +46,15 @@ describe('FilePicker', () => {
     expect(onSelect).toHaveBeenCalledWith(file)
   })
 
-  test('does NOT invoke the callback function if there is NO file', () => {
-    const onSelect = jest.fn()
-    renderFilePicker({ onSelect })
+  test.each([null, []])(
+    'does NOT invoke the callback function if there is NO file',
+    (files) => {
+      const onSelect = jest.fn()
+      renderFilePicker({ onSelect })
 
-    fireEvent.change(findFilePicker(), { target: { files: null } })
+      fireEvent.change(findFilePicker(), { target: { files } })
 
-    expect(onSelect).toHaveBeenCalledTimes(0)
-  })
+      expect(onSelect).toHaveBeenCalledTimes(0)
+    }
+  )
 })

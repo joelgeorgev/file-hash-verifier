@@ -22,7 +22,7 @@ export const FilePicker = ({ isDisabled, onSelect }: Props) => (
       onChange={(event) => {
         const { files } = event.target
 
-        if (files) {
+        if (files && files.length) {
           onSelect(files[0])
         }
       }}
