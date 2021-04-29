@@ -1,48 +1,45 @@
 import { eventChannel, END, EventChannel } from 'redux-saga'
-import { take, put, call, race } from 'redux-saga/effects'
+import { take, put, call, race, SagaReturnType } from 'redux-saga/effects'
 
-import { fileLoaded, fileLoadProgress } from '../actions'
-import { CANCEL_FILE_LOAD } from '../actions'
+import { CANCEL_FILE_LOAD, fileLoaded, fileLoadProgress } from '../actions'
 
-const createFileReadChannel = (file: File): EventChannel<unknown> => {
-  return eventChannel((emitter) => {
-    let reader = new FileReader()
+interface FileReadEvent {
+  arrayBuffer?: ArrayBuffer
+  progress?: number
+  error?: FileReader['error']
+}
 
-    const onLoad = (): void => {
-      emitter({ arrayBuffer: reader.result })
+const createFileReadChannel = (file: File): EventChannel<FileReadEvent> =>
+  eventChannel((emitter: (input: FileReadEvent | END) => void) => {
+    const reader = new FileReader()
+
+    reader.onload = (): void => {
+      emitter({ arrayBuffer: reader.result as ArrayBuffer })
       emitter(END)
     }
 
-    const onProgress = (event: ProgressEvent): void => {
+    reader.onprogress = (event): void => {
       emitter({ progress: Math.round((event.loaded / event.total) * 100) })
     }
 
-    const onError = (): void => {
+    reader.onerror = (): void => {
       emitter({ error: reader.error })
       emitter(END)
     }
 
-    reader.onload = onLoad
-    reader.onprogress = onProgress
-    reader.onerror = onError
-
     reader.readAsArrayBuffer(file)
 
-    const unsubscribe = (): void => {
+    return (): void => {
       if (reader.readyState === 1) {
         reader.abort()
       }
     }
-
-    return unsubscribe
   })
-}
 
 export const getArrayBuffer = function* (file: File) {
-  const fileReadChannel: EventChannel<unknown> = yield call(
-    createFileReadChannel,
-    file
-  )
+  const fileReadChannel: SagaReturnType<
+    typeof createFileReadChannel
+  > = yield call(createFileReadChannel, file)
 
   try {
     while (true) {
@@ -52,7 +49,7 @@ export const getArrayBuffer = function* (file: File) {
       })
 
       if (channelOutput) {
-        const { progress, arrayBuffer, error } = channelOutput
+        const { arrayBuffer, progress, error } = channelOutput as FileReadEvent
 
         if (arrayBuffer) {
           yield put(fileLoaded(arrayBuffer))
@@ -64,7 +61,9 @@ export const getArrayBuffer = function* (file: File) {
           return
         }
 
-        yield put(fileLoadProgress(progress))
+        if (progress !== undefined) {
+          yield put(fileLoadProgress(progress))
+        }
       } else if (cancelFileLoad) {
         fileReadChannel.close()
       }
