@@ -4,17 +4,17 @@ import { hashCalculated } from '../actions'
 import type { State } from '../store'
 import type { HashType } from '../types'
 
+const toHexadecimal = (num: number): string => num.toString(16).padStart(2, '0')
+
 const getFileHash = async (
   arrayBuffer: ArrayBuffer,
   hashType: HashType
 ): Promise<string> => {
   const hashBuffer = await crypto.subtle.digest(hashType, arrayBuffer)
-  const hashArray = Array.from(new Uint8Array(hashBuffer))
-  const hashHex = hashArray
-    .map((b) => ('00' + b.toString(16)).slice(-2))
-    .join('')
+  const byteArray = Array.from(new Uint8Array(hashBuffer))
+  const hash = byteArray.map(toHexadecimal).join('')
 
-  return hashHex
+  return hash
 }
 
 export const calculateHash = function* () {
