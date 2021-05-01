@@ -24,7 +24,7 @@ const file = new File(['Hello World'], 'robots.txt', {
   type: 'text/plain'
 })
 const progress = 100
-const arrayBuffer = new ArrayBuffer(8)
+const arrayBuffer = new ArrayBuffer(1)
 const hashType = 'sha-512'
 const hash = 'hash'
 
