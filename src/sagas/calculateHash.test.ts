@@ -17,20 +17,23 @@ const executeSaga = (dispatch: jest.Mock, state: Partial<State>) =>
   runSaga({ dispatch, getState: () => state }, calculateHash as Saga<any[]>)
 
 describe('calculateHash', () => {
-  test('dispatches an action to save the file hash', async () => {
-    mockGetFileHash.mockResolvedValue(hash)
+  describe('When both `arrayBuffer` AND `hashType` are NOT null', () => {
+    let dispatch: jest.Mock
 
-    const dispatch = jest.fn()
+    beforeEach(() => {
+      dispatch = jest.fn()
 
-    executeSaga(dispatch, { arrayBuffer, hashType })
+      mockGetFileHash.mockResolvedValue(hash)
+      executeSaga(dispatch, { arrayBuffer, hashType })
+    })
 
-    expect(mockGetFileHash).toHaveBeenCalledTimes(1)
-    expect(mockGetFileHash).toHaveBeenCalledWith(arrayBuffer, hashType)
+    test('dispatches an action to save the file hash', () => {
+      expect(mockGetFileHash).toHaveBeenCalledTimes(1)
+      expect(mockGetFileHash).toHaveBeenCalledWith(arrayBuffer, hashType)
 
-    await mockGetFileHash(arrayBuffer, hashType)
-
-    expect(dispatch).toHaveBeenCalledTimes(1)
-    expect(dispatch).toHaveBeenCalledWith(hashCalculated(hash))
+      expect(dispatch).toHaveBeenCalledTimes(1)
+      expect(dispatch).toHaveBeenCalledWith(hashCalculated(hash))
+    })
   })
 
   describe.each<[State['arrayBuffer'], State['hashType']]>([
@@ -40,13 +43,16 @@ describe('calculateHash', () => {
   ])(
     'When either `arrayBuffer` OR `hashType` is null',
     (arrayBuffer, hashType) => {
-      test('does NOT dispatch any action', () => {
+      let dispatch: jest.Mock
+
+      beforeEach(() => {
+        dispatch = jest.fn()
+
         mockGetFileHash.mockResolvedValue(hash)
-
-        const dispatch = jest.fn()
-
         executeSaga(dispatch, { arrayBuffer, hashType })
+      })
 
+      test('does NOT dispatch any action', () => {
         expect(mockGetFileHash).toHaveBeenCalledTimes(0)
 
         expect(dispatch).toHaveBeenCalledTimes(0)
