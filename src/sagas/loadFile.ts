@@ -1,7 +1,12 @@
 import { eventChannel, END, EventChannel } from 'redux-saga'
 import { take, put, call, race, SagaReturnType } from 'redux-saga/effects'
 
-import { CANCEL_FILE_LOAD, fileLoaded, fileLoadProgress } from '../actions'
+import {
+  CANCEL_FILE_LOAD,
+  selectFile,
+  fileLoaded,
+  fileLoadProgress
+} from '../actions'
 
 interface FileReadEvent {
   arrayBuffer?: ArrayBuffer
@@ -36,7 +41,9 @@ const createFileReadChannel = (file: File): EventChannel<FileReadEvent> =>
     }
   })
 
-export const getArrayBuffer = function* (file: File) {
+export const loadFile = function* (action: ReturnType<typeof selectFile>) {
+  const { file } = action.payload
+
   const fileReadChannel: SagaReturnType<
     typeof createFileReadChannel
   > = yield call(createFileReadChannel, file)
