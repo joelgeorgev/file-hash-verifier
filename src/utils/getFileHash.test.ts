@@ -1,44 +1,26 @@
 import { getFileHash } from './getFileHash'
+import { getCrypto } from './getCrypto'
 
-const crypto = window.crypto
+jest.mock('./getCrypto')
 
-const hashBuffer = new ArrayBuffer(2)
-const hash = '0000'
-
-const setupCrypto = () => {
-  Object.defineProperty(window, 'crypto', {
-    writable: true,
-    value: {
-      subtle: {
-        digest: jest.fn().mockResolvedValue(hashBuffer)
-      }
-    }
-  })
-}
-
-const restoreCrypto = () => {
-  Object.defineProperty(window, 'crypto', {
-    value: crypto
-  })
-}
+const mockGetCrypto = getCrypto as jest.Mock
 
 describe('getFileHash', () => {
   test('returns the file hash', async () => {
-    setupCrypto()
+    const hashBuffer = new ArrayBuffer(2)
+    const hash = '0000'
+
+    const digest = jest.fn().mockResolvedValue(hashBuffer)
+    mockGetCrypto.mockReturnValue({ subtle: { digest } })
 
     const arrayBuffer = new ArrayBuffer(1)
     const hashType = 'sha-512'
 
     const result = await getFileHash(arrayBuffer, hashType)
 
-    expect(window.crypto.subtle.digest).toHaveBeenCalledTimes(1)
-    expect(window.crypto.subtle.digest).toHaveBeenCalledWith(
-      hashType,
-      arrayBuffer
-    )
+    expect(digest).toHaveBeenCalledTimes(1)
+    expect(digest).toHaveBeenCalledWith(hashType, arrayBuffer)
 
     expect(result).toEqual(hash)
-
-    restoreCrypto()
   })
 })

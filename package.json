@@ -37,7 +37,8 @@
   "jest": {
     "collectCoverageFrom": [
       "src/**/*.{ts,tsx}",
-      "!src/index.tsx"
+      "!src/index.tsx",
+      "!src/utils/getCrypto.ts"
     ]
   },
   "repository": "https://github.com/joelgeorgev/file-hash-verifier",
