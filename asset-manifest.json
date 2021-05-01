@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.js": "/static/js/main.3f41e720.chunk.js",
-    "main.js.map": "/static/js/main.3f41e720.chunk.js.map",
+    "main.js": "/static/js/main.16209184.chunk.js",
+    "main.js.map": "/static/js/main.16209184.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.c3d72543.js",
     "runtime-main.js.map": "/static/js/runtime-main.c3d72543.js.map",
-    "static/js/2.d2c20c58.chunk.js": "/static/js/2.d2c20c58.chunk.js",
-    "static/js/2.d2c20c58.chunk.js.map": "/static/js/2.d2c20c58.chunk.js.map",
+    "static/js/2.ab579a1c.chunk.js": "/static/js/2.ab579a1c.chunk.js",
+    "static/js/2.ab579a1c.chunk.js.map": "/static/js/2.ab579a1c.chunk.js.map",
     "index.html": "/index.html",
-    "static/js/2.d2c20c58.chunk.js.LICENSE.txt": "/static/js/2.d2c20c58.chunk.js.LICENSE.txt",
+    "static/js/2.ab579a1c.chunk.js.LICENSE.txt": "/static/js/2.ab579a1c.chunk.js.LICENSE.txt",
     "static/media/clippy.b0e31af4.svg": "/static/media/clippy.b0e31af4.svg",
     "static/media/fail.47429a71.svg": "/static/media/fail.47429a71.svg",
     "static/media/github.66378707.svg": "/static/media/github.66378707.svg",
@@ -17,7 +17,7 @@
   },
   "entrypoints": [
     "static/js/runtime-main.c3d72543.js",
-    "static/js/2.d2c20c58.chunk.js",
-    "static/js/main.3f41e720.chunk.js"
+    "static/js/2.ab579a1c.chunk.js",
+    "static/js/main.16209184.chunk.js"
   ]
 }
