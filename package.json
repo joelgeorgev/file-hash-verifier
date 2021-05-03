@@ -38,6 +38,7 @@
     "collectCoverageFrom": [
       "src/**/*.{ts,tsx}",
       "!src/index.tsx",
+      "!src/utils/getFileReader.ts",
       "!src/utils/getCrypto.ts"
     ]
   },

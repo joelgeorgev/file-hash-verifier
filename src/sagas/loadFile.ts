@@ -1,45 +1,12 @@
-import { eventChannel, END, EventChannel } from 'redux-saga'
 import { take, put, call, race, SagaReturnType } from 'redux-saga/effects'
 
+import { createFileReadChannel, FileReadEvent } from './createFileReadChannel'
 import {
   CANCEL_FILE_LOAD,
   selectFile,
   fileLoaded,
   fileLoadProgress
 } from '../actions'
-
-interface FileReadEvent {
-  arrayBuffer?: ArrayBuffer
-  progress?: number
-  error?: FileReader['error']
-}
-
-const createFileReadChannel = (file: File): EventChannel<FileReadEvent> =>
-  eventChannel((emitter: (input: FileReadEvent | END) => void) => {
-    const reader = new FileReader()
-
-    reader.onload = (): void => {
-      emitter({ arrayBuffer: reader.result as ArrayBuffer })
-      emitter(END)
-    }
-
-    reader.onprogress = (event): void => {
-      emitter({ progress: Math.round((event.loaded / event.total) * 100) })
-    }
-
-    reader.onerror = (): void => {
-      emitter({ error: reader.error })
-      emitter(END)
-    }
-
-    reader.readAsArrayBuffer(file)
-
-    return (): void => {
-      if (reader.readyState === 1) {
-        reader.abort()
-      }
-    }
-  })
 
 export const loadFile = function* (action: ReturnType<typeof selectFile>) {
   const { file } = action.payload
