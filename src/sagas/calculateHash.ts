@@ -1,4 +1,4 @@
-import { put, call, select, SagaReturnType } from 'redux-saga/effects'
+import { select, call, put, SagaReturnType } from 'redux-saga/effects'
 
 import { getFileHash } from '../utils'
 import { hashCalculated } from '../actions'
