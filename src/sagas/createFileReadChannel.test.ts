@@ -6,7 +6,9 @@ import { getFileReader } from '../utils'
 jest.mock('redux-saga')
 jest.mock('../utils')
 
-const mockEventChannel = eventChannel as jest.Mock
+const mockEventChannel = eventChannel as jest.MockedFunction<
+  typeof eventChannel
+>
 const mockGetFileReader = getFileReader as jest.Mock
 
 interface MockFileReader {
@@ -55,7 +57,7 @@ describe('createFileReadChannel', () => {
       createFileReadChannel(file)
 
       const subscriber = mockEventChannel.mock.calls[0][0]
-      subscriber()
+      subscriber(() => {})
 
       expect(mockGetFileReader).toHaveBeenCalledTimes(1)
       expect(mockGetFileReader).toHaveBeenCalledWith()
@@ -138,7 +140,7 @@ describe('createFileReadChannel', () => {
         createFileReadChannel(file)
 
         const subscriber = mockEventChannel.mock.calls[0][0]
-        const unsubscribe = subscriber()
+        const unsubscribe = subscriber(() => {})
 
         unsubscribe()
 
@@ -157,7 +159,7 @@ describe('createFileReadChannel', () => {
           createFileReadChannel(file)
 
           const subscriber = mockEventChannel.mock.calls[0][0]
-          const unsubscribe = subscriber()
+          const unsubscribe = subscriber(() => {})
 
           unsubscribe()
 
