@@ -1,12 +1,8 @@
-import { take, put, call, race, SagaReturnType } from 'redux-saga/effects'
+import { call, race, take, SagaReturnType } from 'redux-saga/effects'
 
 import { createFileReadChannel, FileReadEvent } from './createFileReadChannel'
-import {
-  CANCEL_FILE_LOAD,
-  selectFile,
-  fileLoaded,
-  fileLoadProgress
-} from '../actions'
+import { processFileReadEvent } from './processFileReadEvent'
+import { CANCEL_FILE_LOAD, selectFile } from '../actions'
 
 export const loadFile = function* (action: ReturnType<typeof selectFile>) {
   const { file } = action.payload
@@ -23,21 +19,7 @@ export const loadFile = function* (action: ReturnType<typeof selectFile>) {
       })
 
       if (channelOutput) {
-        const { arrayBuffer, progress, error } = channelOutput as FileReadEvent
-
-        if (arrayBuffer) {
-          yield put(fileLoaded(arrayBuffer))
-          return
-        }
-
-        if (error) {
-          console.error('Error during file read operation: ', error)
-          return
-        }
-
-        if (progress !== undefined) {
-          yield put(fileLoadProgress(progress))
-        }
+        yield call(processFileReadEvent, channelOutput as FileReadEvent)
       } else if (cancelFileLoad) {
         fileReadChannel.close()
       }
