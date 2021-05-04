@@ -58,6 +58,7 @@ describe('createFileReadChannel', () => {
       subscriber()
 
       expect(mockGetFileReader).toHaveBeenCalledTimes(1)
+      expect(mockGetFileReader).toHaveBeenCalledWith()
 
       expect(readAsArrayBuffer).toHaveBeenCalledTimes(1)
       expect(readAsArrayBuffer).toHaveBeenCalledWith(file)

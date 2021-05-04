@@ -18,6 +18,9 @@ describe('getFileHash', () => {
 
     const result = await getFileHash(arrayBuffer, hashType)
 
+    expect(mockGetCrypto).toHaveBeenCalledTimes(1)
+    expect(mockGetCrypto).toHaveBeenCalledWith()
+
     expect(digest).toHaveBeenCalledTimes(1)
     expect(digest).toHaveBeenCalledWith(hashType, arrayBuffer)
 
