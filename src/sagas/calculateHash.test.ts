@@ -9,21 +9,22 @@ jest.mock('../utils')
 
 const mockGetFileHash = getFileHash as jest.MockedFunction<typeof getFileHash>
 
+const executeSaga = (dispatch: jest.Mock, state: Partial<State>) =>
+  runSaga({ dispatch, getState: () => state }, calculateHash as Saga<any[]>)
+
 const arrayBuffer = new ArrayBuffer(1)
 const hashType = 'sha-512'
 const hash = 'hash'
-
-const executeSaga = (dispatch: jest.Mock, state: Partial<State>) =>
-  runSaga({ dispatch, getState: () => state }, calculateHash as Saga<any[]>)
 
 describe('calculateHash', () => {
   describe('When both `arrayBuffer` AND `hashType` are NOT null', () => {
     let dispatch: jest.Mock
 
     beforeEach(() => {
+      mockGetFileHash.mockResolvedValue(hash)
+
       dispatch = jest.fn()
 
-      mockGetFileHash.mockResolvedValue(hash)
       executeSaga(dispatch, { arrayBuffer, hashType })
     })
 
@@ -46,9 +47,10 @@ describe('calculateHash', () => {
       let dispatch: jest.Mock
 
       beforeEach(() => {
+        mockGetFileHash.mockResolvedValue(hash)
+
         dispatch = jest.fn()
 
-        mockGetFileHash.mockResolvedValue(hash)
         executeSaga(dispatch, { arrayBuffer, hashType })
       })
 
