@@ -14,7 +14,7 @@ const mockGetFileReader = getFileReader as jest.Mock
 interface MockFileReader {
   readyState: 0 | 1 | 2
   result: ArrayBuffer | null
-  error: string | null
+  error: DOMException | null
   onload: () => void
   onprogress: (event: { loaded: number; total: number }) => void
   onerror: () => void
@@ -110,7 +110,7 @@ describe('createFileReadChannel', () => {
 
   describe('When the file read fails', () => {
     test('invokes the emitter function with the file read error', () => {
-      const error = 'some error'
+      const error = new DOMException()
       const mockFileReader = createMockFileReader({ error })
       mockGetFileReader.mockReturnValue(mockFileReader)
 
