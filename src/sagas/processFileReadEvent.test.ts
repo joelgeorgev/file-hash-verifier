@@ -4,14 +4,11 @@ import { processFileReadEvent } from './processFileReadEvent'
 import { fileLoaded, fileLoadProgress } from '../actions'
 
 type FileReadEvent = Parameters<typeof processFileReadEvent>[number]
-type Dispatch = () => void
+type Dispatch = jest.MockedFunction<() => void>
 
-const createDispatch = (): jest.MockedFunction<Dispatch> => jest.fn()
+const createDispatch = (): Dispatch => jest.fn()
 
-const executeSaga = (
-  dispatch: jest.MockedFunction<Dispatch>,
-  event: FileReadEvent
-) =>
+const executeSaga = (dispatch: Dispatch, event: FileReadEvent) =>
   runSaga({ dispatch }, processFileReadEvent as Saga<any[]>, event).toPromise()
 
 const arrayBuffer = new ArrayBuffer(1)

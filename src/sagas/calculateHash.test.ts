@@ -9,14 +9,11 @@ jest.mock('../utils')
 
 const mockGetFileHash = getFileHash as jest.MockedFunction<typeof getFileHash>
 
-type Dispatch = () => void
+type Dispatch = jest.MockedFunction<() => void>
 
-const createDispatch = (): jest.MockedFunction<Dispatch> => jest.fn()
+const createDispatch = (): Dispatch => jest.fn()
 
-const executeSaga = (
-  dispatch: jest.MockedFunction<Dispatch>,
-  state: Partial<State>
-) =>
+const executeSaga = (dispatch: Dispatch, state: Partial<State>) =>
   runSaga(
     { dispatch, getState: () => state },
     calculateHash as Saga<any[]>

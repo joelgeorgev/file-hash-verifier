@@ -4,6 +4,7 @@ import { render, screen, fireEvent } from '@testing-library/react'
 import { HashSelector } from '.'
 
 type Props = ComponentProps<typeof HashSelector>
+type OnSelect = Props['onSelect']
 
 const createDefaultProps = (): Props => ({
   hashType: null,
@@ -28,7 +29,7 @@ describe('HashSelector', () => {
     ['SHA-384', 'sha-384'],
     ['SHA-512', 'sha-512']
   ])('renders "%s" radio button', (label, value) => {
-    const onSelect: jest.MockedFunction<Props['onSelect']> = jest.fn()
+    const onSelect: jest.MockedFunction<OnSelect> = jest.fn()
     renderHashSelector({ onSelect })
 
     const radioButton = findRadioButton(label)

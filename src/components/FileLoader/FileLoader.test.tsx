@@ -4,6 +4,7 @@ import { render, screen, fireEvent } from '@testing-library/react'
 import { FileLoader } from '.'
 
 type Props = ComponentProps<typeof FileLoader>
+type OnCancel = Props['onCancel']
 
 const createDefaultProps = (): Props => ({ progress: 50, onCancel: () => {} })
 
@@ -48,7 +49,7 @@ describe('FileLoader', () => {
 
     describe('When the cancel button is clicked', () => {
       test('invokes the callback function', () => {
-        const onCancel: jest.MockedFunction<Props['onCancel']> = jest.fn()
+        const onCancel: jest.MockedFunction<OnCancel> = jest.fn()
         renderFileLoader({ onCancel })
 
         fireEvent.click(findCancelButton())

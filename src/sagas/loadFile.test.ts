@@ -6,7 +6,8 @@ import { createFileReadChannel, FileReadEvent } from './createFileReadChannel'
 import { processFileReadEvent } from './processFileReadEvent'
 import { CANCEL_FILE_LOAD, selectFile, cancelFileLoad } from '../actions'
 
-type NextArgs = EventChannel<FileReadEvent> & RaceYield
+type NextParams = EventChannel<FileReadEvent> & RaceYield
+type Close = EventChannel<FileReadEvent>['close']
 
 const createEventChannel = (
   overrides?: Partial<EventChannel<FileReadEvent>>
@@ -29,7 +30,7 @@ describe('loadFile', () => {
 
     const fileReadChannel = createEventChannel()
 
-    expect(generator.next(fileReadChannel as NextArgs).value).toEqual(
+    expect(generator.next(fileReadChannel as NextParams).value).toEqual(
       race({
         channelOutput: take(fileReadChannel),
         cancelFileLoad: take(CANCEL_FILE_LOAD)
@@ -38,7 +39,7 @@ describe('loadFile', () => {
 
     const channelOutput: FileReadEvent = { arrayBuffer: new ArrayBuffer(1) }
 
-    expect(generator.next({ channelOutput } as NextArgs).value).toEqual(
+    expect(generator.next({ channelOutput } as NextParams).value).toEqual(
       call(processFileReadEvent, channelOutput)
     )
   })
@@ -49,19 +50,17 @@ describe('loadFile', () => {
 
       expect(generator.next().value).toEqual(call(createFileReadChannel, file))
 
-      const close: jest.MockedFunction<
-        EventChannel<FileReadEvent>['close']
-      > = jest.fn()
+      const close: jest.MockedFunction<Close> = jest.fn()
       const fileReadChannel = createEventChannel({ close })
 
-      expect(generator.next(fileReadChannel as NextArgs).value).toEqual(
+      expect(generator.next(fileReadChannel as NextParams).value).toEqual(
         race({
           channelOutput: take(fileReadChannel),
           cancelFileLoad: take(CANCEL_FILE_LOAD)
         })
       )
 
-      generator.next({ cancelFileLoad: cancelFileLoad() } as NextArgs)
+      generator.next({ cancelFileLoad: cancelFileLoad() } as NextParams)
 
       expect(close).toHaveBeenCalledTimes(1)
       expect(close).toHaveBeenCalledWith()
