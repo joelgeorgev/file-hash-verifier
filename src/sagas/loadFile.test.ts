@@ -6,12 +6,13 @@ import { createFileReadChannel, FileReadEvent } from './createFileReadChannel'
 import { processFileReadEvent } from './processFileReadEvent'
 import { CANCEL_FILE_LOAD, selectFile, cancelFileLoad } from '../actions'
 
-type NextParams = EventChannel<FileReadEvent> & RaceYield
-type Close = EventChannel<FileReadEvent>['close']
+type FileReadChannel = EventChannel<FileReadEvent>
+type NextParameters = FileReadChannel & RaceYield
+type Close = FileReadChannel['close']
 
 const createEventChannel = (
-  overrides?: Partial<EventChannel<FileReadEvent>>
-): EventChannel<FileReadEvent> => ({
+  overrides?: Partial<FileReadChannel>
+): FileReadChannel => ({
   close: () => {},
   flush: () => {},
   take: () => {},
@@ -30,7 +31,7 @@ describe('loadFile', () => {
 
     const fileReadChannel = createEventChannel()
 
-    expect(generator.next(fileReadChannel as NextParams).value).toEqual(
+    expect(generator.next(fileReadChannel as NextParameters).value).toEqual(
       race({
         channelOutput: take(fileReadChannel),
         cancelFileLoad: take(CANCEL_FILE_LOAD)
@@ -39,7 +40,7 @@ describe('loadFile', () => {
 
     const channelOutput: FileReadEvent = { arrayBuffer: new ArrayBuffer(1) }
 
-    expect(generator.next({ channelOutput } as NextParams).value).toEqual(
+    expect(generator.next({ channelOutput } as NextParameters).value).toEqual(
       call(processFileReadEvent, channelOutput)
     )
   })
@@ -53,14 +54,14 @@ describe('loadFile', () => {
       const close: jest.MockedFunction<Close> = jest.fn()
       const fileReadChannel = createEventChannel({ close })
 
-      expect(generator.next(fileReadChannel as NextParams).value).toEqual(
+      expect(generator.next(fileReadChannel as NextParameters).value).toEqual(
         race({
           channelOutput: take(fileReadChannel),
           cancelFileLoad: take(CANCEL_FILE_LOAD)
         })
       )
 
-      generator.next({ cancelFileLoad: cancelFileLoad() } as NextParams)
+      generator.next({ cancelFileLoad: cancelFileLoad() } as NextParameters)
 
       expect(close).toHaveBeenCalledTimes(1)
       expect(close).toHaveBeenCalledWith()
