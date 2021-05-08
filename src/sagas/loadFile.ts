@@ -1,8 +1,14 @@
+import { END } from 'redux-saga'
 import { call, race, take, SagaReturnType } from 'redux-saga/effects'
 
 import { createFileReadChannel, FileReadEvent } from './createFileReadChannel'
 import { processFileReadEvent } from './processFileReadEvent'
-import { CANCEL_FILE_LOAD, selectFile } from '../actions'
+import { CANCEL_FILE_LOAD, selectFile, cancelFileLoad } from '../actions'
+
+export interface RaceYield {
+  channelOutput: FileReadEvent | END
+  cancelFileLoad: ReturnType<typeof cancelFileLoad>
+}
 
 export const loadFile = function* (action: ReturnType<typeof selectFile>) {
   const { file } = action.payload
@@ -13,16 +19,16 @@ export const loadFile = function* (action: ReturnType<typeof selectFile>) {
 
   try {
     while (true) {
-      const { channelOutput, cancelFileLoad } = yield race({
+      const { channelOutput, cancelFileLoad }: RaceYield = yield race({
         channelOutput: take(fileReadChannel),
         cancelFileLoad: take(CANCEL_FILE_LOAD)
       })
 
-      if (channelOutput) {
-        yield call(processFileReadEvent, channelOutput as FileReadEvent)
-      } else if (cancelFileLoad) {
-        fileReadChannel.close()
+      if (cancelFileLoad) {
+        break
       }
+
+      yield call(processFileReadEvent, channelOutput as FileReadEvent)
     }
   } finally {
     fileReadChannel.close()
