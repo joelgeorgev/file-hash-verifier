@@ -9,8 +9,18 @@ jest.mock('../utils')
 
 const mockGetFileHash = getFileHash as jest.MockedFunction<typeof getFileHash>
 
-const executeSaga = (dispatch: jest.Mock, state: Partial<State>) =>
-  runSaga({ dispatch, getState: () => state }, calculateHash as Saga<any[]>)
+type Dispatch = () => void
+
+const createDispatch = (): jest.MockedFunction<Dispatch> => jest.fn()
+
+const executeSaga = (
+  dispatch: jest.MockedFunction<Dispatch>,
+  state: Partial<State>
+) =>
+  runSaga(
+    { dispatch, getState: () => state },
+    calculateHash as Saga<any[]>
+  ).toPromise()
 
 const arrayBuffer = new ArrayBuffer(1)
 const hashType = 'sha-512'
@@ -18,17 +28,12 @@ const hash = 'hash'
 
 describe('calculateHash', () => {
   describe('When both `arrayBuffer` AND `hashType` are NOT null', () => {
-    let dispatch: jest.Mock
-
-    beforeEach(() => {
+    test('dispatches an action to save the file hash', async () => {
       mockGetFileHash.mockResolvedValue(hash)
 
-      dispatch = jest.fn()
+      const dispatch = createDispatch()
+      await executeSaga(dispatch, { arrayBuffer, hashType })
 
-      executeSaga(dispatch, { arrayBuffer, hashType })
-    })
-
-    test('dispatches an action to save the file hash', () => {
       expect(mockGetFileHash).toHaveBeenCalledTimes(1)
       expect(mockGetFileHash).toHaveBeenCalledWith(arrayBuffer, hashType)
 
@@ -44,17 +49,12 @@ describe('calculateHash', () => {
   ])(
     'When either `arrayBuffer` OR `hashType` is null',
     (arrayBuffer, hashType) => {
-      let dispatch: jest.Mock
-
-      beforeEach(() => {
+      test('does NOT dispatch any action', async () => {
         mockGetFileHash.mockResolvedValue(hash)
 
-        dispatch = jest.fn()
+        const dispatch = createDispatch()
+        await executeSaga(dispatch, { arrayBuffer, hashType })
 
-        executeSaga(dispatch, { arrayBuffer, hashType })
-      })
-
-      test('does NOT dispatch any action', () => {
         expect(mockGetFileHash).toHaveBeenCalledTimes(0)
 
         expect(dispatch).toHaveBeenCalledTimes(0)

@@ -4,9 +4,15 @@ import { processFileReadEvent } from './processFileReadEvent'
 import { fileLoaded, fileLoadProgress } from '../actions'
 
 type FileReadEvent = Parameters<typeof processFileReadEvent>[number]
+type Dispatch = () => void
 
-const executeSaga = (dispatch: jest.Mock, event: FileReadEvent) =>
-  runSaga({ dispatch }, processFileReadEvent as Saga<any[]>, event)
+const createDispatch = (): jest.MockedFunction<Dispatch> => jest.fn()
+
+const executeSaga = (
+  dispatch: jest.MockedFunction<Dispatch>,
+  event: FileReadEvent
+) =>
+  runSaga({ dispatch }, processFileReadEvent as Saga<any[]>, event).toPromise()
 
 const arrayBuffer = new ArrayBuffer(1)
 const error = new DOMException()
@@ -14,70 +20,49 @@ const progress = 100
 
 describe('processFileReadEvent', () => {
   describe('When the event contains the file array buffer', () => {
-    let dispatch: jest.Mock
+    test('dispatches an action to save the file array buffer', async () => {
+      const dispatch = createDispatch()
+      await executeSaga(dispatch, { arrayBuffer })
 
-    beforeEach(() => {
-      dispatch = jest.fn()
-
-      executeSaga(dispatch, { arrayBuffer })
-    })
-
-    test('dispatches an action to save the file array buffer', () => {
       expect(dispatch).toHaveBeenCalledTimes(1)
       expect(dispatch).toHaveBeenCalledWith(fileLoaded(arrayBuffer))
     })
   })
 
   describe('When the event contains the file read error', () => {
-    let consoleSpy: jest.SpyInstance
-    let dispatch: jest.Mock
+    test('logs the file read error to the console', async () => {
+      const consoleSpy = jest
+        .spyOn(window.console, 'error')
+        .mockImplementation()
 
-    beforeEach(() => {
-      consoleSpy = jest.spyOn(window.console, 'error').mockImplementation()
+      const dispatch = createDispatch()
+      await executeSaga(dispatch, { error })
 
-      dispatch = jest.fn()
-
-      executeSaga(dispatch, { error })
-    })
-
-    afterEach(() => {
-      consoleSpy.mockRestore()
-    })
-
-    test('logs the file read error to the console', () => {
       expect(consoleSpy).toHaveBeenCalledTimes(1)
       expect(consoleSpy).toHaveBeenCalledWith(
         'Error during file read operation: ',
         error
       )
+
+      consoleSpy.mockRestore()
     })
   })
 
   describe('When the event contains the file read progress', () => {
-    let dispatch: jest.Mock
+    test('dispatches an action to save the file read progress', async () => {
+      const dispatch = createDispatch()
+      await executeSaga(dispatch, { progress })
 
-    beforeEach(() => {
-      dispatch = jest.fn()
-
-      executeSaga(dispatch, { progress })
-    })
-
-    test('dispatches an action to save the file read progress', () => {
       expect(dispatch).toHaveBeenCalledTimes(1)
       expect(dispatch).toHaveBeenCalledWith(fileLoadProgress(progress))
     })
   })
 
   describe('When the event does NOT contain the file read progress', () => {
-    let dispatch: jest.Mock
+    test('does NOT dispatch any action', async () => {
+      const dispatch = createDispatch()
+      await executeSaga(dispatch, { progress: undefined })
 
-    beforeEach(() => {
-      dispatch = jest.fn()
-
-      executeSaga(dispatch, { progress: undefined })
-    })
-
-    test('does NOT dispatch any action', () => {
       expect(dispatch).toHaveBeenCalledTimes(0)
     })
   })
