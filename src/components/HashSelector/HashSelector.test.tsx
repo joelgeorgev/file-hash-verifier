@@ -28,7 +28,7 @@ describe('HashSelector', () => {
     ['SHA-384', 'sha-384'],
     ['SHA-512', 'sha-512']
   ])('renders "%s" radio button', (label, value) => {
-    const onSelect = jest.fn()
+    const onSelect: jest.MockedFunction<Props['onSelect']> = jest.fn()
     renderHashSelector({ onSelect })
 
     const radioButton = findRadioButton(label)

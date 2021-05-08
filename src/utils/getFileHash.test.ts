@@ -5,12 +5,19 @@ jest.mock('./getCrypto')
 
 const mockGetCrypto = getCrypto as jest.Mock
 
+type Digest = (
+  hashType: string,
+  arrayBuffer: ArrayBuffer
+) => Promise<ArrayBuffer>
+
 describe('getFileHash', () => {
   test('returns the file hash', async () => {
     const hashBuffer = new ArrayBuffer(2)
     const hash = '0000'
 
-    const digest = jest.fn().mockResolvedValue(hashBuffer)
+    const digest: jest.MockedFunction<Digest> = jest
+      .fn()
+      .mockResolvedValue(hashBuffer)
     mockGetCrypto.mockReturnValue({ subtle: { digest } })
 
     const arrayBuffer = new ArrayBuffer(1)

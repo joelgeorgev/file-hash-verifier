@@ -1,1 +1,1 @@
-export const getFileReader = () => new FileReader()
+export const getFileReader = (): FileReader => new FileReader()

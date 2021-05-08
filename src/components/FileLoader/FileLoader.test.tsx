@@ -48,7 +48,7 @@ describe('FileLoader', () => {
 
     describe('When the cancel button is clicked', () => {
       test('invokes the callback function', () => {
-        const onCancel = jest.fn()
+        const onCancel: jest.MockedFunction<Props['onCancel']> = jest.fn()
         renderFileLoader({ onCancel })
 
         fireEvent.click(findCancelButton())

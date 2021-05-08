@@ -1,1 +1,1 @@
-export const getCrypto = () => window.crypto
+export const getCrypto = (): Crypto => window.crypto

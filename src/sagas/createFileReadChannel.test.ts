@@ -1,6 +1,6 @@
-import { eventChannel, END } from 'redux-saga'
+import { eventChannel, END, Subscribe } from 'redux-saga'
 
-import { createFileReadChannel } from './createFileReadChannel'
+import { createFileReadChannel, FileReadEvent } from './createFileReadChannel'
 import { getFileReader } from '../utils'
 
 jest.mock('redux-saga')
@@ -36,6 +36,9 @@ const createMockFileReader = (
   ...overrides
 })
 
+type Subscriber = Subscribe<FileReadEvent>
+type Emitter = (input: FileReadEvent | END) => void
+
 const file = new File(['Hello World'], 'robots.txt', {
   type: 'text/plain'
 })
@@ -50,13 +53,15 @@ describe('createFileReadChannel', () => {
 
   describe('When the subscriber function is invoked', () => {
     test('invokes function to read file as array buffer', () => {
-      const readAsArrayBuffer = jest.fn()
+      const readAsArrayBuffer: jest.MockedFunction<
+        MockFileReader['readAsArrayBuffer']
+      > = jest.fn()
       const mockFileReader = createMockFileReader({ readAsArrayBuffer })
       mockGetFileReader.mockReturnValue(mockFileReader)
 
       createFileReadChannel(file)
 
-      const subscriber = mockEventChannel.mock.calls[0][0]
+      const subscriber = mockEventChannel.mock.calls[0][0] as Subscriber
       subscriber(() => {})
 
       expect(mockGetFileReader).toHaveBeenCalledTimes(1)
@@ -75,9 +80,9 @@ describe('createFileReadChannel', () => {
 
       createFileReadChannel(file)
 
-      const subscriber = mockEventChannel.mock.calls[0][0]
+      const subscriber = mockEventChannel.mock.calls[0][0] as Subscriber
 
-      const emitter = jest.fn()
+      const emitter: jest.MockedFunction<Emitter> = jest.fn()
       subscriber(emitter)
 
       mockFileReader.onload()
@@ -95,9 +100,9 @@ describe('createFileReadChannel', () => {
 
       createFileReadChannel(file)
 
-      const subscriber = mockEventChannel.mock.calls[0][0]
+      const subscriber = mockEventChannel.mock.calls[0][0] as Subscriber
 
-      const emitter = jest.fn()
+      const emitter: jest.MockedFunction<Emitter> = jest.fn()
       subscriber(emitter)
 
       const event = { loaded: 5, total: 10 }
@@ -116,9 +121,9 @@ describe('createFileReadChannel', () => {
 
       createFileReadChannel(file)
 
-      const subscriber = mockEventChannel.mock.calls[0][0]
+      const subscriber = mockEventChannel.mock.calls[0][0] as Subscriber
 
-      const emitter = jest.fn()
+      const emitter: jest.MockedFunction<Emitter> = jest.fn()
       subscriber(emitter)
 
       mockFileReader.onerror()
@@ -133,13 +138,13 @@ describe('createFileReadChannel', () => {
     describe('And the file read is in progress', () => {
       test('invokes function to abort file read', () => {
         const readyState = 1
-        const abort = jest.fn()
+        const abort: jest.MockedFunction<MockFileReader['abort']> = jest.fn()
         const mockFileReader = createMockFileReader({ readyState, abort })
         mockGetFileReader.mockReturnValue(mockFileReader)
 
         createFileReadChannel(file)
 
-        const subscriber = mockEventChannel.mock.calls[0][0]
+        const subscriber = mockEventChannel.mock.calls[0][0] as Subscriber
         const unsubscribe = subscriber(() => {})
 
         unsubscribe()
@@ -152,13 +157,13 @@ describe('createFileReadChannel', () => {
       'And the file read is NOT in progress',
       (readyState) => {
         test('does NOT invoke function to abort file read', () => {
-          const abort = jest.fn()
+          const abort: jest.MockedFunction<MockFileReader['abort']> = jest.fn()
           const mockFileReader = createMockFileReader({ readyState, abort })
           mockGetFileReader.mockReturnValue(mockFileReader)
 
           createFileReadChannel(file)
 
-          const subscriber = mockEventChannel.mock.calls[0][0]
+          const subscriber = mockEventChannel.mock.calls[0][0] as Subscriber
           const unsubscribe = subscriber(() => {})
 
           unsubscribe()

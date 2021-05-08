@@ -7,8 +7,11 @@ export const getFileHash = async (
   arrayBuffer: ArrayBuffer,
   hashType: HashType
 ): Promise<string> => {
-  const hashBuffer = await getCrypto().subtle.digest(hashType, arrayBuffer)
-  const byteArray = Array.from(new Uint8Array(hashBuffer))
+  const hashBuffer: ArrayBuffer = await getCrypto().subtle.digest(
+    hashType,
+    arrayBuffer
+  )
+  const byteArray: number[] = Array.from(new Uint8Array(hashBuffer))
   const hash = byteArray.map(toHexadecimal).join('')
 
   return hash

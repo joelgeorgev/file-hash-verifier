@@ -4,6 +4,7 @@ import { render, screen, fireEvent } from '@testing-library/react'
 import { FilePicker } from '.'
 
 type Props = ComponentProps<typeof FilePicker>
+type OnSelect = Props['onSelect']
 
 const createDefaultProps = (): Props => ({
   isDisabled: false,
@@ -37,7 +38,7 @@ describe('FilePicker', () => {
     const file = new File(['Hello World'], 'robots.txt', {
       type: 'text/plain'
     })
-    const onSelect = jest.fn()
+    const onSelect: jest.MockedFunction<OnSelect> = jest.fn()
     renderFilePicker({ onSelect })
 
     fireEvent.change(findFilePicker(), { target: { files: [file] } })
@@ -49,7 +50,7 @@ describe('FilePicker', () => {
   test.each([null, []])(
     'does NOT invoke the callback function if there is NO file',
     (files) => {
-      const onSelect = jest.fn()
+      const onSelect: jest.MockedFunction<OnSelect> = jest.fn()
       renderFilePicker({ onSelect })
 
       fireEvent.change(findFilePicker(), { target: { files } })
