@@ -39,6 +39,8 @@ const createMockFileReader = (
 type Subscriber = Subscribe<FileReadEvent>
 type Emitter = (input: FileReadEvent | END) => void
 
+const createEmitter = (): jest.MockedFunction<Emitter> => jest.fn()
+
 const file = new File(['Hello World'], 'robots.txt', {
   type: 'text/plain'
 })
@@ -82,7 +84,7 @@ describe('createFileReadChannel', () => {
 
       const subscriber = mockEventChannel.mock.calls[0][0] as Subscriber
 
-      const emitter: jest.MockedFunction<Emitter> = jest.fn()
+      const emitter = createEmitter()
       subscriber(emitter)
 
       mockFileReader.onload()
@@ -102,7 +104,7 @@ describe('createFileReadChannel', () => {
 
       const subscriber = mockEventChannel.mock.calls[0][0] as Subscriber
 
-      const emitter: jest.MockedFunction<Emitter> = jest.fn()
+      const emitter = createEmitter()
       subscriber(emitter)
 
       const event = { loaded: 5, total: 10 }
@@ -123,7 +125,7 @@ describe('createFileReadChannel', () => {
 
       const subscriber = mockEventChannel.mock.calls[0][0] as Subscriber
 
-      const emitter: jest.MockedFunction<Emitter> = jest.fn()
+      const emitter = createEmitter()
       subscriber(emitter)
 
       mockFileReader.onerror()
