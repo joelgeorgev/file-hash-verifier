@@ -1,12 +1,12 @@
-import { EventChannel } from 'redux-saga'
 import { call, race, take } from 'redux-saga/effects'
 
 import { loadFile, RaceYield } from './loadFile'
-import { createFileReadChannel, FileReadEvent } from './createFileReadChannel'
+import { createFileReadChannel } from './createFileReadChannel'
 import { processFileReadEvent } from './processFileReadEvent'
 import { CANCEL_FILE_LOAD, selectFile, cancelFileLoad } from '../actions'
 
-type FileReadChannel = EventChannel<FileReadEvent>
+type FileReadEvent = Parameters<typeof processFileReadEvent>[number]
+type FileReadChannel = ReturnType<typeof createFileReadChannel>
 type NextParameters = FileReadChannel & RaceYield
 type Close = FileReadChannel['close']
 
