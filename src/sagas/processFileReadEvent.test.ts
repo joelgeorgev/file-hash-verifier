@@ -13,7 +13,7 @@ const executeSaga = (dispatch: Dispatch, event: FileReadEvent) =>
 
 const arrayBuffer = new ArrayBuffer(1)
 const error = new DOMException()
-const progress = 100
+const progress = 90
 
 describe('processFileReadEvent', () => {
   describe('When the event contains the file array buffer', () => {
