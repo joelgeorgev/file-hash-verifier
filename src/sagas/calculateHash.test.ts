@@ -7,11 +7,11 @@ import type { State } from '../store'
 
 jest.mock('../utils')
 
-const mockGetFileHash = getFileHash as jest.MockedFunction<typeof getFileHash>
-
 type Dispatch = jest.MockedFunction<() => void>
 
 const createDispatch = (): Dispatch => jest.fn()
+
+const mockGetFileHash = getFileHash as jest.MockedFunction<typeof getFileHash>
 
 const executeSaga = (dispatch: Dispatch, state: Partial<State>) =>
   runSaga(
