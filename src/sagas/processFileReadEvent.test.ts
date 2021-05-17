@@ -40,8 +40,6 @@ describe('processFileReadEvent', () => {
         'Error during file read operation: ',
         error
       )
-
-      consoleSpy.mockRestore()
     })
   })
 
