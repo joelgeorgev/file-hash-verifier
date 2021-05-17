@@ -35,12 +35,17 @@
     "deploy": "gh-pages -d build"
   },
   "jest": {
+    "clearMocks": true,
     "collectCoverageFrom": [
       "src/**/*.{ts,tsx}",
       "!src/index.tsx",
       "!src/utils/getFileReader.ts",
       "!src/utils/getCrypto.ts"
-    ]
+    ],
+    "displayName": "File Hash Verifier",
+    "resetMocks": true,
+    "resetModules": true,
+    "restoreMocks": true
   },
   "repository": "https://github.com/joelgeorgev/file-hash-verifier",
   "keywords": [
