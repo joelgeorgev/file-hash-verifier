@@ -49,7 +49,7 @@ const hash = 'hash'
 
 describe('Shell', () => {
   test('renders a file picker', () => {
-    mockUseSelector.mockImplementation(() => createState())
+    mockUseSelector.mockReturnValue(createState())
 
     renderShell()
 
@@ -57,9 +57,9 @@ describe('Shell', () => {
   })
 
   test('dispatches an action on selecting a file', () => {
-    mockUseSelector.mockImplementation(() => createState())
+    mockUseSelector.mockReturnValue(createState())
     const dispatch = createDispatch()
-    mockUseDispatch.mockImplementation(() => dispatch)
+    mockUseDispatch.mockReturnValue(dispatch)
 
     renderShell()
 
@@ -70,7 +70,7 @@ describe('Shell', () => {
   })
 
   test('renders a hash selector', () => {
-    mockUseSelector.mockImplementation(() => createState())
+    mockUseSelector.mockReturnValue(createState())
 
     renderShell()
 
@@ -81,9 +81,9 @@ describe('Shell', () => {
   })
 
   test('dispatches an action on selecting a hash type', () => {
-    mockUseSelector.mockImplementation(() => createState())
+    mockUseSelector.mockReturnValue(createState())
     const dispatch = createDispatch()
-    mockUseDispatch.mockImplementation(() => dispatch)
+    mockUseDispatch.mockReturnValue(dispatch)
 
     renderShell()
 
@@ -95,7 +95,7 @@ describe('Shell', () => {
 
   describe('When the file load is in progress', () => {
     test('renders a file loader', () => {
-      mockUseSelector.mockImplementation(() =>
+      mockUseSelector.mockReturnValue(
         createState({ fileLoadProgress: progress })
       )
 
@@ -107,9 +107,7 @@ describe('Shell', () => {
 
   describe('When the file is loaded', () => {
     test('does NOT render a file loader', () => {
-      mockUseSelector.mockImplementation(() =>
-        createState({ fileLoadProgress: null })
-      )
+      mockUseSelector.mockReturnValue(createState({ fileLoadProgress: null }))
 
       renderShell()
 
@@ -118,11 +116,9 @@ describe('Shell', () => {
   })
 
   test('dispatches an action to cancel file load', () => {
-    mockUseSelector.mockImplementation(() =>
-      createState({ fileLoadProgress: progress })
-    )
+    mockUseSelector.mockReturnValue(createState({ fileLoadProgress: progress }))
     const dispatch = createDispatch()
-    mockUseDispatch.mockImplementation(() => dispatch)
+    mockUseDispatch.mockReturnValue(dispatch)
 
     renderShell()
 
@@ -133,7 +129,7 @@ describe('Shell', () => {
   })
 
   test('renders file details', () => {
-    mockUseSelector.mockImplementation(() =>
+    mockUseSelector.mockReturnValue(
       createState({
         arrayBuffer,
         file: { name: 'robots.txt', size: 100 }
@@ -148,7 +144,7 @@ describe('Shell', () => {
 
   describe('When the hash calculation is enabled', () => {
     test('renders a hash loader', () => {
-      mockUseSelector.mockImplementation(() =>
+      mockUseSelector.mockReturnValue(
         createState({ arrayBuffer, isCalculatingHash: true })
       )
 
@@ -160,7 +156,7 @@ describe('Shell', () => {
 
   describe('When the hash calculation is disabled', () => {
     test('does NOT render a hash loader', () => {
-      mockUseSelector.mockImplementation(() =>
+      mockUseSelector.mockReturnValue(() =>
         createState({ arrayBuffer, isCalculatingHash: false })
       )
 
@@ -172,9 +168,7 @@ describe('Shell', () => {
 
   describe('When the file hash is available', () => {
     test('renders the file hash', () => {
-      mockUseSelector.mockImplementation(() =>
-        createState({ arrayBuffer, hash })
-      )
+      mockUseSelector.mockReturnValue(createState({ arrayBuffer, hash }))
 
       renderShell()
 
@@ -182,9 +176,7 @@ describe('Shell', () => {
     })
 
     test('renders the hash verifier', () => {
-      mockUseSelector.mockImplementation(() =>
-        createState({ arrayBuffer, hash })
-      )
+      mockUseSelector.mockReturnValue(createState({ arrayBuffer, hash }))
 
       renderShell()
 
@@ -194,9 +186,7 @@ describe('Shell', () => {
 
   describe('When the file hash is NOT available', () => {
     test('does NOT render the file hash', () => {
-      mockUseSelector.mockImplementation(() =>
-        createState({ arrayBuffer, hash: null })
-      )
+      mockUseSelector.mockReturnValue(createState({ arrayBuffer, hash: null }))
 
       renderShell()
 
@@ -204,9 +194,7 @@ describe('Shell', () => {
     })
 
     test('does NOT render the hash verifier', () => {
-      mockUseSelector.mockImplementation(() =>
-        createState({ arrayBuffer, hash: null })
-      )
+      mockUseSelector.mockReturnValue(createState({ arrayBuffer, hash: null }))
 
       renderShell()
 
