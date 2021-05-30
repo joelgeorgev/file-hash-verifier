@@ -13,9 +13,8 @@ export interface RaceYield {
 export const loadFile = function* (action: ReturnType<typeof selectFile>) {
   const { file } = action.payload
 
-  const fileReadChannel: SagaReturnType<
-    typeof createFileReadChannel
-  > = yield call(createFileReadChannel, file)
+  const fileReadChannel: SagaReturnType<typeof createFileReadChannel> =
+    yield call(createFileReadChannel, file)
 
   try {
     while (true) {
