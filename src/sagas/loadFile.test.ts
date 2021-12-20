@@ -5,7 +5,7 @@ import { createFileReadChannel } from './createFileReadChannel'
 import { processFileReadEvent } from './processFileReadEvent'
 import { CANCEL_FILE_LOAD, selectFile, cancelFileLoad } from '../actions'
 
-type FileReadEvent = Parameters<typeof processFileReadEvent>[number]
+type FileReadEvent = Parameters<typeof processFileReadEvent>[0]
 type FileReadChannel = ReturnType<typeof createFileReadChannel>
 type NextParameters = FileReadChannel & RaceYield
 type Close = FileReadChannel['close']

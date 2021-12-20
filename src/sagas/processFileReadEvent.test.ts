@@ -3,7 +3,7 @@ import { runSaga, Saga } from 'redux-saga'
 import { processFileReadEvent } from './processFileReadEvent'
 import { fileLoaded, fileLoadProgress } from '../actions'
 
-type FileReadEvent = Parameters<typeof processFileReadEvent>[number]
+type FileReadEvent = Parameters<typeof processFileReadEvent>[0]
 type Dispatch = jest.MockedFunction<() => void>
 
 const createDispatch = (): Dispatch => jest.fn()
