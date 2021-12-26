@@ -7,14 +7,11 @@ type Props = ComponentProps<typeof HashVerifier>
 
 const renderHashVerifier = (props: Props) => render(<HashVerifier {...props} />)
 
-const findLabel = (): HTMLLabelElement =>
-  screen.getByLabelText('Compare with:') as HTMLLabelElement
-const findTextField = (): HTMLInputElement =>
-  screen.getByRole('textbox') as HTMLInputElement
+const findLabel = (): HTMLLabelElement => screen.getByLabelText('Compare with:')
+const findTextField = (): HTMLInputElement => screen.getByRole('textbox')
 const findImage = (altText: string): HTMLImageElement =>
-  screen.getByAltText(altText) as HTMLImageElement
-const queryImage = (altText: string): HTMLImageElement =>
-  screen.queryByAltText(altText) as HTMLImageElement
+  screen.getByAltText(altText)
+const queryImage = (altText: string) => screen.queryByAltText(altText)
 
 const hash = 'hash'
 const matchImageAltText = 'Hashes match'

@@ -15,12 +15,10 @@ const createDefaultProps = (): Props => ({
 const renderHashSelector = (props?: Partial<Props>) =>
   render(<HashSelector {...createDefaultProps()} {...props} />)
 
-const findFieldSet = (): HTMLFieldSetElement =>
-  screen.getByRole('group') as HTMLFieldSetElement
-const findRadioButtons = (): HTMLInputElement[] =>
-  screen.getAllByRole('radio') as HTMLInputElement[]
+const findFieldSet = (): HTMLFieldSetElement => screen.getByRole('group')
+const findRadioButtons = (): HTMLInputElement[] => screen.getAllByRole('radio')
 const findRadioButton = (label: string): HTMLInputElement =>
-  screen.getByLabelText(label) as HTMLInputElement
+  screen.getByLabelText(label)
 
 describe('HashSelector', () => {
   test.each<[string, Props['hashType']]>([

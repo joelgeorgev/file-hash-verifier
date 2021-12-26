@@ -12,13 +12,10 @@ const renderFileLoader = (props?: Partial<Props>) =>
   render(<FileLoader {...createDefaultProps()} {...props} />)
 
 const findProgressBar = (): HTMLProgressElement =>
-  screen.getByRole('progressbar') as HTMLProgressElement
-const findLabel = (): HTMLLabelElement =>
-  screen.getByLabelText('Loading file:') as HTMLLabelElement
-const findCancelButton = (): HTMLButtonElement =>
-  screen.getByRole('button') as HTMLButtonElement
-const queryCancelButton = (): HTMLButtonElement =>
-  screen.queryByRole('button') as HTMLButtonElement
+  screen.getByRole('progressbar')
+const findLabel = (): HTMLLabelElement => screen.getByLabelText('Loading file:')
+const findCancelButton = (): HTMLButtonElement => screen.getByRole('button')
+const queryCancelButton = () => screen.queryByRole('button')
 
 describe('FileLoader', () => {
   test('renders a progress bar', () => {

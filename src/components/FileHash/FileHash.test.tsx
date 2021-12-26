@@ -10,14 +10,11 @@ type Props = ComponentProps<typeof FileHash>
 
 const renderFileHash = (props: Props) => render(<FileHash {...props} />)
 
-const findLabel = (): HTMLLabelElement =>
-  screen.getByLabelText('Hash:') as HTMLLabelElement
-const findTextField = (): HTMLInputElement =>
-  screen.getByRole('textbox') as HTMLInputElement
-const findCopyButton = (): HTMLButtonElement =>
-  screen.getByRole('button') as HTMLButtonElement
+const findLabel = (): HTMLLabelElement => screen.getByLabelText('Hash:')
+const findTextField = (): HTMLInputElement => screen.getByRole('textbox')
+const findCopyButton = (): HTMLButtonElement => screen.getByRole('button')
 const findCopyImage = (): HTMLImageElement =>
-  screen.getByAltText('Copy to clipboard') as HTMLImageElement
+  screen.getByAltText('Copy to clipboard')
 
 const hash = 'hash'
 

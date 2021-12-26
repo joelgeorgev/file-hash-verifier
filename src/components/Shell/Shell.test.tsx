@@ -33,12 +33,10 @@ const HASH_LOADER = 'Calculating Hash...'
 const FILE_HASH = 'Hash:'
 const HASH_VERIFIER = 'Compare with:'
 
-const findRadioButtons = (): HTMLInputElement[] =>
-  screen.getAllByRole('radio') as HTMLInputElement[]
+const findRadioButtons = (): HTMLInputElement[] => screen.getAllByRole('radio')
 const findLabel = (label: string): HTMLLabelElement =>
-  screen.getByLabelText(label) as HTMLLabelElement
-const queryLabel = (label: string): HTMLLabelElement =>
-  screen.queryByLabelText(label) as HTMLLabelElement
+  screen.getByLabelText(label)
+const queryLabel = (label: string) => screen.queryByLabelText(label)
 
 const file = new File(['Hello World'], 'robots.txt', {
   type: 'text/plain'

@@ -17,7 +17,7 @@ const renderFilePicker = (props?: Partial<Props>) =>
   render(<FilePicker {...createDefaultProps()} {...props} />)
 
 const findFilePicker = (): HTMLInputElement =>
-  screen.getByLabelText('Click to pick a file.') as HTMLInputElement
+  screen.getByLabelText('Click to pick a file.')
 
 describe('FilePicker', () => {
   test('renders a file picker', () => {
