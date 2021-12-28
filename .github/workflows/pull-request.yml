@@ -24,10 +24,7 @@ jobs:
         run: npm run format
 
       - name: Run tests
-        run: npm test
-
-      - name: Run coverage
-        run: npm run test:coverage
+        run: npm run test:coverge
 
       - name: Prepare coverage report
         uses: coverallsapp/github-action@master
