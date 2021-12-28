@@ -19,13 +19,14 @@ const queryCancelButton = () => screen.queryByRole('button')
 
 describe('FileLoader', () => {
   test('renders a progress bar', () => {
-    renderFileLoader({ progress: 90 })
+    const progress = 90
+    renderFileLoader({ progress })
 
     const progressBar = findProgressBar()
 
     expect(progressBar).toBeDefined()
-    expect(progressBar.getAttribute('max')).toEqual('100')
-    expect(progressBar.getAttribute('value')).toEqual('90')
+    expect(progressBar.max).toEqual(100)
+    expect(progressBar.value).toEqual(progress)
   })
 
   test('renders a label', () => {
