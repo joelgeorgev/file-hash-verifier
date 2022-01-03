@@ -1,6 +1,4 @@
-import type { AnyAction } from 'redux'
-
-import type { FileLoadProgress, HashType, Hash } from '../types'
+import type { Action, FileLoadProgress, HashType, Hash } from '../types'
 
 export const SELECT_FILE = 'SELECT_FILE'
 export const FILE_LOAD_PROGRESS = 'FILE_LOAD_PROGRESS'
@@ -10,31 +8,31 @@ export const SELECT_HASH_TYPE = 'SELECT_HASH_TYPE'
 export const HASH_CALCULATED = 'HASH_CALCULATED'
 
 /* Action Types */
-export interface SelectFileAction extends AnyAction {
+export interface SelectFileAction extends Action {
   type: typeof SELECT_FILE
   payload: { file: File }
 }
 
-export interface FileLoadProgressAction extends AnyAction {
+export interface FileLoadProgressAction extends Action {
   type: typeof FILE_LOAD_PROGRESS
   payload: { progress: FileLoadProgress }
 }
 
-export interface CancelFileLoadAction extends AnyAction {
+export interface CancelFileLoadAction extends Action {
   type: typeof CANCEL_FILE_LOAD
 }
 
-export interface FileLoadedAction extends AnyAction {
+export interface FileLoadedAction extends Action {
   type: typeof FILE_LOADED
   payload: { arrayBuffer: ArrayBuffer }
 }
 
-export interface SelectHashTypeAction extends AnyAction {
+export interface SelectHashTypeAction extends Action {
   type: typeof SELECT_HASH_TYPE
   payload: { hashType: HashType }
 }
 
-export interface HashCalculatedAction extends AnyAction {
+export interface HashCalculatedAction extends Action {
   type: typeof HASH_CALCULATED
   payload: { hash: Hash }
 }
@@ -73,25 +71,25 @@ export const hashCalculated = (hash: Hash): HashCalculatedAction => ({
 
 /* Action Type Guards */
 export const isSelectFileAction = (
-  action: AnyAction
+  action: Action
 ): action is SelectFileAction => action.type === SELECT_FILE
 
 export const isFileLoadProgressAction = (
-  action: AnyAction
+  action: Action
 ): action is FileLoadProgressAction => action.type === FILE_LOAD_PROGRESS
 
 export const isCancelFileLoadAction = (
-  action: AnyAction
+  action: Action
 ): action is CancelFileLoadAction => action.type === CANCEL_FILE_LOAD
 
 export const isFileLoadedAction = (
-  action: AnyAction
+  action: Action
 ): action is FileLoadedAction => action.type === FILE_LOADED
 
 export const isSelectHashTypeAction = (
-  action: AnyAction
+  action: Action
 ): action is SelectHashTypeAction => action.type === SELECT_HASH_TYPE
 
 export const isHashCalculatedAction = (
-  action: AnyAction
+  action: Action
 ): action is HashCalculatedAction => action.type === HASH_CALCULATED

@@ -1,7 +1,6 @@
-import type { AnyAction } from 'redux'
-
 import * as Actions from '../actions'
 import type {
+  Action,
   FileName,
   FileSize,
   FileLoadProgress,
@@ -83,10 +82,7 @@ const hashCalculated = (
   hash: action.payload.hash
 })
 
-export const reducer = (
-  state: State = initialState,
-  action: AnyAction
-): State => {
+export const reducer = (state: State = initialState, action: Action): State => {
   if (Actions.isSelectFileAction(action)) {
     return selectFile(state, action)
   }
