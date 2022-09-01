@@ -1,23 +1,16 @@
 {
   "files": {
-    "main.js": "/static/js/main.9e489d11.chunk.js",
-    "main.js.map": "/static/js/main.9e489d11.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.82d2bbde.js",
-    "runtime-main.js.map": "/static/js/runtime-main.82d2bbde.js.map",
-    "static/js/2.a627576d.chunk.js": "/static/js/2.a627576d.chunk.js",
-    "static/js/2.a627576d.chunk.js.map": "/static/js/2.a627576d.chunk.js.map",
+    "main.js": "/static/js/main.fdfb81b0.js",
+    "static/media/source-sans-pro-v11-latin-regular.woff": "/static/media/source-sans-pro-v11-latin-regular.74ddb2b07a7f05bded6d.woff",
+    "static/media/source-sans-pro-v11-latin-regular.woff2": "/static/media/source-sans-pro-v11-latin-regular.96b158827eaacc5f7912.woff2",
+    "static/media/github.svg": "/static/media/github.6637870789067db1d24b378d4c212276.svg",
     "index.html": "/index.html",
-    "static/js/2.a627576d.chunk.js.LICENSE.txt": "/static/js/2.a627576d.chunk.js.LICENSE.txt",
-    "static/media/clippy.b0e31af4.svg": "/static/media/clippy.b0e31af4.svg",
-    "static/media/fail.47429a71.svg": "/static/media/fail.47429a71.svg",
-    "static/media/github.66378707.svg": "/static/media/github.66378707.svg",
-    "static/media/source-sans-pro-v11-latin-regular.74ddb2b0.woff": "/static/media/source-sans-pro-v11-latin-regular.74ddb2b0.woff",
-    "static/media/source-sans-pro-v11-latin-regular.96b15882.woff2": "/static/media/source-sans-pro-v11-latin-regular.96b15882.woff2",
-    "static/media/success.f94dc787.svg": "/static/media/success.f94dc787.svg"
+    "static/media/clippy.svg": "/static/media/clippy.b0e31af4d8063467415468666aa56d42.svg",
+    "static/media/success.svg": "/static/media/success.f94dc78775459d97dcf3cb4a710904b1.svg",
+    "static/media/fail.svg": "/static/media/fail.47429a71e78d5d66a871ec6e6433e430.svg",
+    "main.fdfb81b0.js.map": "/static/js/main.fdfb81b0.js.map"
   },
   "entrypoints": [
-    "static/js/runtime-main.82d2bbde.js",
-    "static/js/2.a627576d.chunk.js",
-    "static/js/main.9e489d11.chunk.js"
+    "static/js/main.fdfb81b0.js"
   ]
 }
