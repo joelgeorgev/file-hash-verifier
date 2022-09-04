@@ -1,5 +1,6 @@
 import type { ComponentProps } from 'react'
-import { render, screen, fireEvent } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 
 import { FilePicker } from '.'
 
@@ -36,28 +37,23 @@ describe('FilePicker', () => {
     expect(findFilePicker().disabled).toEqual(true)
   })
 
-  test('invokes the callback function with the selected file', () => {
+  test('invokes the callback function with the selected file', async () => {
     const onSelect = createOnSelect()
     renderFilePicker({ onSelect })
 
+    const filePicker = findFilePicker()
     const file = new File(['Hello World'], 'robots.txt', {
       type: 'text/plain'
     })
-    fireEvent.change(findFilePicker(), { target: { files: [file] } })
+    const user = userEvent.setup()
+
+    await user.upload(filePicker, file)
 
     expect(onSelect).toHaveBeenCalledTimes(1)
     expect(onSelect).toHaveBeenCalledWith(file)
+
+    await user.upload(filePicker, [])
+
+    expect(onSelect).toHaveBeenCalledTimes(1)
   })
-
-  test.each([null, []])(
-    'does NOT invoke the callback function if there is NO file',
-    (files) => {
-      const onSelect = createOnSelect()
-      renderFilePicker({ onSelect })
-
-      fireEvent.change(findFilePicker(), { target: { files } })
-
-      expect(onSelect).toHaveBeenCalledTimes(0)
-    }
-  )
 })

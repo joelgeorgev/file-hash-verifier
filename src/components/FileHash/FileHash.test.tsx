@@ -1,5 +1,6 @@
 import type { ComponentProps } from 'react'
-import { render, screen, fireEvent } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import copy from 'clipboard-copy'
 
 import { FileHash } from '.'
@@ -31,7 +32,7 @@ describe('FileHash', () => {
     expect(textField.readOnly).toEqual(true)
   })
 
-  test('renders a button to copy hash value to clipboard', () => {
+  test('renders a button to copy hash value to clipboard', async () => {
     renderFileHash({ hash })
 
     expect(findCopyImage()).toBeDefined()
@@ -40,7 +41,8 @@ describe('FileHash', () => {
 
     expect(copyButton).toBeDefined()
 
-    fireEvent.click(copyButton)
+    const user = userEvent.setup()
+    await user.click(copyButton)
 
     expect(copy).toHaveBeenCalledTimes(1)
     expect(copy).toHaveBeenCalledWith(hash)

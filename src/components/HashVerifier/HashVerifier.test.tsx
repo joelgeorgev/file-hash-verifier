@@ -1,5 +1,6 @@
 import type { ComponentProps } from 'react'
-import { render, screen, fireEvent } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 
 import { HashVerifier } from '.'
 
@@ -35,10 +36,11 @@ describe('HashVerifier', () => {
   })
 
   describe('When the text does NOT match the hash', () => {
-    test('renders an image indicating a mismatch', () => {
+    test('renders an image indicating a mismatch', async () => {
       renderHashVerifier({ hash })
 
-      fireEvent.change(findTextField(), { target: { value: 'h' } })
+      const user = userEvent.setup()
+      await user.type(findTextField(), 'h')
 
       expect(findImage(mismatchImageAltText)).toBeDefined()
       expect(queryImage(matchImageAltText)).toEqual(null)
@@ -48,10 +50,11 @@ describe('HashVerifier', () => {
   describe.each([['hash', ' h a s h ', 'HASH']])(
     'When the text matches the hash',
     (text) => {
-      test('renders an image indicating a match', () => {
+      test('renders an image indicating a match', async () => {
         renderHashVerifier({ hash })
 
-        fireEvent.change(findTextField(), { target: { value: text } })
+        const user = userEvent.setup()
+        await user.type(findTextField(), text)
 
         expect(findImage(matchImageAltText)).toBeDefined()
         expect(queryImage(mismatchImageAltText)).toEqual(null)

@@ -1,5 +1,6 @@
 import type { ComponentProps } from 'react'
-import { render, screen, fireEvent } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 
 import { FileLoader } from '.'
 
@@ -46,11 +47,12 @@ describe('FileLoader', () => {
     })
 
     describe('When the cancel button is clicked', () => {
-      test('invokes the callback function', () => {
+      test('invokes the callback function', async () => {
         const onCancel: jest.MockedFunction<OnCancel> = jest.fn()
         renderFileLoader({ onCancel })
 
-        fireEvent.click(findCancelButton())
+        const user = userEvent.setup()
+        await user.click(findCancelButton())
 
         expect(onCancel).toHaveBeenCalledTimes(1)
       })

@@ -1,5 +1,6 @@
 import type { ComponentProps } from 'react'
-import { render, screen, fireEvent } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 
 import { HashSelector } from '.'
 
@@ -26,7 +27,7 @@ describe('HashSelector', () => {
     ['SHA-256', 'sha-256'],
     ['SHA-384', 'sha-384'],
     ['SHA-512', 'sha-512']
-  ])('renders "%s" radio button', (label, value) => {
+  ])('renders "%s" radio button', async (label, value) => {
     const onSelect: jest.MockedFunction<OnSelect> = jest.fn()
     renderHashSelector({ onSelect })
 
@@ -34,7 +35,8 @@ describe('HashSelector', () => {
 
     expect(radioButton).toBeDefined()
 
-    fireEvent.click(radioButton)
+    const user = userEvent.setup()
+    await user.click(radioButton)
 
     expect(onSelect).toHaveBeenCalledTimes(1)
     expect(onSelect).toHaveBeenLastCalledWith(value)
