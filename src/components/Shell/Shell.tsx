@@ -1,6 +1,5 @@
 import styled from 'styled-components'
 
-import { useSelector, useDispatch } from '../../hooks'
 import {
   FilePicker,
   HashSelector,
@@ -10,6 +9,7 @@ import {
   FileHash,
   HashVerifier
 } from '..'
+import { useSelector, useDispatch } from '../../hooks'
 import { selectFile, cancelFileLoad, selectHashType } from '../../actions'
 
 const Wrapper = styled.div`

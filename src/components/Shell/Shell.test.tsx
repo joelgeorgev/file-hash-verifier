@@ -1,18 +1,39 @@
-import { render, screen, fireEvent } from '@testing-library/react'
+import { render } from '@testing-library/react'
 
 import { Shell } from '.'
+import {
+  FilePicker,
+  HashSelector,
+  FileLoader,
+  FileDetails,
+  HashLoader,
+  FileHash,
+  HashVerifier
+} from '..'
 import { useSelector, useDispatch } from '../../hooks'
-import { selectFile, selectHashType, cancelFileLoad } from '../../actions'
+import { selectFile, cancelFileLoad, selectHashType } from '../../actions'
 import type { State } from '../../store'
 
+jest.mock('..')
 jest.mock('../../hooks')
+
+const mockFilePicker = FilePicker as jest.MockedFunction<typeof FilePicker>
+const mockHashSelector = HashSelector as jest.MockedFunction<
+  typeof HashSelector
+>
+const mockFileLoader = FileLoader as jest.MockedFunction<typeof FileLoader>
+const mockFileDetails = FileDetails as jest.MockedFunction<typeof FileDetails>
+const mockHashLoader = HashLoader as jest.MockedFunction<typeof HashLoader>
+const mockFileHash = FileHash as jest.MockedFunction<typeof FileHash>
+const mockHashVerifier = HashVerifier as jest.MockedFunction<
+  typeof HashVerifier
+>
+const mockUseSelector = useSelector as jest.MockedFunction<typeof useSelector>
+const mockUseDispatch = useDispatch as jest.MockedFunction<typeof useDispatch>
 
 type Dispatch = ReturnType<typeof useDispatch>
 
 const createDispatch = (): jest.MockedFunction<Dispatch> => jest.fn()
-
-const mockUseSelector = useSelector as jest.MockedFunction<typeof useSelector>
-const mockUseDispatch = useDispatch as jest.MockedFunction<typeof useDispatch>
 
 const createState = (partialState?: Partial<State>): State => ({
   file: null,
@@ -26,177 +47,265 @@ const createState = (partialState?: Partial<State>): State => ({
 
 const renderShell = () => render(<Shell />)
 
-const FILE_PICKER = 'Click to pick a file.'
-const FILE_LOADER = 'Loading file:'
-const CANCEL_FILE_LOAD = 'Cancel'
-const HASH_LOADER = 'Calculating Hash...'
-const FILE_HASH = 'Hash:'
-const HASH_VERIFIER = 'Compare with:'
-
-const findRadioButtons = (): HTMLInputElement[] => screen.getAllByRole('radio')
-const findLabel = (label: string): HTMLLabelElement =>
-  screen.getByLabelText(label)
-const queryLabel = (label: string) => screen.queryByLabelText(label)
-
-const file = new File(['Hello World'], 'robots.txt', {
-  type: 'text/plain'
-})
-const progress = 90
 const arrayBuffer = new ArrayBuffer(1)
+const file = { name: 'robots.txt', size: 100 }
 const hash = 'hash'
 
 describe('Shell', () => {
-  test('renders a file picker', () => {
-    mockUseSelector.mockReturnValue(createState())
-
-    renderShell()
-
-    expect(findLabel(FILE_PICKER)).toBeDefined()
-  })
-
-  test('dispatches an action on selecting a file', () => {
+  test('renders FilePicker', () => {
     mockUseSelector.mockReturnValue(createState())
     const dispatch = createDispatch()
     mockUseDispatch.mockReturnValue(dispatch)
 
     renderShell()
 
-    fireEvent.change(findLabel(FILE_PICKER), { target: { files: [file] } })
+    expect(mockFilePicker).toHaveBeenCalledTimes(1)
+
+    const filePickerProps = mockFilePicker.mock.calls[0][0]
+
+    expect(filePickerProps).toEqual({
+      isDisabled: expect.any(Boolean),
+      onSelect: expect.any(Function)
+    })
+
+    const file = new File(['Hello World'], 'robots.txt', {
+      type: 'text/plain'
+    })
+    filePickerProps.onSelect(file)
 
     expect(dispatch).toHaveBeenCalledTimes(1)
     expect(dispatch).toHaveBeenCalledWith(selectFile(file))
   })
 
-  test('renders a hash selector', () => {
-    mockUseSelector.mockReturnValue(createState())
-
-    renderShell()
-
-    const radioButtons = findRadioButtons()
-
-    expect(radioButtons).toBeDefined()
-    expect(radioButtons.length).toEqual(4)
-  })
-
-  test('dispatches an action on selecting a hash type', () => {
-    mockUseSelector.mockReturnValue(createState())
+  test('renders HashSelector', () => {
+    const state = createState()
+    mockUseSelector.mockReturnValue(state)
     const dispatch = createDispatch()
     mockUseDispatch.mockReturnValue(dispatch)
 
     renderShell()
 
-    fireEvent.click(findRadioButtons()[0])
+    expect(mockHashSelector).toHaveBeenCalledTimes(1)
+
+    const hashSelectorProps = mockHashSelector.mock.calls[0][0]
+
+    expect(hashSelectorProps).toEqual({
+      hashType: state.hashType,
+      isDisabled: expect.any(Boolean),
+      onSelect: expect.any(Function)
+    })
+
+    const hashType = 'sha-1'
+    hashSelectorProps.onSelect(hashType)
 
     expect(dispatch).toHaveBeenCalledTimes(1)
-    expect(dispatch).toHaveBeenCalledWith(selectHashType('sha-1'))
+    expect(dispatch).toHaveBeenCalledWith(selectHashType(hashType))
   })
 
+  describe.each<[Partial<State>]>([
+    [{ fileLoadProgress: null, isCalculatingHash: false }],
+    [{ fileLoadProgress: 0, isCalculatingHash: false }]
+  ])(
+    'When BOTH `fileLoadProgress` and `isCalculatingHash` are FALSY',
+    (partialState) => {
+      test('renders FilePicker and HashSelector as enabled', () => {
+        mockUseSelector.mockReturnValue(createState(partialState))
+
+        renderShell()
+
+        expect(mockFilePicker).toHaveBeenCalledTimes(1)
+        expect(mockHashSelector).toHaveBeenCalledTimes(1)
+
+        const filePickerProps = mockFilePicker.mock.calls[0][0]
+        const hashSelectorProps = mockHashSelector.mock.calls[0][0]
+
+        expect(filePickerProps.isDisabled).toEqual(false)
+        expect(hashSelectorProps.isDisabled).toEqual(false)
+      })
+    }
+  )
+
+  describe.each<[Partial<State>]>([
+    [{ fileLoadProgress: null, isCalculatingHash: true }],
+    [{ fileLoadProgress: 0, isCalculatingHash: true }],
+    [{ fileLoadProgress: 1, isCalculatingHash: false }],
+    [{ fileLoadProgress: 1, isCalculatingHash: true }]
+  ])(
+    'When EITHER `fileLoadProgress` or `isCalculatingHash` is TRUTHY',
+    (partialState) => {
+      test('renders FilePicker and HashSelector as disabled', () => {
+        mockUseSelector.mockReturnValue(createState(partialState))
+
+        renderShell()
+
+        expect(mockFilePicker).toHaveBeenCalledTimes(1)
+        expect(mockHashSelector).toHaveBeenCalledTimes(1)
+
+        const filePickerProps = mockFilePicker.mock.calls[0][0]
+        const hashSelectorProps = mockHashSelector.mock.calls[0][0]
+
+        expect(filePickerProps.isDisabled).toEqual(true)
+        expect(hashSelectorProps.isDisabled).toEqual(true)
+      })
+    }
+  )
+
   describe('When the file load is in progress', () => {
-    test('renders a file loader', () => {
-      mockUseSelector.mockReturnValue(
-        createState({ fileLoadProgress: progress })
-      )
+    test('renders FileLoader', () => {
+      const fileLoadProgress = 1
+      mockUseSelector.mockReturnValue(createState({ fileLoadProgress }))
+      const dispatch = createDispatch()
+      mockUseDispatch.mockReturnValue(dispatch)
 
       renderShell()
 
-      expect(findLabel(FILE_LOADER)).toBeDefined()
+      expect(mockFileLoader).toHaveBeenCalledTimes(1)
+
+      const fileLoaderProps = mockFileLoader.mock.calls[0][0]
+
+      expect(fileLoaderProps).toEqual({
+        progress: fileLoadProgress,
+        onCancel: expect.any(Function)
+      })
+
+      fileLoaderProps.onCancel()
+
+      expect(dispatch).toHaveBeenCalledTimes(1)
+      expect(dispatch).toHaveBeenCalledWith(cancelFileLoad())
     })
   })
 
   describe('When the file is loaded', () => {
-    test('does NOT render a file loader', () => {
+    test('does NOT render FileLoader', () => {
       mockUseSelector.mockReturnValue(createState({ fileLoadProgress: null }))
 
       renderShell()
 
-      expect(queryLabel(FILE_LOADER)).toEqual(null)
+      expect(mockFileLoader).toHaveBeenCalledTimes(0)
     })
   })
 
-  test('dispatches an action to cancel file load', () => {
-    mockUseSelector.mockReturnValue(createState({ fileLoadProgress: progress }))
-    const dispatch = createDispatch()
-    mockUseDispatch.mockReturnValue(dispatch)
-
-    renderShell()
-
-    fireEvent.click(screen.getByText(CANCEL_FILE_LOAD))
-
-    expect(dispatch).toHaveBeenCalledTimes(1)
-    expect(dispatch).toHaveBeenCalledWith(cancelFileLoad())
-  })
-
-  test('renders file details', () => {
+  test('renders FileDetails', () => {
     mockUseSelector.mockReturnValue(
       createState({
         arrayBuffer,
-        file: { name: 'robots.txt', size: 100 }
+        file
       })
     )
 
     renderShell()
 
-    expect(screen.getByText('robots.txt')).toBeDefined()
-    expect(screen.getByText('100 bytes')).toBeDefined()
-  })
+    expect(mockFileDetails).toHaveBeenCalledTimes(1)
 
-  describe('When the hash calculation is enabled', () => {
-    test('renders a hash loader', () => {
-      mockUseSelector.mockReturnValue(
-        createState({ arrayBuffer, isCalculatingHash: true })
-      )
+    const fileDetailsProps = mockFileDetails.mock.calls[0][0]
 
-      renderShell()
-
-      expect(screen.getByText(HASH_LOADER)).toBeDefined()
+    expect(fileDetailsProps).toEqual({
+      name: file.name,
+      size: file.size
     })
   })
 
-  describe('When the hash calculation is disabled', () => {
-    test('does NOT render a hash loader', () => {
-      mockUseSelector.mockReturnValue(() =>
-        createState({ arrayBuffer, isCalculatingHash: false })
-      )
+  describe.each<[Partial<State>]>([
+    [{ arrayBuffer: null, file }],
+    [{ arrayBuffer, file: null }],
+    [{ arrayBuffer: null, file: null }]
+  ])('When EITHER `arrayBuffer` or `file` is FALSY', (partialState) => {
+    test('does NOT render FileDetails', () => {
+      mockUseSelector.mockReturnValue(createState(partialState))
 
       renderShell()
 
-      expect(screen.queryByText(HASH_LOADER)).toEqual(null)
+      expect(mockFileDetails).toHaveBeenCalledTimes(0)
     })
   })
 
-  describe('When the file hash is available', () => {
-    test('renders the file hash', () => {
-      mockUseSelector.mockReturnValue(createState({ arrayBuffer, hash }))
+  test('renders HashLoader', () => {
+    mockUseSelector.mockReturnValue(
+      createState({
+        arrayBuffer,
+        isCalculatingHash: true
+      })
+    )
 
-      renderShell()
+    renderShell()
 
-      expect(findLabel(FILE_HASH)).toBeDefined()
-    })
+    expect(mockHashLoader).toHaveBeenCalledTimes(1)
+  })
 
-    test('renders the hash verifier', () => {
-      mockUseSelector.mockReturnValue(createState({ arrayBuffer, hash }))
+  describe.each<[Partial<State>]>([
+    [{ arrayBuffer: null, isCalculatingHash: true }],
+    [{ arrayBuffer, isCalculatingHash: false }],
+    [{ arrayBuffer: null, isCalculatingHash: false }]
+  ])(
+    'When EITHER `arrayBuffer` or `isCalculatingHash` is FALSY',
+    (partialState) => {
+      test('does NOT render HashLoader', () => {
+        mockUseSelector.mockReturnValue(createState(partialState))
 
-      renderShell()
+        renderShell()
 
-      expect(findLabel(HASH_VERIFIER)).toBeDefined()
+        expect(mockHashLoader).toHaveBeenCalledTimes(0)
+      })
+    }
+  )
+
+  test('renders FileHash', () => {
+    mockUseSelector.mockReturnValue(
+      createState({
+        arrayBuffer,
+        hash
+      })
+    )
+
+    renderShell()
+
+    expect(mockFileHash).toHaveBeenCalledTimes(1)
+
+    const fileHashProps = mockFileHash.mock.calls[0][0]
+
+    expect(fileHashProps).toEqual({
+      hash
     })
   })
 
-  describe('When the file hash is NOT available', () => {
-    test('does NOT render the file hash', () => {
-      mockUseSelector.mockReturnValue(createState({ arrayBuffer, hash: null }))
+  test('renders HashVerifier', () => {
+    mockUseSelector.mockReturnValue(
+      createState({
+        arrayBuffer,
+        hash
+      })
+    )
+
+    renderShell()
+
+    expect(mockHashVerifier).toHaveBeenCalledTimes(1)
+
+    const hashVerifierProps = mockHashVerifier.mock.calls[0][0]
+
+    expect(hashVerifierProps).toEqual({
+      hash
+    })
+  })
+
+  describe.each<[Partial<State>]>([
+    [{ arrayBuffer: null, hash }],
+    [{ arrayBuffer, hash: null }],
+    [{ arrayBuffer: null, hash: null }]
+  ])('When EITHER `arrayBuffer` or `hash` is FALSY', (partialState) => {
+    test('does NOT render FileHash', () => {
+      mockUseSelector.mockReturnValue(createState(partialState))
 
       renderShell()
 
-      expect(queryLabel(FILE_HASH)).toEqual(null)
+      expect(mockFileHash).toHaveBeenCalledTimes(0)
     })
 
-    test('does NOT render the hash verifier', () => {
-      mockUseSelector.mockReturnValue(createState({ arrayBuffer, hash: null }))
+    test('does NOT render HashVerifier', () => {
+      mockUseSelector.mockReturnValue(createState(partialState))
 
       renderShell()
 
-      expect(queryLabel(HASH_VERIFIER)).toEqual(null)
+      expect(mockHashVerifier).toHaveBeenCalledTimes(0)
     })
   })
 })
