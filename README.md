@@ -11,9 +11,9 @@ Check out the app [here](https://joelgeorgev.github.io/file-hash-verifier).
 ## To run the app
 
 ```bash
-$ git clone https://github.com/joelgeorgev/file-hash-verifier.git
-$ cd file-hash-verifier
-$ npm install && npm start
+$ nvm use
+$ npm ci
+$ npm start
 ```
 
 ## License
