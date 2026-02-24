@@ -1,12 +1,13 @@
+import { MockedFunction } from 'vitest'
 import { runSaga, Saga } from 'redux-saga'
 
 import { processFileReadEvent } from './processFileReadEvent'
 import { fileLoaded, fileLoadProgress } from '../actions'
 
 type FileReadEvent = Parameters<typeof processFileReadEvent>[0]
-type Dispatch = jest.MockedFunction<() => void>
+type Dispatch = MockedFunction<() => void>
 
-const createDispatch = (): Dispatch => jest.fn()
+const createDispatch = (): Dispatch => vi.fn()
 
 const executeSaga = (dispatch: Dispatch, event: FileReadEvent) =>
   runSaga({ dispatch }, processFileReadEvent as Saga<any[]>, event).toPromise()
@@ -28,9 +29,9 @@ describe('processFileReadEvent', () => {
 
   describe('When the event contains the file read error', () => {
     test('logs the file read error to the console', async () => {
-      const consoleSpy = jest
+      const consoleSpy = vi
         .spyOn(window.console, 'error')
-        .mockImplementation()
+        .mockImplementation(() => {})
 
       const dispatch = createDispatch()
       await executeSaga(dispatch, { error })

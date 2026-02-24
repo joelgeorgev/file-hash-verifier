@@ -1,9 +1,10 @@
+import { MockedFunction, Mock } from 'vitest'
 import { getFileHash } from './getFileHash'
 import { getCrypto } from './getCrypto'
 
-jest.mock('./getCrypto')
+vi.mock('./getCrypto')
 
-const mockGetCrypto = getCrypto as jest.Mock
+const mockGetCrypto = getCrypto as Mock
 
 type Digest = (
   hashType: string,
@@ -15,9 +16,7 @@ describe('getFileHash', () => {
     const hashBuffer = new ArrayBuffer(2)
     const hash = '0000'
 
-    const digest: jest.MockedFunction<Digest> = jest
-      .fn()
-      .mockResolvedValue(hashBuffer)
+    const digest: MockedFunction<Digest> = vi.fn().mockResolvedValue(hashBuffer)
     mockGetCrypto.mockReturnValue({ subtle: { digest } })
 
     const arrayBuffer = new ArrayBuffer(1)

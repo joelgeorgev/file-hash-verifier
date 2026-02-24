@@ -1,3 +1,4 @@
+import { MockedFunction } from 'vitest'
 import type { ComponentProps } from 'react'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
@@ -28,7 +29,7 @@ describe('HashSelector', () => {
     ['SHA-384', 'sha-384'],
     ['SHA-512', 'sha-512']
   ])('renders "%s" radio button', async (label, value) => {
-    const onSelect: jest.MockedFunction<OnSelect> = jest.fn()
+    const onSelect: MockedFunction<OnSelect> = vi.fn()
     renderHashSelector({ onSelect })
 
     const radioButton = findRadioButton(label)

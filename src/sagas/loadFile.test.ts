@@ -1,3 +1,4 @@
+import { MockedFunction } from 'vitest'
 import { call, race, take } from 'redux-saga/effects'
 
 import { loadFile, RaceYield } from './loadFile'
@@ -51,7 +52,7 @@ describe('loadFile', () => {
 
       expect(generator.next().value).toEqual(call(createFileReadChannel, file))
 
-      const close: jest.MockedFunction<Close> = jest.fn()
+      const close: MockedFunction<Close> = vi.fn()
       const fileReadChannel = createEventChannel({ close })
 
       expect(generator.next(fileReadChannel as NextParameters).value).toEqual(

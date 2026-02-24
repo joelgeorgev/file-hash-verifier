@@ -1,3 +1,4 @@
+import { MockedFunction } from 'vitest'
 import type { ComponentProps } from 'react'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
@@ -48,7 +49,7 @@ describe('FileLoader', () => {
 
     describe('When the cancel button is clicked', () => {
       test('invokes the callback function', async () => {
-        const onCancel: jest.MockedFunction<OnCancel> = jest.fn()
+        const onCancel: MockedFunction<OnCancel> = vi.fn()
         renderFileLoader({ onCancel })
 
         const user = userEvent.setup()

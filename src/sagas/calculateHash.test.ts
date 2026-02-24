@@ -1,3 +1,4 @@
+import { MockedFunction } from 'vitest'
 import { runSaga, Saga } from 'redux-saga'
 
 import { calculateHash } from './calculateHash'
@@ -5,13 +6,13 @@ import { getFileHash } from '../utils'
 import { hashCalculated } from '../actions'
 import type { State } from '../store'
 
-jest.mock('../utils')
+vi.mock('../utils')
 
-type Dispatch = jest.MockedFunction<() => void>
+type Dispatch = MockedFunction<() => void>
 
-const createDispatch = (): Dispatch => jest.fn()
+const createDispatch = (): Dispatch => vi.fn()
 
-const mockGetFileHash = getFileHash as jest.MockedFunction<typeof getFileHash>
+const mockGetFileHash = getFileHash as MockedFunction<typeof getFileHash>
 
 const executeSaga = (dispatch: Dispatch, state: Partial<State>) =>
   runSaga(

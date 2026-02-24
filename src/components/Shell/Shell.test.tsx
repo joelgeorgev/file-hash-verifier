@@ -1,3 +1,4 @@
+import { MockedFunction } from 'vitest'
 import { render } from '@testing-library/react'
 
 import { Shell } from '.'
@@ -14,26 +15,20 @@ import { useSelector, useDispatch } from '../../hooks'
 import { selectFile, cancelFileLoad, selectHashType } from '../../actions'
 import type { State } from '../../store'
 
-jest.mock('..')
-jest.mock('../../hooks')
+vi.mock('..')
+vi.mock('../../hooks')
 
-const mockFilePicker = FilePicker as jest.MockedFunction<typeof FilePicker>
-const mockHashSelector = HashSelector as jest.MockedFunction<
-  typeof HashSelector
->
-const mockFileLoader = FileLoader as jest.MockedFunction<typeof FileLoader>
-const mockFileDetails = FileDetails as jest.MockedFunction<typeof FileDetails>
-const mockHashLoader = HashLoader as jest.MockedFunction<typeof HashLoader>
-const mockFileHash = FileHash as jest.MockedFunction<typeof FileHash>
-const mockHashVerifier = HashVerifier as jest.MockedFunction<
-  typeof HashVerifier
->
-const mockUseSelector = useSelector as jest.MockedFunction<typeof useSelector>
-const mockUseDispatch = useDispatch as jest.MockedFunction<typeof useDispatch>
+const mockFilePicker = FilePicker as MockedFunction<typeof FilePicker>
+const mockHashSelector = HashSelector as MockedFunction<typeof HashSelector>
+const mockFileLoader = FileLoader as MockedFunction<typeof FileLoader>
+const mockFileDetails = FileDetails as MockedFunction<typeof FileDetails>
+const mockHashLoader = HashLoader as MockedFunction<typeof HashLoader>
+const mockFileHash = FileHash as MockedFunction<typeof FileHash>
+const mockHashVerifier = HashVerifier as MockedFunction<typeof HashVerifier>
+const mockUseSelector = useSelector as MockedFunction<typeof useSelector>
+const mockUseDispatch = useDispatch as MockedFunction<typeof useDispatch>
 
-type Dispatch = ReturnType<typeof useDispatch>
-
-const createDispatch = (): jest.MockedFunction<Dispatch> => jest.fn()
+const createDispatch = () => vi.fn()
 
 const createState = (partialState?: Partial<State>): State => ({
   file: null,

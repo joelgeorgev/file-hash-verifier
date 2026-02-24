@@ -1,3 +1,4 @@
+import { MockedFunction } from 'vitest'
 import type { ComponentProps } from 'react'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
@@ -7,7 +8,7 @@ import { FilePicker } from '.'
 type Props = ComponentProps<typeof FilePicker>
 type OnSelect = Props['onSelect']
 
-const createOnSelect = (): jest.MockedFunction<OnSelect> => jest.fn()
+const createOnSelect = (): MockedFunction<OnSelect> => vi.fn()
 
 const createDefaultProps = (): Props => ({
   isDisabled: false,

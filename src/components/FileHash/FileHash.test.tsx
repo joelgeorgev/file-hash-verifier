@@ -5,7 +5,7 @@ import copy from 'clipboard-copy'
 
 import { FileHash } from '.'
 
-jest.mock('clipboard-copy')
+vi.mock('clipboard-copy')
 
 type Props = ComponentProps<typeof FileHash>
 

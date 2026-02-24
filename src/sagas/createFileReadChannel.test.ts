@@ -1,15 +1,14 @@
+import { MockedFunction, Mock } from 'vitest'
 import { eventChannel, END, Subscribe } from 'redux-saga'
 
 import { createFileReadChannel, FileReadEvent } from './createFileReadChannel'
 import { getFileReader } from '../utils'
 
-jest.mock('redux-saga')
-jest.mock('../utils')
+vi.mock('redux-saga')
+vi.mock('../utils')
 
-const mockEventChannel = eventChannel as jest.MockedFunction<
-  typeof eventChannel
->
-const mockGetFileReader = getFileReader as jest.Mock
+const mockEventChannel = eventChannel as MockedFunction<typeof eventChannel>
+const mockGetFileReader = getFileReader as Mock
 
 interface MockFileReader {
   readyState: 0 | 1 | 2
@@ -39,7 +38,7 @@ const createMockFileReader = (
 type Subscriber = Subscribe<FileReadEvent>
 type Emitter = (input: FileReadEvent | END) => void
 
-const createEmitter = (): jest.MockedFunction<Emitter> => jest.fn()
+const createEmitter = (): MockedFunction<Emitter> => vi.fn()
 
 const file = new File(['Hello World'], 'robots.txt', {
   type: 'text/plain'
@@ -55,9 +54,9 @@ describe('createFileReadChannel', () => {
 
   describe('When the subscriber function is invoked', () => {
     test('invokes function to read file as array buffer', () => {
-      const readAsArrayBuffer: jest.MockedFunction<
+      const readAsArrayBuffer: MockedFunction<
         MockFileReader['readAsArrayBuffer']
-      > = jest.fn()
+      > = vi.fn()
       const mockFileReader = createMockFileReader({ readAsArrayBuffer })
       mockGetFileReader.mockReturnValue(mockFileReader)
 
@@ -140,7 +139,7 @@ describe('createFileReadChannel', () => {
     describe('And the file read is in progress', () => {
       test('invokes function to abort file read', () => {
         const readyState = 1
-        const abort: jest.MockedFunction<MockFileReader['abort']> = jest.fn()
+        const abort: MockedFunction<MockFileReader['abort']> = vi.fn()
         const mockFileReader = createMockFileReader({ readyState, abort })
         mockGetFileReader.mockReturnValue(mockFileReader)
 
@@ -159,7 +158,7 @@ describe('createFileReadChannel', () => {
       'And the file read is NOT in progress',
       (readyState) => {
         test('does NOT invoke function to abort file read', () => {
-          const abort: jest.MockedFunction<MockFileReader['abort']> = jest.fn()
+          const abort: MockedFunction<MockFileReader['abort']> = vi.fn()
           const mockFileReader = createMockFileReader({ readyState, abort })
           mockGetFileReader.mockReturnValue(mockFileReader)
 
