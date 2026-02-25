@@ -1,6 +1,7 @@
 # File Hash Verifier
 
 [![CI](https://github.com/joelgeorgev/file-hash-verifier/workflows/deploy/badge.svg)](https://github.com/joelgeorgev/file-hash-verifier/actions)
+[![Mutation testing badge](https://img.shields.io/endpoint?style=flat&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2Fjoelgeorgev%2Ffile-hash-verifier%2Fmaster)](https://dashboard.stryker-mutator.io/reports/github.com/joelgeorgev/file-hash-verifier/master)
 [![Coverage Status](https://coveralls.io/repos/github/joelgeorgev/file-hash-verifier/badge.svg?branch=master)](https://coveralls.io/github/joelgeorgev/file-hash-verifier?branch=master)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 
