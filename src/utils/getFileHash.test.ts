@@ -1,8 +1,9 @@
 import { MockedFunction, Mock } from 'vitest'
-import { getFileHash } from './getFileHash'
-import { getCrypto } from './getCrypto'
 
-vi.mock('./getCrypto')
+import { getFileHash } from './getFileHash.ts'
+import { getCrypto } from './getCrypto.ts'
+
+vi.mock('./getCrypto.ts')
 
 const mockGetCrypto = getCrypto as Mock
 

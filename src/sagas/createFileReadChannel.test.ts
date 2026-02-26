@@ -1,11 +1,14 @@
 import { MockedFunction, Mock } from 'vitest'
 import { eventChannel, END, Subscribe } from 'redux-saga'
 
-import { createFileReadChannel, FileReadEvent } from './createFileReadChannel'
-import { getFileReader } from '../utils'
+import {
+  createFileReadChannel,
+  FileReadEvent
+} from './createFileReadChannel.ts'
+import { getFileReader } from '../utils/getFileReader.ts'
 
 vi.mock('redux-saga')
-vi.mock('../utils')
+vi.mock('../utils/getFileReader.ts')
 
 const mockEventChannel = eventChannel as MockedFunction<typeof eventChannel>
 const mockGetFileReader = getFileReader as Mock

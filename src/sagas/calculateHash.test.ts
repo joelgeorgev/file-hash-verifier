@@ -1,12 +1,12 @@
 import { MockedFunction } from 'vitest'
 import { runSaga, Saga } from 'redux-saga'
 
-import { calculateHash } from './calculateHash'
-import { getFileHash } from '../utils'
-import { hashCalculated } from '../actions'
+import { calculateHash } from './calculateHash.ts'
+import { getFileHash } from '../utils/getFileHash.ts'
+import { hashCalculated } from '../actions/index.ts'
 import type { State } from '../store'
 
-vi.mock('../utils')
+vi.mock('../utils/getFileHash.ts')
 
 type Dispatch = MockedFunction<() => void>
 

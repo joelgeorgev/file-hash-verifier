@@ -1,8 +1,8 @@
 import { MockedFunction } from 'vitest'
 import { runSaga, Saga } from 'redux-saga'
 
-import { processFileReadEvent } from './processFileReadEvent'
-import { fileLoaded, fileLoadProgress } from '../actions'
+import { processFileReadEvent } from './processFileReadEvent.ts'
+import { fileLoaded, fileLoadProgress } from '../actions/index.ts'
 
 type FileReadEvent = Parameters<typeof processFileReadEvent>[0]
 type Dispatch = MockedFunction<() => void>

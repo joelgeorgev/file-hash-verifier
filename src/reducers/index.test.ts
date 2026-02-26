@@ -1,4 +1,4 @@
-import { reducer } from '.'
+import { reducer } from './index.ts'
 import {
   selectFile,
   fileLoadProgress,
@@ -6,7 +6,7 @@ import {
   fileLoaded,
   selectHashType,
   hashCalculated
-} from '../actions'
+} from '../actions/index.ts'
 
 type State = ReturnType<typeof reducer>
 

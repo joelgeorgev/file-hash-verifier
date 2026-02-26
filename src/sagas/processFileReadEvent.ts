@@ -1,7 +1,7 @@
 import { put } from 'redux-saga/effects'
 
-import { fileLoaded, fileLoadProgress } from '../actions'
-import type { FileReadEvent } from './createFileReadChannel'
+import { fileLoaded, fileLoadProgress } from '../actions/index.ts'
+import type { FileReadEvent } from './createFileReadChannel.ts'
 
 export const processFileReadEvent = function* (event: FileReadEvent) {
   const { arrayBuffer, error, progress } = event

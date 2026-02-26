@@ -3,7 +3,7 @@ import type { ComponentProps } from 'react'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
-import { FileLoader } from '.'
+import { FileLoader } from './FileLoader.tsx'
 
 type Props = ComponentProps<typeof FileLoader>
 type OnCancel = Props['onCancel']

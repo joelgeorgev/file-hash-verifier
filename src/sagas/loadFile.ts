@@ -1,9 +1,16 @@
 import { END } from 'redux-saga'
 import { call, race, take, SagaReturnType } from 'redux-saga/effects'
 
-import { createFileReadChannel, FileReadEvent } from './createFileReadChannel'
-import { processFileReadEvent } from './processFileReadEvent'
-import { CANCEL_FILE_LOAD, selectFile, cancelFileLoad } from '../actions'
+import {
+  createFileReadChannel,
+  FileReadEvent
+} from './createFileReadChannel.ts'
+import { processFileReadEvent } from './processFileReadEvent.ts'
+import {
+  CANCEL_FILE_LOAD,
+  selectFile,
+  cancelFileLoad
+} from '../actions/index.ts'
 
 export interface RaceYield {
   channelOutput: FileReadEvent | END

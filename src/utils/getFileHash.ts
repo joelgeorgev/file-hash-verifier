@@ -1,4 +1,4 @@
-import { getCrypto } from './getCrypto'
+import { getCrypto } from './getCrypto.ts'
 import type { HashType } from '../types'
 
 const toHexadecimal = (num: number): string => num.toString(16).padStart(2, '0')

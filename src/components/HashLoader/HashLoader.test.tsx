@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 
-import { HashLoader } from '.'
+import { HashLoader } from './HashLoader.tsx'
 
 describe('HashLoader', () => {
   test('renders a loading text', () => {

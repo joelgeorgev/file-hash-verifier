@@ -1,22 +1,30 @@
 import { MockedFunction } from 'vitest'
 import { render } from '@testing-library/react'
 
-import { Shell } from '.'
+import { Shell } from './Shell.tsx'
+import { FilePicker } from '../FilePicker/FilePicker.tsx'
+import { HashSelector } from '../HashSelector/HashSelector.tsx'
+import { FileLoader } from '../FileLoader/FileLoader.tsx'
+import { FileDetails } from '../FileDetails/FileDetails.tsx'
+import { HashLoader } from '../HashLoader/HashLoader.tsx'
+import { FileHash } from '../FileHash/FileHash.tsx'
+import { HashVerifier } from '../HashVerifier/HashVerifier.tsx'
+import { useSelector, useDispatch } from '../../hooks/index.ts'
 import {
-  FilePicker,
-  HashSelector,
-  FileLoader,
-  FileDetails,
-  HashLoader,
-  FileHash,
-  HashVerifier
-} from '..'
-import { useSelector, useDispatch } from '../../hooks'
-import { selectFile, cancelFileLoad, selectHashType } from '../../actions'
+  selectFile,
+  cancelFileLoad,
+  selectHashType
+} from '../../actions/index.ts'
 import type { State } from '../../store'
 
-vi.mock('..')
-vi.mock('../../hooks')
+vi.mock('../FilePicker/FilePicker.tsx')
+vi.mock('../HashSelector/HashSelector.tsx')
+vi.mock('../FileLoader/FileLoader.tsx')
+vi.mock('../FileDetails/FileDetails.tsx')
+vi.mock('../HashLoader/HashLoader.tsx')
+vi.mock('../FileHash/FileHash.tsx')
+vi.mock('../HashVerifier/HashVerifier.tsx')
+vi.mock('../../hooks/index.ts')
 
 const mockFilePicker = FilePicker as MockedFunction<typeof FilePicker>
 const mockHashSelector = HashSelector as MockedFunction<typeof HashSelector>

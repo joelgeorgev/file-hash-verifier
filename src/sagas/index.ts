@@ -1,8 +1,8 @@
 import { all, takeEvery } from 'redux-saga/effects'
 
-import { SELECT_FILE, SELECT_HASH_TYPE, FILE_LOADED } from '../actions'
-import { loadFile } from './loadFile'
-import { calculateHash } from './calculateHash'
+import { SELECT_FILE, SELECT_HASH_TYPE, FILE_LOADED } from '../actions/index.ts'
+import { loadFile } from './loadFile.ts'
+import { calculateHash } from './calculateHash.ts'
 
 export const rootSaga = function* () {
   yield all([

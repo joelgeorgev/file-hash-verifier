@@ -1,7 +1,7 @@
 import { select, call, put, SagaReturnType } from 'redux-saga/effects'
 
-import { getFileHash } from '../utils'
-import { hashCalculated } from '../actions'
+import { getFileHash } from '../utils/getFileHash.ts'
+import { hashCalculated } from '../actions/index.ts'
 import type { State } from '../store'
 
 export const calculateHash = function* () {

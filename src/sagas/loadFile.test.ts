@@ -1,10 +1,14 @@
 import { MockedFunction } from 'vitest'
 import { call, race, take } from 'redux-saga/effects'
 
-import { loadFile, RaceYield } from './loadFile'
-import { createFileReadChannel } from './createFileReadChannel'
-import { processFileReadEvent } from './processFileReadEvent'
-import { CANCEL_FILE_LOAD, selectFile, cancelFileLoad } from '../actions'
+import { loadFile, RaceYield } from './loadFile.ts'
+import { createFileReadChannel } from './createFileReadChannel.ts'
+import { processFileReadEvent } from './processFileReadEvent.ts'
+import {
+  CANCEL_FILE_LOAD,
+  selectFile,
+  cancelFileLoad
+} from '../actions/index.ts'
 
 type FileReadEvent = Parameters<typeof processFileReadEvent>[0]
 type FileReadChannel = ReturnType<typeof createFileReadChannel>

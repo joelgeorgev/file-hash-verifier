@@ -1,6 +1,6 @@
 import { eventChannel, END, EventChannel } from 'redux-saga'
 
-import { getFileReader } from '../utils'
+import { getFileReader } from '../utils/getFileReader.ts'
 
 export interface FileReadEvent {
   arrayBuffer?: ArrayBuffer

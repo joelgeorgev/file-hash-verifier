@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 
-import { FileDetails } from '.'
+import { FileDetails } from './FileDetails.tsx'
 
 describe('FileDetails', () => {
   test('renders file details', () => {

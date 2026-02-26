@@ -3,7 +3,7 @@ import type { ComponentProps } from 'react'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
-import { HashSelector } from '.'
+import { HashSelector } from './HashSelector.tsx'
 
 type Props = ComponentProps<typeof HashSelector>
 type OnSelect = Props['onSelect']

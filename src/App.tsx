@@ -1,8 +1,8 @@
 import { Provider } from 'react-redux'
 import styled from 'styled-components'
 
-import { Shell } from './components'
-import { store } from './store'
+import { Shell } from './components/Shell/Shell.tsx'
+import { store } from './store/index.ts'
 
 import github from './assets/github.svg'
 

@@ -3,7 +3,7 @@ import type { ComponentProps } from 'react'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
-import { FilePicker } from '.'
+import { FilePicker } from './FilePicker.tsx'
 
 type Props = ComponentProps<typeof FilePicker>
 type OnSelect = Props['onSelect']

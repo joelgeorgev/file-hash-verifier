@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react'
 
-import { App } from './App'
+import { App } from './App.tsx'
 
-vi.mock('./components')
+vi.mock('./components/Shell/Shell.tsx')
 
 const renderApp = () => render(<App />)
 
