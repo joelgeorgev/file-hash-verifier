@@ -1,25 +1,12 @@
-import styled from 'styled-components'
-
 import type { HashType } from '../../types'
+
+import './HashSelector.css'
 
 interface Props {
   hashType: HashType | null
   isDisabled: boolean
   onSelect: (hashType: HashType) => void
 }
-
-const FieldSet = styled.fieldset`
-  display: flex;
-  justify-content: center;
-  margin-top: 2rem;
-  font-weight: 700;
-  text-align: center;
-  border: 0;
-`
-
-const Input = styled.input`
-  margin: 0 1rem;
-`
 
 const radioButtons: [string, HashType][] = [
   ['SHA-1', 'sha-1'],
@@ -29,18 +16,19 @@ const radioButtons: [string, HashType][] = [
 ]
 
 export const HashSelector = ({ hashType, isDisabled, onSelect }: Props) => (
-  <FieldSet disabled={isDisabled}>
+  <fieldset disabled={isDisabled} className='hash-selector'>
     {radioButtons.map(([label, value]) => (
       <label key={value}>
-        <Input
+        <input
           type='radio'
           name='hash-type'
           value={value}
           checked={value === hashType}
+          className='input'
           onChange={(event) => onSelect(event.target.value as typeof value)}
         />
         {label}
       </label>
     ))}
-  </FieldSet>
+  </fieldset>
 )

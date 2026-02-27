@@ -1,0 +1,24 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+  max-width: 64rem;
+  height: 100vh;
+  margin: 0 auto;
+}
+
+.header {
+  text-align: center;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: auto;
+}
+
+.footer {
+  margin: 2rem;
+}

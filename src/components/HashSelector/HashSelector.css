@@ -1,0 +1,12 @@
+.hash-selector {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+  font-weight: 700;
+  text-align: center;
+  border: 0;
+
+  & .input {
+    margin: 0 1rem;
+  }
+}

@@ -1,0 +1,9 @@
+.file-loader {
+  margin-top: 2rem;
+  font-weight: 700;
+  text-align: center;
+
+  & .progress {
+    margin: 0 1rem;
+  }
+}

@@ -1,26 +1,21 @@
-import styled from 'styled-components'
-
 import type { FileLoadProgress } from '../../types'
+
+import './FileLoader.css'
 
 interface Props {
   progress: FileLoadProgress
   onCancel: () => void
 }
 
-const Wrapper = styled.div`
-  margin-top: 2rem;
-  font-weight: 700;
-  text-align: center;
-`
-
-const Progress = styled.progress`
-  margin: 0 1rem;
-`
-
 export const FileLoader = ({ progress, onCancel }: Props) => (
-  <Wrapper>
+  <div className='file-loader'>
     <label htmlFor='file-load-progress'>Loading file:</label>
-    <Progress id='file-load-progress' max='100' value={`${progress}`} />
+    <progress
+      id='file-load-progress'
+      max='100'
+      value={`${progress}`}
+      className='progress'
+    />
     {progress !== 100 && <button onClick={onCancel}>Cancel</button>}
-  </Wrapper>
+  </div>
 )

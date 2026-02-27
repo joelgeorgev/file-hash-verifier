@@ -1,7 +1,8 @@
 import { useState, ChangeEvent } from 'react'
-import styled from 'styled-components'
 
 import type { Hash } from '../../types'
+
+import './HashVerifier.css'
 
 import success from '../../assets/success.svg'
 import fail from '../../assets/fail.svg'
@@ -9,35 +10,6 @@ import fail from '../../assets/fail.svg'
 interface Props {
   hash: Hash
 }
-
-interface StyleProps {
-  value: string
-}
-
-const Wrapper = styled.div`
-  margin-top: 2rem;
-`
-
-const Label = styled.label`
-  font-weight: 700;
-`
-
-const VerifyWrapper = styled.div`
-  display: flex;
-  height: 2rem;
-`
-
-const TextInput = styled.input<StyleProps>`
-  width: 100%;
-  padding: 0 0.25rem;
-  border: 1px solid #aaa;
-  ${({ value }) => value && `border-right: 0;`}
-`
-
-const Image = styled.img`
-  width: 2rem;
-  border: 1px solid #aaa;
-`
 
 export const HashVerifier = ({ hash }: Props) => {
   const [text, setText] = useState<string>('')
@@ -51,22 +23,26 @@ export const HashVerifier = ({ hash }: Props) => {
   }
 
   return (
-    <Wrapper>
-      <Label htmlFor='hash-verify'>Compare with:</Label>
-      <VerifyWrapper>
-        <TextInput
+    <div className='hash-verifier'>
+      <label htmlFor='hash-verify' className='label'>
+        Compare with:
+      </label>
+      <div className='verify-wrapper'>
+        <input
           type='text'
           id='hash-verify'
           value={text}
+          className={`input ${text && 'input--has-value'}`}
           onChange={handleChange}
         />
         {text && (
-          <Image
+          <img
             src={isMatch ? success : fail}
             alt={isMatch ? 'Hashes match' : 'Hashes do not match'}
+            className='img'
           />
         )}
-      </VerifyWrapper>
-    </Wrapper>
+      </div>
+    </div>
   )
 }

@@ -1,0 +1,30 @@
+.file-hash {
+  margin-top: 2rem;
+
+  & .label {
+    font-weight: 700;
+  }
+
+  & .hash-wrapper {
+    display: flex;
+    height: 2rem;
+  }
+
+  & .input {
+    width: 100%;
+    padding: 0 0.25rem;
+    border: 1px solid #aaa;
+    border-right: 0;
+  }
+
+  & .button {
+    border: 1px solid #aaa;
+    width: 2rem;
+    background-color: transparent;
+    cursor: pointer;
+  }
+
+  & .img {
+    max-width: 100%;
+  }
+}

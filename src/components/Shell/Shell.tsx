@@ -1,5 +1,3 @@
-import styled from 'styled-components'
-
 import { FilePicker } from '../FilePicker/FilePicker.tsx'
 import { HashSelector } from '../HashSelector/HashSelector.tsx'
 import { FileLoader } from '../FileLoader/FileLoader.tsx'
@@ -14,9 +12,7 @@ import {
   selectHashType
 } from '../../actions/index.ts'
 
-const Wrapper = styled.div`
-  margin: 0 auto;
-`
+import './Shell.css'
 
 export const Shell = () => {
   const state = useSelector((state) => state)
@@ -34,7 +30,7 @@ export const Shell = () => {
   const isDisabled = Boolean(fileLoadProgress) || isCalculatingHash
 
   return (
-    <Wrapper>
+    <div className='shell'>
       <FilePicker
         isDisabled={isDisabled}
         onSelect={(file) => dispatch(selectFile(file))}
@@ -62,6 +58,6 @@ export const Shell = () => {
           )}
         </>
       )}
-    </Wrapper>
+    </div>
   )
 }

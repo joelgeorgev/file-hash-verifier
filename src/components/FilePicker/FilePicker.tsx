@@ -1,19 +1,14 @@
-import styled from 'styled-components'
-
+import './FilePicker.css'
 interface Props {
   isDisabled: boolean
   onSelect: (file: File) => void
 }
 
-const Label = styled.label`
-  display: block;
-  font-weight: 700;
-  margin-bottom: 1rem;
-`
-
 export const FilePicker = ({ isDisabled, onSelect }: Props) => (
-  <>
-    <Label htmlFor='file-picker'>Click to pick a file.</Label>
+  <div className='file-picker'>
+    <label htmlFor='file-picker' className='label'>
+      Click to pick a file.
+    </label>
     <input
       type='file'
       id='file-picker'
@@ -27,5 +22,5 @@ export const FilePicker = ({ isDisabled, onSelect }: Props) => (
         }
       }}
     />
-  </>
+  </div>
 )

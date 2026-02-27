@@ -1,0 +1,12 @@
+.file-details {
+  margin-top: 2rem;
+
+  & .key {
+    font-weight: 700;
+  }
+
+  & .value {
+    word-break: break-all;
+    margin-bottom: 0.5rem;
+  }
+}

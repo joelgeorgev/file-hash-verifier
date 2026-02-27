@@ -1,30 +1,17 @@
-import styled from 'styled-components'
-
 import type { FileName, FileSize } from '../../types'
+
+import './FileDetails.css'
 
 interface Props {
   name: FileName
   size: FileSize
 }
 
-const Wrapper = styled.dl`
-  margin-top: 2rem;
-`
-
-const Key = styled.dt`
-  font-weight: 700;
-`
-
-const Value = styled.dd`
-  word-break: break-all;
-  margin-bottom: 0.5rem;
-`
-
 export const FileDetails = ({ name, size }: Props) => (
-  <Wrapper>
-    <Key>Name</Key>
-    <Value>{name}</Value>
-    <Key>Size</Key>
-    <Value>{size} bytes</Value>
-  </Wrapper>
+  <dl className='file-details'>
+    <dt className='key'>Name</dt>
+    <dd className='value'>{name}</dd>
+    <dt className='key'>Size</dt>
+    <dd className='value'>{size} bytes</dd>
+  </dl>
 )
