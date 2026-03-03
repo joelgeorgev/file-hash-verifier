@@ -13,13 +13,10 @@ interface Props {
 
 export const HashVerifier = ({ hash }: Props) => {
   const [text, setText] = useState('')
-  const [isMatch, setMatch] = useState(false)
+  const isMatch = hash === text.replace(/ /g, '').toLowerCase()
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    const inputText = event.target.value
-
-    setText(inputText)
-    setMatch(hash === inputText.replace(/ /g, '').toLowerCase())
+    setText(event.target.value)
   }
 
   return (

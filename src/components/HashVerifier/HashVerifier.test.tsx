@@ -47,7 +47,7 @@ describe('HashVerifier', () => {
     })
   })
 
-  describe.each([['hash', ' h a s h ', 'HASH']])(
+  describe.each(['hash', ' h a s h ', 'HASH'])(
     'When the text matches the hash',
     (text) => {
       test('renders an image indicating a match', async () => {
