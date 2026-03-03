@@ -23,7 +23,24 @@ describe('HashVerifier', () => {
     renderHashVerifier({ hash })
 
     expect(findLabel()).toBeDefined()
-    expect(findTextField()).toBeDefined()
+
+    const textField = findTextField()
+    expect(textField).toBeDefined()
+    expect(textField.classList.contains('input')).toEqual(true)
+  })
+
+  describe('When the text field has text', () => {
+    test('renders text field with an extra class', async () => {
+      renderHashVerifier({ hash })
+
+      const user = userEvent.setup()
+      await user.type(findTextField(), 'h')
+
+      const textField = findTextField()
+      expect(textField).toBeDefined()
+      expect(textField.classList.contains('input')).toEqual(true)
+      expect(textField.classList.contains('input--has-value')).toEqual(true)
+    })
   })
 
   describe('When the text field has NO text', () => {
