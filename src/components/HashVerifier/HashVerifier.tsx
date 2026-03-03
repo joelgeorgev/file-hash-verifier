@@ -12,8 +12,8 @@ interface Props {
 }
 
 export const HashVerifier = ({ hash }: Props) => {
-  const [text, setText] = useState<string>('')
-  const [isMatch, setMatch] = useState<boolean>(false)
+  const [text, setText] = useState('')
+  const [isMatch, setMatch] = useState(false)
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
     const inputText = event.target.value
