@@ -1,5 +1,7 @@
+import { configureStore, Tuple } from '@reduxjs/toolkit'
+import { Provider } from 'react-redux'
 import { MockedFunction } from 'vitest'
-import { render } from '@testing-library/react'
+import { render, act } from '@testing-library/react'
 
 import { Shell } from './Shell.tsx'
 import { FilePicker } from '../FilePicker/FilePicker.tsx'
@@ -9,13 +11,7 @@ import { FileDetails } from '../FileDetails/FileDetails.tsx'
 import { HashLoader } from '../HashLoader/HashLoader.tsx'
 import { FileHash } from '../FileHash/FileHash.tsx'
 import { HashVerifier } from '../HashVerifier/HashVerifier.tsx'
-import { useSelector, useDispatch } from '../../hooks/index.ts'
-import {
-  selectFile,
-  cancelFileLoad,
-  selectHashType
-} from '../../actions/index.ts'
-import type { State } from '../../store'
+import { reducer } from '../../reducers/index.ts'
 
 vi.mock('../FilePicker/FilePicker.tsx')
 vi.mock('../HashSelector/HashSelector.tsx')
@@ -24,7 +20,8 @@ vi.mock('../FileDetails/FileDetails.tsx')
 vi.mock('../HashLoader/HashLoader.tsx')
 vi.mock('../FileHash/FileHash.tsx')
 vi.mock('../HashVerifier/HashVerifier.tsx')
-vi.mock('../../hooks/index.ts')
+
+type State = ReturnType<typeof reducer>
 
 const mockFilePicker = FilePicker as MockedFunction<typeof FilePicker>
 const mockHashSelector = HashSelector as MockedFunction<typeof HashSelector>
@@ -33,10 +30,6 @@ const mockFileDetails = FileDetails as MockedFunction<typeof FileDetails>
 const mockHashLoader = HashLoader as MockedFunction<typeof HashLoader>
 const mockFileHash = FileHash as MockedFunction<typeof FileHash>
 const mockHashVerifier = HashVerifier as MockedFunction<typeof HashVerifier>
-const mockUseSelector = useSelector as MockedFunction<typeof useSelector>
-const mockUseDispatch = useDispatch as MockedFunction<typeof useDispatch>
-
-const createDispatch = () => vi.fn()
 
 const createState = (partialState?: Partial<State>): State => ({
   file: null,
@@ -48,7 +41,23 @@ const createState = (partialState?: Partial<State>): State => ({
   ...partialState
 })
 
-const renderShell = () => render(<Shell />)
+const renderShell = (state = createState()) => {
+  const store = configureStore({
+    reducer,
+    preloadedState: state,
+    middleware() {
+      return new Tuple()
+    }
+  })
+
+  render(
+    <Provider store={store}>
+      <Shell />
+    </Provider>
+  )
+
+  return { store }
+}
 
 const arrayBuffer = new ArrayBuffer(1)
 const file = { name: 'robots.txt', size: 100 }
@@ -56,11 +65,7 @@ const hash = 'hash'
 
 describe('Shell', () => {
   test('renders FilePicker', () => {
-    mockUseSelector.mockReturnValue(createState())
-    const dispatch = createDispatch()
-    mockUseDispatch.mockReturnValue(dispatch)
-
-    renderShell()
+    const { store } = renderShell()
 
     expect(mockFilePicker).toHaveBeenCalledTimes(1)
 
@@ -74,19 +79,24 @@ describe('Shell', () => {
     const file = new File(['Hello World'], 'robots.txt', {
       type: 'text/plain'
     })
-    filePickerProps.onSelect(file)
 
-    expect(dispatch).toHaveBeenCalledTimes(1)
-    expect(dispatch).toHaveBeenCalledWith(selectFile(file))
+    act(() => {
+      filePickerProps.onSelect(file)
+    })
+
+    expect(store.getState()).toEqual(
+      createState({
+        file: {
+          name: 'robots.txt',
+          size: 11
+        }
+      })
+    )
   })
 
   test('renders HashSelector', () => {
     const state = createState()
-    mockUseSelector.mockReturnValue(state)
-    const dispatch = createDispatch()
-    mockUseDispatch.mockReturnValue(dispatch)
-
-    renderShell()
+    const { store } = renderShell(state)
 
     expect(mockHashSelector).toHaveBeenCalledTimes(1)
 
@@ -99,10 +109,16 @@ describe('Shell', () => {
     })
 
     const hashType = 'sha-1'
-    hashSelectorProps.onSelect(hashType)
 
-    expect(dispatch).toHaveBeenCalledTimes(1)
-    expect(dispatch).toHaveBeenCalledWith(selectHashType(hashType))
+    act(() => {
+      hashSelectorProps.onSelect(hashType)
+    })
+
+    expect(store.getState()).toEqual(
+      createState({
+        hashType
+      })
+    )
   })
 
   describe.each<[Partial<State>]>([
@@ -112,9 +128,7 @@ describe('Shell', () => {
     'When BOTH `fileLoadProgress` and `isCalculatingHash` are FALSY',
     (partialState) => {
       test('renders FilePicker and HashSelector as enabled', () => {
-        mockUseSelector.mockReturnValue(createState(partialState))
-
-        renderShell()
+        renderShell(createState(partialState))
 
         expect(mockFilePicker).toHaveBeenCalledTimes(1)
         expect(mockHashSelector).toHaveBeenCalledTimes(1)
@@ -137,9 +151,7 @@ describe('Shell', () => {
     'When EITHER `fileLoadProgress` or `isCalculatingHash` is TRUTHY',
     (partialState) => {
       test('renders FilePicker and HashSelector as disabled', () => {
-        mockUseSelector.mockReturnValue(createState(partialState))
-
-        renderShell()
+        renderShell(createState(partialState))
 
         expect(mockFilePicker).toHaveBeenCalledTimes(1)
         expect(mockHashSelector).toHaveBeenCalledTimes(1)
@@ -156,11 +168,7 @@ describe('Shell', () => {
   describe('When the file load is in progress', () => {
     test('renders FileLoader', () => {
       const fileLoadProgress = 1
-      mockUseSelector.mockReturnValue(createState({ fileLoadProgress }))
-      const dispatch = createDispatch()
-      mockUseDispatch.mockReturnValue(dispatch)
-
-      renderShell()
+      const { store } = renderShell(createState({ fileLoadProgress }))
 
       expect(mockFileLoader).toHaveBeenCalledTimes(1)
 
@@ -171,32 +179,33 @@ describe('Shell', () => {
         onCancel: expect.any(Function)
       })
 
-      fileLoaderProps.onCancel()
+      act(() => {
+        fileLoaderProps.onCancel()
+      })
 
-      expect(dispatch).toHaveBeenCalledTimes(1)
-      expect(dispatch).toHaveBeenCalledWith(cancelFileLoad())
+      expect(store.getState()).toEqual(
+        createState({
+          fileLoadProgress: null
+        })
+      )
     })
   })
 
   describe('When the file is loaded', () => {
     test('does NOT render FileLoader', () => {
-      mockUseSelector.mockReturnValue(createState({ fileLoadProgress: null }))
-
-      renderShell()
+      renderShell(createState({ fileLoadProgress: null }))
 
       expect(mockFileLoader).toHaveBeenCalledTimes(0)
     })
   })
 
   test('renders FileDetails', () => {
-    mockUseSelector.mockReturnValue(
+    renderShell(
       createState({
         arrayBuffer,
         file
       })
     )
-
-    renderShell()
 
     expect(mockFileDetails).toHaveBeenCalledTimes(1)
 
@@ -214,23 +223,19 @@ describe('Shell', () => {
     [{ arrayBuffer: null, file: null }]
   ])('When EITHER `arrayBuffer` or `file` is FALSY', (partialState) => {
     test('does NOT render FileDetails', () => {
-      mockUseSelector.mockReturnValue(createState(partialState))
-
-      renderShell()
+      renderShell(createState(partialState))
 
       expect(mockFileDetails).toHaveBeenCalledTimes(0)
     })
   })
 
   test('renders HashLoader', () => {
-    mockUseSelector.mockReturnValue(
+    renderShell(
       createState({
         arrayBuffer,
         isCalculatingHash: true
       })
     )
-
-    renderShell()
 
     expect(mockHashLoader).toHaveBeenCalledTimes(1)
   })
@@ -243,9 +248,7 @@ describe('Shell', () => {
     'When EITHER `arrayBuffer` or `isCalculatingHash` is FALSY',
     (partialState) => {
       test('does NOT render HashLoader', () => {
-        mockUseSelector.mockReturnValue(createState(partialState))
-
-        renderShell()
+        renderShell(createState(partialState))
 
         expect(mockHashLoader).toHaveBeenCalledTimes(0)
       })
@@ -253,14 +256,12 @@ describe('Shell', () => {
   )
 
   test('renders FileHash', () => {
-    mockUseSelector.mockReturnValue(
+    renderShell(
       createState({
         arrayBuffer,
         hash
       })
     )
-
-    renderShell()
 
     expect(mockFileHash).toHaveBeenCalledTimes(1)
 
@@ -272,14 +273,12 @@ describe('Shell', () => {
   })
 
   test('renders HashVerifier', () => {
-    mockUseSelector.mockReturnValue(
+    renderShell(
       createState({
         arrayBuffer,
         hash
       })
     )
-
-    renderShell()
 
     expect(mockHashVerifier).toHaveBeenCalledTimes(1)
 
@@ -296,17 +295,13 @@ describe('Shell', () => {
     [{ arrayBuffer: null, hash: null }]
   ])('When EITHER `arrayBuffer` or `hash` is FALSY', (partialState) => {
     test('does NOT render FileHash', () => {
-      mockUseSelector.mockReturnValue(createState(partialState))
-
-      renderShell()
+      renderShell(createState(partialState))
 
       expect(mockFileHash).toHaveBeenCalledTimes(0)
     })
 
     test('does NOT render HashVerifier', () => {
-      mockUseSelector.mockReturnValue(createState(partialState))
-
-      renderShell()
+      renderShell(createState(partialState))
 
       expect(mockHashVerifier).toHaveBeenCalledTimes(0)
     })

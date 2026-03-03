@@ -15,17 +15,18 @@ import {
 import './Shell.css'
 
 export const Shell = () => {
-  const state = useSelector((state) => state)
   const dispatch = useDispatch()
 
-  const {
-    file,
-    fileLoadProgress,
-    arrayBuffer,
-    hashType,
-    isCalculatingHash,
-    hash
-  } = state
+  const file = useSelector(({ file }) => file)
+  const fileLoadProgress = useSelector(
+    ({ fileLoadProgress }) => fileLoadProgress
+  )
+  const arrayBuffer = useSelector(({ arrayBuffer }) => arrayBuffer)
+  const hashType = useSelector(({ hashType }) => hashType)
+  const isCalculatingHash = useSelector(
+    ({ isCalculatingHash }) => isCalculatingHash
+  )
+  const hash = useSelector(({ hash }) => hash)
 
   const isDisabled = Boolean(fileLoadProgress) || isCalculatingHash
 
