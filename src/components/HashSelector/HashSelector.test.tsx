@@ -34,7 +34,7 @@ describe('HashSelector', () => {
 
     const radioButton = findRadioButton(label)
 
-    expect(radioButton).toBeDefined()
+    expect(radioButton).toBeInTheDocument()
 
     const user = userEvent.setup()
     await user.click(radioButton)

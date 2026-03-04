@@ -10,7 +10,7 @@ describe('App', () => {
 
     expect(
       screen.getByRole('heading', { name: 'File Hash Verifier' })
-    ).toBeDefined()
+    ).toBeInTheDocument()
   })
 
   test('renders a link to the repository', () => {
@@ -20,7 +20,7 @@ describe('App', () => {
       name: 'Go to GitHub repository page'
     })
 
-    expect(link).toBeDefined()
+    expect(link).toBeInTheDocument()
     expect(link.href).toEqual(
       'https://github.com/joelgeorgev/file-hash-verifier'
     )

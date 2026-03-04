@@ -27,15 +27,15 @@ describe('FilePicker', () => {
 
     const filePicker = findFilePicker()
 
-    expect(filePicker).toBeDefined()
+    expect(filePicker).toBeInTheDocument()
+    expect(filePicker).toBeEnabled()
     expect(filePicker.multiple).toEqual(false)
-    expect(filePicker.disabled).toEqual(false)
   })
 
   test('renders file picker as disabled', () => {
     renderFilePicker({ isDisabled: true })
 
-    expect(findFilePicker().disabled).toEqual(true)
+    expect(findFilePicker()).toBeDisabled()
   })
 
   test('invokes the callback function with the selected file', async () => {

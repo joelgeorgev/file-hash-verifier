@@ -22,11 +22,12 @@ describe('HashVerifier', () => {
   test('renders a text field', () => {
     renderHashVerifier({ hash })
 
-    expect(findLabel()).toBeDefined()
+    expect(findLabel()).toBeInTheDocument()
 
     const textField = findTextField()
-    expect(textField).toBeDefined()
-    expect(textField.classList.contains('input')).toEqual(true)
+
+    expect(textField).toBeInTheDocument()
+    expect(textField).toHaveClass('input')
   })
 
   describe('When the text field has text', () => {
@@ -37,9 +38,10 @@ describe('HashVerifier', () => {
       await user.type(findTextField(), 'h')
 
       const textField = findTextField()
-      expect(textField).toBeDefined()
-      expect(textField.classList.contains('input')).toEqual(true)
-      expect(textField.classList.contains('input--has-value')).toEqual(true)
+
+      expect(textField).toBeInTheDocument()
+      expect(textField).toHaveClass('input')
+      expect(textField).toHaveClass('input--has-value')
     })
   })
 
@@ -47,8 +49,8 @@ describe('HashVerifier', () => {
     test('does NOT render any image', () => {
       renderHashVerifier({ hash })
 
-      expect(queryImage(matchImageAltText)).toEqual(null)
-      expect(queryImage(mismatchImageAltText)).toEqual(null)
+      expect(queryImage(matchImageAltText)).not.toBeInTheDocument()
+      expect(queryImage(mismatchImageAltText)).not.toBeInTheDocument()
     })
   })
 
@@ -59,8 +61,8 @@ describe('HashVerifier', () => {
       const user = userEvent.setup()
       await user.type(findTextField(), 'h')
 
-      expect(findImage(mismatchImageAltText)).toBeDefined()
-      expect(queryImage(matchImageAltText)).toEqual(null)
+      expect(findImage(mismatchImageAltText)).toBeInTheDocument()
+      expect(queryImage(matchImageAltText)).not.toBeInTheDocument()
     })
   })
 
@@ -73,8 +75,8 @@ describe('HashVerifier', () => {
         const user = userEvent.setup()
         await user.type(findTextField(), text)
 
-        expect(findImage(matchImageAltText)).toBeDefined()
-        expect(queryImage(mismatchImageAltText)).toEqual(null)
+        expect(findImage(matchImageAltText)).toBeInTheDocument()
+        expect(queryImage(mismatchImageAltText)).not.toBeInTheDocument()
       })
     }
   )

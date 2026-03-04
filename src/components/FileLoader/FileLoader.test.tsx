@@ -26,15 +26,15 @@ describe('FileLoader', () => {
 
     const progressBar = findProgressBar()
 
-    expect(progressBar).toBeDefined()
+    expect(progressBar).toBeInTheDocument()
+    expect(progressBar).toHaveValue(progress)
     expect(progressBar.max).toEqual(100)
-    expect(progressBar.value).toEqual(progress)
   })
 
   test('renders a label', () => {
     renderFileLoader()
 
-    expect(findLabel()).toBeDefined()
+    expect(findLabel()).toBeInTheDocument()
   })
 
   describe('When progress is NOT 100', () => {
@@ -43,8 +43,8 @@ describe('FileLoader', () => {
 
       const cancelButton = findCancelButton()
 
-      expect(cancelButton).toBeDefined()
-      expect(cancelButton.textContent).toEqual('Cancel')
+      expect(cancelButton).toBeInTheDocument()
+      expect(cancelButton).toHaveTextContent('Cancel')
     })
 
     describe('When the cancel button is clicked', () => {
@@ -64,7 +64,7 @@ describe('FileLoader', () => {
     test('does NOT render the cancel button', () => {
       renderFileLoader({ progress: 100 })
 
-      expect(queryCancelButton()).toEqual(null)
+      expect(queryCancelButton()).not.toBeInTheDocument()
     })
   })
 })

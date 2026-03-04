@@ -44,8 +44,6 @@ const findProgressBar = (): HTMLProgressElement =>
   screen.getByRole('progressbar')
 const queryProgressBar = () => screen.queryByRole('progressbar')
 const findCancelButton = (): HTMLButtonElement => screen.getByRole('button')
-const findTextFields = (): HTMLInputElement[] => screen.getAllByRole('textbox')
-const queryTextFields = () => screen.queryAllByRole('textbox')
 
 const arrayBuffer = new ArrayBuffer(1)
 const file = { name: 'robots.txt', size: 100 }
@@ -57,7 +55,7 @@ describe('Shell', () => {
 
     const filePicker = findFilePicker()
 
-    expect(filePicker).toBeDefined()
+    expect(filePicker).toBeInTheDocument()
 
     const file = new File(['Hello World'], 'robots.txt', {
       type: 'text/plain'
@@ -81,8 +79,8 @@ describe('Shell', () => {
 
     const radioButtons = findRadioButtons()
 
-    expect(radioButtons[0].checked).toEqual(true)
-    expect(radioButtons[1].checked).toEqual(false)
+    expect(radioButtons[0]).toBeChecked()
+    expect(radioButtons[1]).not.toBeChecked()
 
     const user = userEvent.setup()
     await user.click(radioButtons[1])
@@ -103,8 +101,8 @@ describe('Shell', () => {
       test('renders FilePicker and HashSelector as enabled', () => {
         renderShell(createState(partialState))
 
-        expect(findFilePicker().disabled).toEqual(false)
-        expect(findFieldSet().disabled).toEqual(false)
+        expect(findFilePicker()).toBeEnabled()
+        expect(findFieldSet()).toBeEnabled()
       })
     }
   )
@@ -120,8 +118,8 @@ describe('Shell', () => {
       test('renders FilePicker and HashSelector as disabled', () => {
         renderShell(createState(partialState))
 
-        expect(findFilePicker().disabled).toEqual(true)
-        expect(findFieldSet().disabled).toEqual(true)
+        expect(findFilePicker()).toBeDisabled()
+        expect(findFieldSet()).toBeDisabled()
       })
     }
   )
@@ -131,7 +129,7 @@ describe('Shell', () => {
       const fileLoadProgress = 1
       const { store } = renderShell(createState({ fileLoadProgress }))
 
-      expect(findProgressBar().value).toEqual(fileLoadProgress)
+      expect(findProgressBar()).toHaveValue(fileLoadProgress)
 
       const user = userEvent.setup()
       await user.click(findCancelButton())
@@ -148,7 +146,7 @@ describe('Shell', () => {
     test('does NOT render FileLoader', () => {
       renderShell(createState({ fileLoadProgress: null }))
 
-      expect(queryProgressBar()).toEqual(null)
+      expect(queryProgressBar()).not.toBeInTheDocument()
     })
   })
 
@@ -160,8 +158,8 @@ describe('Shell', () => {
       })
     )
 
-    expect(screen.getByText(file.name)).toBeDefined()
-    expect(screen.getByText('100 bytes')).toBeDefined()
+    expect(screen.getByText(file.name)).toBeInTheDocument()
+    expect(screen.getByText('100 bytes')).toBeInTheDocument()
   })
 
   describe.each<[Partial<State>]>([
@@ -172,7 +170,7 @@ describe('Shell', () => {
     test('does NOT render FileDetails', () => {
       renderShell(createState(partialState))
 
-      expect(screen.queryByText(file.name)).toEqual(null)
+      expect(screen.queryByText(file.name)).not.toBeInTheDocument()
     })
   })
 
@@ -184,7 +182,7 @@ describe('Shell', () => {
       })
     )
 
-    expect(screen.getByText('Calculating Hash...')).toBeDefined()
+    expect(screen.getByText('Calculating Hash...')).toBeInTheDocument()
   })
 
   describe.each<[Partial<State>]>([
@@ -197,7 +195,9 @@ describe('Shell', () => {
       test('does NOT render HashLoader', () => {
         renderShell(createState(partialState))
 
-        expect(screen.queryByText('Calculating Hash...')).toEqual(null)
+        expect(
+          screen.queryByText('Calculating Hash...')
+        ).not.toBeInTheDocument()
       })
     }
   )
@@ -210,7 +210,7 @@ describe('Shell', () => {
       })
     )
 
-    expect(findTextFields()[0].value).toEqual(hash)
+    expect(screen.getByLabelText('Hash:')).toHaveValue(hash)
   })
 
   test('renders HashVerifier', () => {
@@ -221,7 +221,7 @@ describe('Shell', () => {
       })
     )
 
-    expect(findTextFields()[1]).toBeDefined()
+    expect(screen.getByLabelText('Compare with:')).toBeInTheDocument()
   })
 
   describe.each<[Partial<State>]>([
@@ -232,13 +232,13 @@ describe('Shell', () => {
     test('does NOT render FileHash', () => {
       renderShell(createState(partialState))
 
-      expect(queryTextFields()[0]).not.toBeDefined()
+      expect(screen.queryByLabelText('Hash:')).not.toBeInTheDocument()
     })
 
     test('does NOT render HashVerifier', () => {
       renderShell(createState(partialState))
 
-      expect(queryTextFields()[1]).not.toBeDefined()
+      expect(screen.queryByLabelText('Compare with:')).not.toBeInTheDocument()
     })
   })
 })

@@ -23,23 +23,23 @@ describe('FileHash', () => {
   test('renders the hash value in a readonly text field', () => {
     renderFileHash({ hash })
 
-    expect(findLabel()).toBeDefined()
+    expect(findLabel()).toBeInTheDocument()
 
     const textField = findTextField()
 
-    expect(textField).toBeDefined()
-    expect(textField.value).toEqual(hash)
+    expect(textField).toBeInTheDocument()
+    expect(textField).toHaveValue(hash)
     expect(textField.readOnly).toEqual(true)
   })
 
   test('renders a button to copy hash value to clipboard', async () => {
     renderFileHash({ hash })
 
-    expect(findCopyImage()).toBeDefined()
+    expect(findCopyImage()).toBeInTheDocument()
 
     const copyButton = findCopyButton()
 
-    expect(copyButton).toBeDefined()
+    expect(copyButton).toBeInTheDocument()
 
     const user = userEvent.setup()
     await user.click(copyButton)

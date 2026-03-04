@@ -6,6 +6,6 @@ describe('HashLoader', () => {
   test('renders a loading text', () => {
     render(<HashLoader />)
 
-    expect(screen.getByText('Calculating Hash...')).toBeDefined()
+    expect(screen.getByText('Calculating Hash...')).toBeInTheDocument()
   })
 })
