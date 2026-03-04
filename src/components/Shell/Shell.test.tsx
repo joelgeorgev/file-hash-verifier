@@ -232,13 +232,13 @@ describe('Shell', () => {
     test('does NOT render FileHash', () => {
       renderShell(createState(partialState))
 
-      expect(queryTextFields()[0]).toEqual(undefined)
+      expect(queryTextFields()[0]).not.toBeDefined()
     })
 
     test('does NOT render HashVerifier', () => {
       renderShell(createState(partialState))
 
-      expect(queryTextFields()[1]).toEqual(undefined)
+      expect(queryTextFields()[1]).not.toBeDefined()
     })
   })
 })
