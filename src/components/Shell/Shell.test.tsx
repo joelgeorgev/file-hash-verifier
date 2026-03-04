@@ -1,35 +1,12 @@
 import { configureStore, Tuple } from '@reduxjs/toolkit'
 import { Provider } from 'react-redux'
-import { MockedFunction } from 'vitest'
-import { render, act } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 
 import { Shell } from './Shell.tsx'
-import { FilePicker } from '../FilePicker/FilePicker.tsx'
-import { HashSelector } from '../HashSelector/HashSelector.tsx'
-import { FileLoader } from '../FileLoader/FileLoader.tsx'
-import { FileDetails } from '../FileDetails/FileDetails.tsx'
-import { HashLoader } from '../HashLoader/HashLoader.tsx'
-import { FileHash } from '../FileHash/FileHash.tsx'
-import { HashVerifier } from '../HashVerifier/HashVerifier.tsx'
 import { reducer } from '../../reducers/index.ts'
 
-vi.mock('../FilePicker/FilePicker.tsx')
-vi.mock('../HashSelector/HashSelector.tsx')
-vi.mock('../FileLoader/FileLoader.tsx')
-vi.mock('../FileDetails/FileDetails.tsx')
-vi.mock('../HashLoader/HashLoader.tsx')
-vi.mock('../FileHash/FileHash.tsx')
-vi.mock('../HashVerifier/HashVerifier.tsx')
-
 type State = ReturnType<typeof reducer>
-
-const mockFilePicker = FilePicker as MockedFunction<typeof FilePicker>
-const mockHashSelector = HashSelector as MockedFunction<typeof HashSelector>
-const mockFileLoader = FileLoader as MockedFunction<typeof FileLoader>
-const mockFileDetails = FileDetails as MockedFunction<typeof FileDetails>
-const mockHashLoader = HashLoader as MockedFunction<typeof HashLoader>
-const mockFileHash = FileHash as MockedFunction<typeof FileHash>
-const mockHashVerifier = HashVerifier as MockedFunction<typeof HashVerifier>
 
 const createState = (partialState?: Partial<State>): State => ({
   file: null,
@@ -59,30 +36,34 @@ const renderShell = (state = createState()) => {
   return { store }
 }
 
+const findFilePicker = (): HTMLInputElement =>
+  screen.getByLabelText('Click to pick a file.')
+const findFieldSet = (): HTMLFieldSetElement => screen.getByRole('group')
+const findRadioButtons = (): HTMLInputElement[] => screen.getAllByRole('radio')
+const findProgressBar = (): HTMLProgressElement =>
+  screen.getByRole('progressbar')
+const queryProgressBar = () => screen.queryByRole('progressbar')
+const findCancelButton = (): HTMLButtonElement => screen.getByRole('button')
+const findTextFields = (): HTMLInputElement[] => screen.getAllByRole('textbox')
+const queryTextFields = () => screen.queryAllByRole('textbox')
+
 const arrayBuffer = new ArrayBuffer(1)
 const file = { name: 'robots.txt', size: 100 }
 const hash = 'hash'
 
 describe('Shell', () => {
-  test('renders FilePicker', () => {
+  test('renders FilePicker', async () => {
     const { store } = renderShell()
 
-    expect(mockFilePicker).toHaveBeenCalledTimes(1)
+    const filePicker = findFilePicker()
 
-    const filePickerProps = mockFilePicker.mock.calls[0][0]
-
-    expect(filePickerProps).toEqual({
-      isDisabled: expect.any(Boolean),
-      onSelect: expect.any(Function)
-    })
+    expect(filePicker).toBeDefined()
 
     const file = new File(['Hello World'], 'robots.txt', {
       type: 'text/plain'
     })
-
-    act(() => {
-      filePickerProps.onSelect(file)
-    })
+    const user = userEvent.setup()
+    await user.upload(filePicker, file)
 
     expect(store.getState()).toEqual(
       createState({
@@ -94,29 +75,21 @@ describe('Shell', () => {
     )
   })
 
-  test('renders HashSelector', () => {
-    const state = createState()
+  test('renders HashSelector', async () => {
+    const state = createState({ hashType: 'sha-1' })
     const { store } = renderShell(state)
 
-    expect(mockHashSelector).toHaveBeenCalledTimes(1)
+    const radioButtons = findRadioButtons()
 
-    const hashSelectorProps = mockHashSelector.mock.calls[0][0]
+    expect(radioButtons[0].checked).toEqual(true)
+    expect(radioButtons[1].checked).toEqual(false)
 
-    expect(hashSelectorProps).toEqual({
-      hashType: state.hashType,
-      isDisabled: expect.any(Boolean),
-      onSelect: expect.any(Function)
-    })
-
-    const hashType = 'sha-1'
-
-    act(() => {
-      hashSelectorProps.onSelect(hashType)
-    })
+    const user = userEvent.setup()
+    await user.click(radioButtons[1])
 
     expect(store.getState()).toEqual(
       createState({
-        hashType
+        hashType: 'sha-256'
       })
     )
   })
@@ -130,14 +103,8 @@ describe('Shell', () => {
       test('renders FilePicker and HashSelector as enabled', () => {
         renderShell(createState(partialState))
 
-        expect(mockFilePicker).toHaveBeenCalledTimes(1)
-        expect(mockHashSelector).toHaveBeenCalledTimes(1)
-
-        const filePickerProps = mockFilePicker.mock.calls[0][0]
-        const hashSelectorProps = mockHashSelector.mock.calls[0][0]
-
-        expect(filePickerProps.isDisabled).toEqual(false)
-        expect(hashSelectorProps.isDisabled).toEqual(false)
+        expect(findFilePicker().disabled).toEqual(false)
+        expect(findFieldSet().disabled).toEqual(false)
       })
     }
   )
@@ -153,35 +120,21 @@ describe('Shell', () => {
       test('renders FilePicker and HashSelector as disabled', () => {
         renderShell(createState(partialState))
 
-        expect(mockFilePicker).toHaveBeenCalledTimes(1)
-        expect(mockHashSelector).toHaveBeenCalledTimes(1)
-
-        const filePickerProps = mockFilePicker.mock.calls[0][0]
-        const hashSelectorProps = mockHashSelector.mock.calls[0][0]
-
-        expect(filePickerProps.isDisabled).toEqual(true)
-        expect(hashSelectorProps.isDisabled).toEqual(true)
+        expect(findFilePicker().disabled).toEqual(true)
+        expect(findFieldSet().disabled).toEqual(true)
       })
     }
   )
 
   describe('When the file load is in progress', () => {
-    test('renders FileLoader', () => {
+    test('renders FileLoader', async () => {
       const fileLoadProgress = 1
       const { store } = renderShell(createState({ fileLoadProgress }))
 
-      expect(mockFileLoader).toHaveBeenCalledTimes(1)
+      expect(findProgressBar().value).toEqual(fileLoadProgress)
 
-      const fileLoaderProps = mockFileLoader.mock.calls[0][0]
-
-      expect(fileLoaderProps).toEqual({
-        progress: fileLoadProgress,
-        onCancel: expect.any(Function)
-      })
-
-      act(() => {
-        fileLoaderProps.onCancel()
-      })
+      const user = userEvent.setup()
+      await user.click(findCancelButton())
 
       expect(store.getState()).toEqual(
         createState({
@@ -195,7 +148,7 @@ describe('Shell', () => {
     test('does NOT render FileLoader', () => {
       renderShell(createState({ fileLoadProgress: null }))
 
-      expect(mockFileLoader).toHaveBeenCalledTimes(0)
+      expect(queryProgressBar()).toEqual(null)
     })
   })
 
@@ -207,14 +160,8 @@ describe('Shell', () => {
       })
     )
 
-    expect(mockFileDetails).toHaveBeenCalledTimes(1)
-
-    const fileDetailsProps = mockFileDetails.mock.calls[0][0]
-
-    expect(fileDetailsProps).toEqual({
-      name: file.name,
-      size: file.size
-    })
+    expect(screen.getByText(file.name)).toBeDefined()
+    expect(screen.getByText('100 bytes')).toBeDefined()
   })
 
   describe.each<[Partial<State>]>([
@@ -225,7 +172,7 @@ describe('Shell', () => {
     test('does NOT render FileDetails', () => {
       renderShell(createState(partialState))
 
-      expect(mockFileDetails).toHaveBeenCalledTimes(0)
+      expect(screen.queryByText(file.name)).toEqual(null)
     })
   })
 
@@ -237,7 +184,7 @@ describe('Shell', () => {
       })
     )
 
-    expect(mockHashLoader).toHaveBeenCalledTimes(1)
+    expect(screen.getByText('Calculating Hash...')).toBeDefined()
   })
 
   describe.each<[Partial<State>]>([
@@ -250,7 +197,7 @@ describe('Shell', () => {
       test('does NOT render HashLoader', () => {
         renderShell(createState(partialState))
 
-        expect(mockHashLoader).toHaveBeenCalledTimes(0)
+        expect(screen.queryByText('Calculating Hash...')).toEqual(null)
       })
     }
   )
@@ -263,13 +210,7 @@ describe('Shell', () => {
       })
     )
 
-    expect(mockFileHash).toHaveBeenCalledTimes(1)
-
-    const fileHashProps = mockFileHash.mock.calls[0][0]
-
-    expect(fileHashProps).toEqual({
-      hash
-    })
+    expect(findTextFields()[0].value).toEqual(hash)
   })
 
   test('renders HashVerifier', () => {
@@ -280,13 +221,7 @@ describe('Shell', () => {
       })
     )
 
-    expect(mockHashVerifier).toHaveBeenCalledTimes(1)
-
-    const hashVerifierProps = mockHashVerifier.mock.calls[0][0]
-
-    expect(hashVerifierProps).toEqual({
-      hash
-    })
+    expect(findTextFields()[1]).toBeDefined()
   })
 
   describe.each<[Partial<State>]>([
@@ -297,13 +232,13 @@ describe('Shell', () => {
     test('does NOT render FileHash', () => {
       renderShell(createState(partialState))
 
-      expect(mockFileHash).toHaveBeenCalledTimes(0)
+      expect(queryTextFields()[0]).toEqual(undefined)
     })
 
     test('does NOT render HashVerifier', () => {
       renderShell(createState(partialState))
 
-      expect(mockHashVerifier).toHaveBeenCalledTimes(0)
+      expect(queryTextFields()[1]).toEqual(undefined)
     })
   })
 })
